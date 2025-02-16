@@ -22,14 +22,14 @@
       
   
     
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css?v=1140d252" />
     <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=c6d785ac" />
     
     <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
   
     <script src="../_static/documentation_options.js?v=8a448e45"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script async="true" defer="true" src="https://buttons.github.io/buttons.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -152,6 +152,16 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../user-guide/features.html">
+   Features
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../user-guide/concepts-readings-events.html">
+   Concepts, Readings, Events
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../user-guide/crate-configuration.html">
    Crate Configuration
   </a>
@@ -264,13 +274,18 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../user-guide/sql/sql_status.html">
-     Status
+    <a class="reference internal" href="../user-guide/sql/special_functions.html">
+     Special Functions
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../user-guide/sql/write_options.html">
      Write Options
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../user-guide/sql/prepared_statements.html">
+     Prepared Statements
     </a>
    </li>
   </ul>
@@ -300,6 +315,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../library-user-guide/index.html">
    Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../library-user-guide/extensions.html">
+   Extensions List
   </a>
  </li>
  <li class="toctree-l1">
@@ -356,6 +376,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../library-user-guide/query-optimizer.html">
    DataFusion Query Optimizer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../library-user-guide/api-health.html">
+   API health policy
   </a>
  </li>
 </ul>
@@ -432,6 +457,11 @@
    </li>
   </ul>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gsoc_application_guidelines.html">
+   GSoC Application Guidelines
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -486,6 +516,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#windows-setup">
    Windows setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dev-container-setup">
+   Dev Container setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -556,6 +591,17 @@ cargo<span class="w"> </span>build
 </pre></div>
 </div>
 </section>
+<section id="dev-container-setup">
+<h2>Dev Container setup<a class="headerlink" href="#dev-container-setup" title="Link to this heading">¶</a></h2>
+<p>DataFusion has support for <a class="reference external" href="https://containers.dev/">dev containers</a> which may be used for
+developing DataFusion in an isolated environment either locally or remote if desired. Using dev containers for developing
+DataFusion is not a requirement by any means but is available for those where doing local development could be tricky
+such as with Windows and WSL2, those with older hardware, etc.</p>
+<p>For specific details on IDE support for dev containers see the documentation for <a class="reference external" href="https://code.visualstudio.com/docs/devcontainers/containers">Visual Studio Code</a>,
+<a class="reference external" href="https://www.jetbrains.com/help/idea/connect-to-devcontainer.html">IntelliJ IDEA</a>,
+<a class="reference external" href="https://www.jetbrains.com/help/rust/connect-to-devcontainer.html">Rust Rover</a>, and
+<a class="reference external" href="https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers">GitHub Codespaces</a>.</p>
+</section>
 <section id="protoc-installation">
 <h2>Protoc Installation<a class="headerlink" href="#protoc-installation" title="Link to this heading">¶</a></h2>
 <p>Compiling DataFusion from sources requires an installed version of the protobuf compiler, <code class="docutils literal notranslate"><span class="pre">protoc</span></code>.</p>
@@ -594,7 +640,7 @@ libprotoc<span class="w"> </span><span class="m">3</span>.15.0
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">rustup</span> <span class="pre">update</span> <span class="pre">stable</span></code> DataFusion uses the latest stable release of rust</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">init</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span> <span class="pre">--init</span> <span class="pre">--remote</span> <span class="pre">--recursive</span></code></p></li>
 </ul>
 <p>Formatting instructions:</p>
 <ul class="simple">
@@ -651,7 +697,7 @@ libprotoc<span class="w"> </span><span class="m">3</span>.15.0
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br>
 </p>
     </div>
     
