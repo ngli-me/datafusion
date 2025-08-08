@@ -278,8 +278,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../user-guide/sql/write_options.html">
-     Write Options
+    <a class="reference internal" href="../user-guide/sql/format_options.html">
+     Format Options
     </a>
    </li>
    <li class="toctree-l2">
@@ -314,6 +314,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../library-user-guide/index.html">
    Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../library-user-guide/upgrading.html">
+   Upgrade Guides
   </a>
  </li>
  <li class="toctree-l1">
@@ -352,14 +357,36 @@
    Catalogs, Schemas, and Tables
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../library-user-guide/adding-udfs.html">
-   Adding User Defined Functions: Scalar/Window/Aggregate/Table Functions
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../library-user-guide/functions/index.html">
+   Functions
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../library-user-guide/functions/adding-udfs.html">
+     Adding User Defined Functions: Scalar/Window/Aggregate/Table Functions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../library-user-guide/functions/spark.html">
+     Spark Compatible Functions
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../library-user-guide/custom-table-providers.html">
    Custom Table Provider
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../library-user-guide/table-constraints.html">
+   Table Constraint Enforcement
   </a>
  </li>
  <li class="toctree-l1">
@@ -375,11 +402,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../library-user-guide/query-optimizer.html">
    DataFusion Query Optimizer
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../library-user-guide/upgrading.html">
-   Upgrade Guides
   </a>
  </li>
 </ul>
@@ -443,8 +465,8 @@
   <a class="reference internal" href="specification/index.html">
    Specifications
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
    <i class="fas fa-chevron-down">
    </i>
   </label>
@@ -687,6 +709,10 @@ commit to <code class="docutils literal notranslate"><span class="pre">main</spa
 than the standard test suite and add important test coverage such as that the
 code works when there are hash collisions as well as running the relevant
 portions of the entire <a class="reference external" href="https://www.sqlite.org/sqllogictest/dir?ci=tip">sqlite test suite</a>.</p>
+<p>You can run the extended tests on any PR by leaving the following comment (see <a class="reference external" href="https://github.com/apache/datafusion/pull/15427#issuecomment-2759160812">example here</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Run</span> <span class="n">extended</span> <span class="n">tests</span>
+</pre></div>
+</div>
 </section>
 <section id="rust-integration-tests">
 <h2>Rust Integration Tests<a class="headerlink" href="#rust-integration-tests" title="Link to this heading">¶</a></h2>
@@ -804,7 +830,7 @@ tested in the same way using the <a class="reference external" href="https://doc
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2019-2024, Apache Software Foundation.<br>
+    &copy; Copyright 2019-2025, Apache Software Foundation.<br>
 </p>
     </div>
     
