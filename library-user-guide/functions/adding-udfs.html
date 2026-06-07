@@ -27,22 +27,24 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=0b9a6302" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'library-user-guide/functions/adding-udfs';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Spark Compatible Functions" href="spark.html" />
@@ -50,20 +52,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -89,7 +97,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -141,11 +149,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -191,11 +206,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -248,6 +270,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../user-guide/expressions.html">Expression API</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../user-guide/sql/index.html">SQL Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../user-guide/sql/data_types.html">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../user-guide/sql/struct_coercion.html">Struct Type Coercion and Field Mapping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user-guide/sql/select.html">SELECT syntax</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user-guide/sql/subqueries.html">Subqueries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../user-guide/sql/ddl.html">DDL</a></li>
@@ -276,9 +299,23 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../upgrading.html">Upgrade Guides</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/52.0.0.html">DataFusion 52.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/51.0.0.html">DataFusion 51.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/50.0.0.html">DataFusion 50.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/49.0.0.html">DataFusion 49.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/48.0.1.html">DataFusion 48.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/48.0.0.html">DataFusion 48.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/47.0.0.html">DataFusion 47.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../upgrading/46.0.0.html">DataFusion 46.0.0</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../extensions.html">Extensions List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-the-sql-api.html">Using the SQL API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending-sql.html">Extending SQL Syntax</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../working-with-exprs.html">Working with <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../using-the-dataframe-api.html">Using the DataFrame API</a></li>
 
@@ -291,20 +328,22 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../custom-table-providers.html">Custom Table Provider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../table-constraints.html">Table Constraint Enforcement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../extending-operators.html">Extending DataFusion’s operators: custom LogicalPlan and Execution Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending-operators.html">Extending Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../profiling.html">Profiling Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../query-optimizer.html">DataFusion Query Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../query-optimizer.html">Query Optimizer</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributor Guide</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/roadmap.html">Roadmap and Improvement Proposals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/governance.html">Governance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/inviting.html">Inviting New Committers and PMC Members</a></li>
@@ -323,6 +362,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/ballista/">DataFusion Ballista</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/comet/">DataFusion Comet</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/java/">DataFusion Java</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/python/">DataFusion Python</a></li>
 </ul>
 
@@ -418,23 +458,23 @@
 <tbody>
 <tr class="row-even"><td><p>Scalar</p></td>
 <td><p>A function that takes a row of data and returns a single value.</p></td>
-<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/simple_udf.rs">simple_udf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udf.rs">advanced_udf.rs</a></p></td>
+<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/simple_udf.rs">simple_udf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udf.rs">advanced_udf.rs</a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Window</p></td>
 <td><p>A function that takes a row of data and returns a single value, but also has access to the rows around it.</p></td>
-<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/simple_udwf.rs">simple_udwf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udwf.rs">advanced_udwf.rs</a></p></td>
+<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/simple_udwf.rs">simple_udwf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udwf.rs">advanced_udwf.rs</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Aggregate</p></td>
 <td><p>A function that takes a group of rows and returns a single value.</p></td>
-<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/simple_udaf.rs">simple_udaf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udaf.rs">advanced_udaf.rs</a></p></td>
+<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/simple_udaf.rs">simple_udaf.rs</a> / <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udaf.rs">advanced_udaf.rs</a></p></td>
 </tr>
 <tr class="row-odd"><td><p>Table</p></td>
 <td><p>A function that takes parameters and returns a <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> to be used in an query plan.</p></td>
-<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/simple_udtf.rs">simple_udtf.rs</a></p></td>
+<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/simple_udtf.rs">simple_udtf.rs</a></p></td>
 </tr>
 <tr class="row-even"><td><p>Scalar (async)</p></td>
 <td><p>A scalar function for performing <code class="docutils literal notranslate"><span class="pre">async</span></code> operations (such as network or I/O calls) within the UDF.</p></td>
-<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/async_udf.rs">async_udf.rs</a></p></td>
+<td><p><a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/async_udf.rs">async_udf.rs</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -457,7 +497,7 @@ and how to calculate the results.</p></li>
 For production code, you may want to check, for example, that <code class="docutils literal notranslate"><span class="pre">args.len()</span></code> matches the expected number of arguments.</p>
 <section id="adding-by-impl-scalarudfimpl">
 <h3>Adding by <code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">ScalarUDFImpl</span></code><a class="headerlink" href="#adding-by-impl-scalarudfimpl" title="Link to this heading">#</a></h3>
-<p>This a lower level API with more functionality but is more complex, also documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udf.rs</span></code></a>.</p>
+<p>This a lower level API with more functionality but is more complex, also documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udf.rs</span></code></a>.</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">any</span><span class="p">::</span><span class="n">Any</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">LazyLock</span><span class="p">;</span>
@@ -491,7 +531,6 @@ For production code, you may want to check, for example, that <code class="docut
 
 <span class="sd">/// Implement the ScalarUDFImpl trait for AddOne</span>
 <span class="k">impl</span><span class="w"> </span><span class="n">ScalarUDFImpl</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">AddOne</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="k">fn</span><span class="w"> </span><span class="nf">as_any</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Any</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">}</span>
 <span class="w">   </span><span class="k">fn</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;add_one&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">   </span><span class="k">fn</span><span class="w"> </span><span class="nf">signature</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">Signature</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">signature</span><span class="w"> </span><span class="p">}</span>
 <span class="w">   </span><span class="k">fn</span><span class="w"> </span><span class="nf">return_type</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">DataType</span><span class="p">])</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">DataType</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -668,10 +707,6 @@ UDF.</p>
 <span class="sd">/// Implement the normal ScalarUDFImpl trait for AsyncUpper</span>
 <span class="cp">#[async_trait]</span>
 <span class="k">impl</span><span class="w"> </span><span class="n">ScalarUDFImpl</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">AsyncUpper</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">as_any</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Any</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="bp">self</span>
-<span class="w">    </span><span class="p">}</span>
-
 <span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s">&quot;async_upper&quot;</span>
 <span class="w">    </span><span class="p">}</span>
@@ -739,7 +774,7 @@ UDF.</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">async_upper</span><span class="p">(</span><span class="s1">&#39;datafusion&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>For async UDF implementation details, see <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/async_udf.rs"><code class="docutils literal notranslate"><span class="pre">async_udf.rs</span></code></a>.</p>
+<p>For async UDF implementation details, see <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/async_udf.rs"><code class="docutils literal notranslate"><span class="pre">async_udf.rs</span></code></a>.</p>
 </section>
 </section>
 <section id="named-arguments">
@@ -785,7 +820,6 @@ UDF.</p>
 <span class="p">}</span>
 
 <span class="k">impl</span><span class="w"> </span><span class="n">ScalarUDFImpl</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">PowerFunction</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">as_any</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Any</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;power&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">signature</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">Signature</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">signature</span><span class="w"> </span><span class="p">}</span>
 
@@ -824,6 +858,7 @@ UDF.</p>
 <h2>Adding a Window UDF<a class="headerlink" href="#adding-a-window-udf" title="Link to this heading">#</a></h2>
 <p>Scalar UDFs are functions that take a row of data and return a single value. Window UDFs are similar, but they also have
 access to the rows around them. Access to the proximal rows is helpful, but adds some complexity to the implementation.</p>
+<p>For background and other considerations, see the <a class="reference external" href="https://datafusion.apache.org/blog/2025/04/19/user-defined-window-functions">User defined Window Functions in DataFusion</a> blog.</p>
 <p>For example, we will declare a user defined window function that computes a moving average.</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">arrow</span><span class="p">::{</span><span class="n">array</span><span class="p">::{</span><span class="n">ArrayRef</span><span class="p">,</span><span class="w"> </span><span class="n">Float64Array</span><span class="p">,</span><span class="w"> </span><span class="n">AsArray</span><span class="p">},</span><span class="w"> </span><span class="n">datatypes</span><span class="p">::</span><span class="n">Float64Type</span><span class="p">};</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">logical_expr</span><span class="p">::{</span><span class="n">PartitionEvaluator</span><span class="p">};</span>
@@ -895,7 +930,7 @@ access to the rows around them. Access to the proximal rows is helpful, but adds
 <h3>Registering a Window UDF<a class="headerlink" href="#registering-a-window-udf" title="Link to this heading">#</a></h3>
 <p>To register a Window UDF, you need to wrap the function implementation in a <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.WindowUDF.html"><code class="docutils literal notranslate"><span class="pre">WindowUDF</span></code></a> struct and then register it
 with the <code class="docutils literal notranslate"><span class="pre">SessionContext</span></code>. DataFusion provides the <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/logical_expr/fn.create_udwf.html"><code class="docutils literal notranslate"><span class="pre">create_udwf</span></code></a> helper functions to make this easier.
-There is a lower level API with more functionality but is more complex, that is documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udwf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udwf.rs</span></code></a>.</p>
+There is a lower level API with more functionality but is more complex, that is documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udwf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udwf.rs</span></code></a>.</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">logical_expr</span><span class="p">::{</span><span class="n">Volatility</span><span class="p">,</span><span class="w"> </span><span class="n">create_udwf</span><span class="p">};</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">arrow</span><span class="p">::</span><span class="n">datatypes</span><span class="p">::</span><span class="n">DataType</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
@@ -1100,7 +1135,7 @@ green,10.3,1996-04-12T12:05:04.000000000
 <h3>Registering an Aggregate UDF<a class="headerlink" href="#registering-an-aggregate-udf" title="Link to this heading">#</a></h3>
 <p>To register a Aggregate UDF, you need to wrap the function implementation in a <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/logical_expr/struct.AggregateUDF.html"><code class="docutils literal notranslate"><span class="pre">AggregateUDF</span></code></a> struct and then register
 it with the <code class="docutils literal notranslate"><span class="pre">SessionContext</span></code>. DataFusion provides the <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/logical_expr/fn.create_udaf.html"><code class="docutils literal notranslate"><span class="pre">create_udaf</span></code></a> helper functions to make this easier.
-There is a lower level API with more functionality but is more complex, that is documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/advanced_udaf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udaf.rs</span></code></a>.</p>
+There is a lower level API with more functionality but is more complex, that is documented in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/advanced_udaf.rs"><code class="docutils literal notranslate"><span class="pre">advanced_udaf.rs</span></code></a>.</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">logical_expr</span><span class="p">::{</span><span class="n">Volatility</span><span class="p">,</span><span class="w"> </span><span class="n">create_udaf</span><span class="p">};</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">arrow</span><span class="p">::</span><span class="n">datatypes</span><span class="p">::</span><span class="n">DataType</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
@@ -1176,7 +1211,7 @@ for the same input.</p></li>
 This is a simple struct that holds a set of RecordBatches in memory and treats them as a table. In your case, this would
 be replaced with your own struct that implements <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code>.</p>
 <p>While this is a simple example for illustrative purposes, UDTFs have a lot of potential use cases. And can be
-particularly useful for reading data from external sources and interactive analysis. See the <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/simple_udtf.rs">working example</a>
+particularly useful for reading data from external sources and interactive analysis. See the <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion-examples/examples/udf/simple_udtf.rs">working example</a>
 which reads from a CSV file. As another example, you could use the built-in UDTF <code class="docutils literal notranslate"><span class="pre">parquet_metadata</span></code>
 in the CLI to read the metadata from a Parquet file.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&gt; select filename, row_group_id, row_group_num_rows, row_group_bytes, stats_min, stats_max from parquet_metadata(&#39;./benchmarks/data/hits.parquet&#39;) where  column_id = 17 limit 10;</span>
@@ -1200,12 +1235,13 @@ in the CLI to read the metadata from a Parquet file.</p>
 <h3>Writing the UDTF<a class="headerlink" href="#writing-the-udtf" title="Link to this heading">#</a></h3>
 <p>The simple UDTF used here takes a single <code class="docutils literal notranslate"><span class="pre">Int64</span></code> argument and returns a table with a single column with the value of the
 argument. To create a function in DataFusion, you need to implement the <code class="docutils literal notranslate"><span class="pre">TableFunctionImpl</span></code> trait. This trait has a
-single method, <code class="docutils literal notranslate"><span class="pre">call</span></code>, that takes a slice of <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s and returns a <code class="docutils literal notranslate"><span class="pre">Result&lt;Arc&lt;dyn</span> <span class="pre">TableProvider&gt;&gt;</span></code>.</p>
-<p>In the <code class="docutils literal notranslate"><span class="pre">call</span></code> method, you parse the input <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s and return a <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code>. You might also want to do some
+single method, <code class="docutils literal notranslate"><span class="pre">call_with_args</span></code>, that takes a <code class="docutils literal notranslate"><span class="pre">TableFunctionArgs</span></code> struct and returns a <code class="docutils literal notranslate"><span class="pre">Result&lt;Arc&lt;dyn</span> <span class="pre">TableProvider&gt;&gt;</span></code>.
+Passed struct includes function arguments as a slice of <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">call_with_args</span></code> method, you parse the input <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s and return a <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code>. You might also want to do some
 validation of the input <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s, e.g. checking that the number of arguments is correct.</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">common</span><span class="p">::{</span><span class="n">plan_err</span><span class="p">,</span><span class="w"> </span><span class="n">ScalarValue</span><span class="p">,</span><span class="w"> </span><span class="nb">Result</span><span class="p">};</span>
-<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">catalog</span><span class="p">::{</span><span class="n">TableFunctionImpl</span><span class="p">,</span><span class="w"> </span><span class="n">TableProvider</span><span class="p">};</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">catalog</span><span class="p">::{</span><span class="n">TableFunctionArgs</span><span class="p">,</span><span class="w"> </span><span class="n">TableFunctionImpl</span><span class="p">,</span><span class="w"> </span><span class="n">TableProvider</span><span class="p">};</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">arrow</span><span class="p">::</span><span class="n">array</span><span class="p">::{</span><span class="n">ArrayRef</span><span class="p">,</span><span class="w"> </span><span class="n">Int64Array</span><span class="p">};</span>
 <span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">datasource</span><span class="p">::</span><span class="n">memory</span><span class="p">::</span><span class="n">MemTable</span><span class="p">;</span>
 <span class="k">use</span><span class="w"> </span><span class="n">arrow</span><span class="p">::</span><span class="n">record_batch</span><span class="p">::</span><span class="n">RecordBatch</span><span class="p">;</span>
@@ -1217,7 +1253,8 @@ validation of the input <code class="docutils literal notranslate"><span class="
 <span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">EchoFunction</span><span class="w"> </span><span class="p">{}</span>
 
 <span class="k">impl</span><span class="w"> </span><span class="n">TableFunctionImpl</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EchoFunction</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">exprs</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">Expr</span><span class="p">])</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">TableProvider</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="nf">call_with_args</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="nc">TableFunctionArgs</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">TableProvider</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">exprs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">exprs</span><span class="p">();</span>
 <span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">Expr</span><span class="p">::</span><span class="n">Literal</span><span class="p">(</span><span class="n">ScalarValue</span><span class="p">::</span><span class="n">Int64</span><span class="p">(</span><span class="nb">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span><span class="w"> </span><span class="n">_</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exprs</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">plan_err</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;First argument must be an integer&quot;</span><span class="p">);</span>
 <span class="w">        </span><span class="p">};</span>
@@ -1270,7 +1307,8 @@ validation of the input <code class="docutils literal notranslate"><span class="
 </section>
 <section id="custom-expression-planning">
 <h2>Custom Expression Planning<a class="headerlink" href="#custom-expression-planning" title="Link to this heading">#</a></h2>
-<p>DataFusion provides native support for common SQL operators by default such as <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code>. However it does not provide support for other operators such as <code class="docutils literal notranslate"><span class="pre">&#64;&gt;</span></code>. To override DataFusion’s default handling or support unsupported operators, developers can extend DataFusion by implementing custom expression planning, a core feature of DataFusion</p>
+<p>DataFusion provides native support for common SQL operators and constructs by default such as <code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">||</span></code>. However it does not provide support for other operators such as <code class="docutils literal notranslate"><span class="pre">&#64;&gt;</span></code> or constructs like <code class="docutils literal notranslate"><span class="pre">TABLESAMPLE</span></code> which are less common or vary more between SQL dialects. To override DataFusion’s default handling or support these unsupported features, developers can extend DataFusion by implementing custom expression planning, a core feature of DataFusion.</p>
+<p>For a comprehensive guide on extending SQL syntax including <code class="docutils literal notranslate"><span class="pre">ExprPlanner</span></code>, <code class="docutils literal notranslate"><span class="pre">TypePlanner</span></code>, and <code class="docutils literal notranslate"><span class="pre">RelationPlanner</span></code>, see <a class="reference internal" href="../extending-sql.html"><span class="std std-doc">Extending DataFusion’s SQL Syntax</span></a></p>
 <section id="implementing-custom-expression-planning">
 <h3>Implementing Custom Expression Planning<a class="headerlink" href="#implementing-custom-expression-planning" title="Link to this heading">#</a></h3>
 <p>To extend DataFusion with support for custom operators not natively available, you need to:</p>
@@ -1380,8 +1418,8 @@ validation of the input <code class="docutils literal notranslate"><span class="
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-scalar-udf">Adding a Scalar UDF</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-by-impl-scalarudfimpl">Adding by <code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">ScalarUDFImpl</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adding-a-scalar-udf-by-create-udf">Adding a Scalar UDF by <code class="docutils literal notranslate"><span class="pre">create_udf</span></code></a><ul class="nav section-nav flex-column">
@@ -1437,13 +1475,13 @@ validation of the input <code class="docutils literal notranslate"><span class="
 </div>
 
   <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/library-user-guide/functions/adding-udfs.md.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/library-user-guide/functions/adding-udfs.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
 
 </div></div>
               
@@ -1458,8 +1496,8 @@ validation of the input <code class="docutils literal notranslate"><span class="
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

@@ -27,43 +27,51 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=0b9a6302" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=d08b24aa" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'contributor-guide/testing';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API health policy" href="api-health.html" />
-    <link rel="prev" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Workspace Dependency Graph" href="architecture/dependency-graph.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -89,7 +97,7 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
   <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
@@ -141,11 +149,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
     </div>
     
@@ -191,11 +206,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
       </div>
     
@@ -248,6 +270,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/expressions.html">Expression API</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user-guide/sql/index.html">SQL Reference</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user-guide/sql/data_types.html">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user-guide/sql/struct_coercion.html">Struct Type Coercion and Field Mapping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-guide/sql/select.html">SELECT syntax</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-guide/sql/subqueries.html">Subqueries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user-guide/sql/ddl.html">DDL</a></li>
@@ -276,9 +299,23 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/upgrading.html">Upgrade Guides</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../library-user-guide/upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/52.0.0.html">DataFusion 52.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/51.0.0.html">DataFusion 51.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/50.0.0.html">DataFusion 50.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/49.0.0.html">DataFusion 49.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/48.0.1.html">DataFusion 48.0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/48.0.0.html">DataFusion 48.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/47.0.0.html">DataFusion 47.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../library-user-guide/upgrading/46.0.0.html">DataFusion 46.0.0</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/extensions.html">Extensions List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/using-the-sql-api.html">Using the SQL API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/extending-sql.html">Extending SQL Syntax</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/working-with-exprs.html">Working with <code class="docutils literal notranslate"><span class="pre">Expr</span></code>s</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/using-the-dataframe-api.html">Using the DataFrame API</a></li>
 
@@ -291,20 +328,22 @@
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/custom-table-providers.html">Custom Table Provider</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/table-constraints.html">Table Constraint Enforcement</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/extending-operators.html">Extending DataFusion’s operators: custom LogicalPlan and Execution Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/extending-operators.html">Extending Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../library-user-guide/profiling.html">Profiling Cookbook</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/query-optimizer.html">DataFusion Query Optimizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library-user-guide/query-optimizer.html">Query Optimizer</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributor Guide</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="communication.html">Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="howtos.html">HOWTOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release_management.html">Release Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roadmap.html">Roadmap and Improvement Proposals</a></li>
 <li class="toctree-l1"><a class="reference internal" href="governance.html">Governance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inviting.html">Inviting New Committers and PMC Members</a></li>
@@ -323,6 +362,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/ballista/">DataFusion Ballista</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/comet/">DataFusion Comet</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/java/">DataFusion Java</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://datafusion.apache.org/python/">DataFusion Python</a></li>
 </ul>
 
@@ -406,6 +446,30 @@
 <p>Tests are critical to ensure that DataFusion is working properly and
 is not accidentally broken during refactorings. All new features
 should have test coverage and the entire test suite is run as part of CI.</p>
+<section id="testing-quick-start">
+<h2>Testing Quick Start<a class="headerlink" href="#testing-quick-start" title="Link to this heading">#</a></h2>
+<p>While developing a feature or bug fix, best practice is to run the smallest set
+of tests that gives confidence for your change, then expand as needed.</p>
+<p>Initially, run the tests in the crates you changed. For example, if you made changes
+to files in <code class="docutils literal notranslate"><span class="pre">datafusion-optimizer/src</span></code>, run the corresponding crate tests:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion-optimizer
+</pre></div>
+</div>
+<p>Then, run the <code class="docutils literal notranslate"><span class="pre">sqllogictest</span></code> suite, which provides a strong speed–coverage tradeoff for development: it runs quickly while offering broad regression coverage across most SQL behavior in DataFusion.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--profile<span class="o">=</span>ci<span class="w"> </span>--test<span class="w"> </span>sqllogictests
+</pre></div>
+</div>
+<p>Finally, before submitting a PR, run the tests for the core <code class="docutils literal notranslate"><span class="pre">datafusion</span></code> and
+<code class="docutils literal notranslate"><span class="pre">datafusion-cli</span></code> crates:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion-cli
+</pre></div>
+</div>
+<p>Some integration tests require optional external services such as Docker-backed
+containers and may skip when unavailable.</p>
+</section>
+<section id="testing-overview">
+<h2>Testing Overview<a class="headerlink" href="#testing-overview" title="Link to this heading">#</a></h2>
 <p>DataFusion has several levels of tests in its <a class="reference external" href="https://martinfowler.com/articles/practical-test-pyramid.html">Test Pyramid</a> and tries to follow
 the Rust standard <a class="reference external" href="https://doc.rust-lang.org/book/ch11-03-test-organization.html">Testing Organization</a> described in <a class="reference external" href="https://doc.rust-lang.org/book/">The Book</a>.</p>
 <p>Run tests using <code class="docutils literal notranslate"><span class="pre">cargo</span></code>:</p>
@@ -416,20 +480,47 @@ the Rust standard <a class="reference external" href="https://doc.rust-lang.org/
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span>nextest<span class="w"> </span>run
 </pre></div>
 </div>
+</section>
 <section id="unit-tests">
 <h2>Unit tests<a class="headerlink" href="#unit-tests" title="Link to this heading">#</a></h2>
-<p>Tests for code in an individual module are defined in the same source file with a <code class="docutils literal notranslate"><span class="pre">test</span></code> module, following Rust convention.
-The <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/common/src/test_util.rs">test_util</a> module provides useful macros to write unit tests effectively, such as <code class="docutils literal notranslate"><span class="pre">assert_batches_sorted_eq</span></code> and <code class="docutils literal notranslate"><span class="pre">assert_batches_eq</span></code> for RecordBatches and <code class="docutils literal notranslate"><span class="pre">assert_contains</span></code> / <code class="docutils literal notranslate"><span class="pre">assert_not_contains</span></code> which are used extensively in the codebase.</p>
+<p>Tests for code in an individual module are defined in the same source file with a <code class="docutils literal notranslate"><span class="pre">test</span></code> module, following Rust convention.</p>
+<p>For example, to run tests in the <code class="docutils literal notranslate"><span class="pre">datafusion</span></code> crate:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/common/src/test_util.rs">test_util</a> module provides useful macros to write unit tests effectively, such as <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/macro.assert_batches_sorted_eq.html"><code class="docutils literal notranslate"><span class="pre">assert_batches_sorted_eq</span></code></a> and <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/macro.assert_batches_eq.html"><code class="docutils literal notranslate"><span class="pre">assert_batches_eq</span></code></a> for RecordBatches and <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/common/macro.assert_contains.html"><code class="docutils literal notranslate"><span class="pre">assert_contains</span></code></a> / <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/common/macro.assert_not_contains.html"><code class="docutils literal notranslate"><span class="pre">assert_not_contains</span></code></a> which are used extensively in the codebase.</p>
 </section>
 <section id="sqllogictests-tests">
 <h2>sqllogictests Tests<a class="headerlink" href="#sqllogictests-tests" title="Link to this heading">#</a></h2>
-<p>DataFusion’s SQL implementation is tested using <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/sqllogictest">sqllogictest</a> which are run like other tests using <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">test</span> <span class="pre">--test</span> <span class="pre">sqllogictests</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">sqllogictests</span></code> tests may be less convenient for new contributors who are familiar with writing <code class="docutils literal notranslate"><span class="pre">.rs</span></code> tests as they require learning another tool. However, <code class="docutils literal notranslate"><span class="pre">sqllogictest</span></code> based tests are much easier to develop and maintain as they 1) do not require a slow recompile/link cycle and 2) can be automatically updated via <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">test</span> <span class="pre">--test</span> <span class="pre">sqllogictests</span> <span class="pre">--</span> <span class="pre">--complete</span></code>.</p>
+<p>DataFusion’s SQL implementation is tested using <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/sqllogictest">sqllogictest</a>. You can run these tests with commands like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run all tests</span>
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--profile<span class="o">=</span>ci<span class="w"> </span>--test<span class="w"> </span>sqllogictests
+<span class="c1"># Run a specific test file</span>
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--profile<span class="o">=</span>ci<span class="w"> </span>--test<span class="w"> </span>sqllogictests<span class="w"> </span>--<span class="w"> </span>aggregate.slt
+<span class="c1"># Run a specific test file and update expected outputs</span>
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--profile<span class="o">=</span>ci<span class="w"> </span>--test<span class="w"> </span>sqllogictests<span class="w"> </span>--<span class="w"> </span>aggregate.slt<span class="w"> </span>--complete
+<span class="c1"># Run and update expected outputs for all test files</span>
+cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--profile<span class="o">=</span>ci<span class="w"> </span>--test<span class="w"> </span>sqllogictests<span class="w"> </span>--<span class="w"> </span>--complete
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">sqllogictests</span></code> may be less convenient for new contributors who are familiar with writing <code class="docutils literal notranslate"><span class="pre">.rs</span></code> tests as they require learning another tool. However, <code class="docutils literal notranslate"><span class="pre">sqllogictest</span></code> based tests are much easier to develop and maintain as they 1) do not require a slow recompile/link cycle and 2) can be automatically updated.</p>
 <p>Like similar systems such as <a class="reference external" href="https://duckdb.org/dev/testing">DuckDB</a>, DataFusion has chosen to trade off a slightly higher barrier to contribution for longer term maintainability.</p>
 <p>DataFusion has integrated <a class="reference external" href="https://sqlite.org/sqllogictest/doc/trunk/about.wiki">sqlite’s test suite</a> as a supplemental test suite that is run whenever a PR is merged into DataFusion. To run it manually please refer to the <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion/sqllogictest/README.md#running-tests-sqlite">README</a> file for instructions.</p>
+<section id="allocator-level-memory-accounting-features-memory-accounting">
+<h3>Allocator-level memory accounting (<code class="docutils literal notranslate"><span class="pre">--features</span> <span class="pre">memory-accounting</span></code>)<a class="headerlink" href="#allocator-level-memory-accounting-features-memory-accounting" title="Link to this heading">#</a></h3>
+<p>For tests that need to verify DataFusion’s voluntary memory tracking
+matches actual heap usage, the <code class="docutils literal notranslate"><span class="pre">sqllogictest</span></code> runner ships an optional
+<code class="docutils literal notranslate"><span class="pre">memory-accounting</span></code> feature that installs a global allocator wrapper.
+Adding <code class="docutils literal notranslate"><span class="pre">SET</span> <span class="pre">datafusion.runtime.memory_limit</span> <span class="pre">=</span> <span class="pre">'N'</span></code> at the top of an
+<code class="docutils literal notranslate"><span class="pre">.slt</span></code> file opts that file into allocator-vs-<code class="docutils literal notranslate"><span class="pre">MemoryPool</span></code> reconciliation
+with 10% headroom — any divergence panics the test with an
+<code class="docutils literal notranslate"><span class="pre">OverdraftPanic</span></code> reporting the actual allocator balance. See
+<a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion/sqllogictest/README.md#running-tests-allocator-level-memory-accounting">the sqllogictest README</a>
+for the runner flag and the full mechanism.</p>
 </section>
-<section id="snapshot-testing">
-<h2>Snapshot testing<a class="headerlink" href="#snapshot-testing" title="Link to this heading">#</a></h2>
+</section>
+<section id="snapshot-testing-cargo-insta">
+<h2>Snapshot testing (<code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">insta</span></code>)<a class="headerlink" href="#snapshot-testing-cargo-insta" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://github.com/mitsuhiko/insta">Insta</a> is used for snapshot testing. Snapshots are generated
 and compared on each test run. If the output changes, tests will fail.</p>
 <p>To review the changes, you can use Insta CLI:</p>
@@ -441,7 +532,7 @@ cargo<span class="w"> </span>insta<span class="w"> </span>review
 <section id="extended-tests">
 <h2>Extended Tests<a class="headerlink" href="#extended-tests" title="Link to this heading">#</a></h2>
 <p>In addition to the standard CI test suite that is run on all PRs prior to merge,
-DataFusion has “extended” tests (defined in [extended.yml]) that are run on each
+DataFusion has “extended” tests (defined in <a class="reference external" href="https://github.com/apache/datafusion/blob/main/.github/workflows/extended.yml">extended.yml</a>) that are run on each
 commit to <code class="docutils literal notranslate"><span class="pre">main</span></code>. These tests rarely fail but take significantly longer to run
 than the standard test suite and add important test coverage such as ensuring
 correctness when there are hash collisions and running the relevant portions of
@@ -452,7 +543,7 @@ locally by following the <a class="reference external" href="https://github.com/
 <h2>Rust Integration Tests<a class="headerlink" href="#rust-integration-tests" title="Link to this heading">#</a></h2>
 <p>There are several public interface tests for the DataFusion library in the <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/core/tests">tests</a> directory.</p>
 <p>You can run these tests individually using <code class="docutils literal notranslate"><span class="pre">cargo</span></code> as normal command such as</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion<span class="w"> </span>--test<span class="w"> </span>parquet_exec
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cargo<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-p<span class="w"> </span>datafusion<span class="w"> </span>--test<span class="w"> </span>parquet_integration
 </pre></div>
 </div>
 </section>
@@ -482,6 +573,29 @@ automatically checked to ensure they work and evolve along with the code.</p>
 tested in the same way using the <a class="reference external" href="https://docs.rs/doc-comment/latest/doc_comment">doc_comment</a> crate. See the end of
 <a class="reference external" href="https://github.com/apache/datafusion/blob/main/datafusion/core/src/lib.rs#L583">core/src/lib.rs</a> for more details.</p>
 </section>
+</section>
+<section id="documentation-link-checks">
+<h2>Documentation Link Checks<a class="headerlink" href="#documentation-link-checks" title="Link to this heading">#</a></h2>
+<p>Run the internal markdown link check locally:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>ci/scripts/utils/tool_versions.sh
+cargo<span class="w"> </span>install<span class="w"> </span>lychee<span class="w"> </span>--locked<span class="w"> </span>--version<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LYCHEE_VERSION</span><span class="si">}</span><span class="s2">&quot;</span>
+bash<span class="w"> </span>ci/scripts/markdown_link_check.sh
+</pre></div>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>The script is run with <code class="docutils literal notranslate"><span class="pre">bash</span></code> and is compatible with the default Bash on macOS (no <code class="docutils literal notranslate"><span class="pre">mapfile</span></code> dependency).</p></li>
+<li><p>The CI configuration currently checks internal markdown links only. External <code class="docutils literal notranslate"><span class="pre">http(s)</span></code> and <code class="docutils literal notranslate"><span class="pre">mailto</span></code> links are excluded to avoid flaky failures.</p></li>
+</ul>
+<p>When a link is broken, lychee prints the file and URL/path that failed. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[docs/source/user-guide/cli/overview.md]:
+  [ERROR] file:///.../docs/source/user-guide/cli/missing-page.md | Cannot find file: File not found. Check if file exists and path is correct
+</pre></div>
+</div>
+<p>Rust doc comments are validated by rustdoc in CI and can be checked locally with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>ci/scripts/rust_docs.sh
+</pre></div>
+</div>
 </section>
 <section id="benchmarks">
 <h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading">#</a></h2>
@@ -539,12 +653,12 @@ tested in the same way using the <a class="reference external" href="https://doc
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="architecture.html"
+       href="architecture/dependency-graph.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Architecture</p>
+        <p class="prev-next-title">Workspace Dependency Graph</p>
       </div>
     </a>
     <a class="right-next"
@@ -573,11 +687,16 @@ tested in the same way using the <a class="reference external" href="https://doc
     class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> On this page
   </div>
-  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-quick-start">Testing Quick Start</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-overview">Testing Overview</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#unit-tests">Unit tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sqllogictests-tests">sqllogictests Tests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-testing">Snapshot testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sqllogictests-tests">sqllogictests Tests</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#allocator-level-memory-accounting-features-memory-accounting">Allocator-level memory accounting (<code class="docutils literal notranslate"><span class="pre">--features</span> <span class="pre">memory-accounting</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snapshot-testing-cargo-insta">Snapshot testing (<code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">insta</span></code>)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extended-tests">Extended Tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-integration-tests">Rust Integration Tests</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sql-fuzz-testing">SQL “Fuzz” testing</a></li>
@@ -586,6 +705,7 @@ tested in the same way using the <a class="reference external" href="https://doc
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-guide-documentation">User Guide Documentation</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation-link-checks">Documentation Link Checks</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benchmarks">Benchmarks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#criterion-benchmarks">Criterion Benchmarks</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parquet-sql-benchmarks">Parquet SQL Benchmarks</a></li>
@@ -613,13 +733,13 @@ tested in the same way using the <a class="reference external" href="https://doc
 </div>
 
   <div class="sidebar-secondary-item">
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/contributor-guide/testing.md.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div></div>
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/contributor-guide/testing.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
 
 </div></div>
               
@@ -634,8 +754,8 @@ tested in the same way using the <a class="reference external" href="https://doc
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">
