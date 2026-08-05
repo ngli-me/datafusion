@@ -27,17 +27,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=d08b24aa" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -522,6 +522,7 @@ parallelized streaming execution plans, file format support, etc.</p>
 <li><p><a class="reference external" href="https://github.com/apache/datafusion-comet">Comet</a> Apache Spark native query execution plugin</p></li>
 <li><p><a class="reference external" href="https://github.com/cube-js/cube.js/tree/master/rust">Cube Store</a> Cube’s universal semantic layer platform is the next evolution of OLAP technology for AI, BI, spreadsheets, and embedded analytics</p></li>
 <li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-dft">datafusion-dft</a> Batteries included CLI, TUI, and server implementations for DataFusion.</p></li>
+<li><p><a class="reference external" href="https://docs.datap-rs.org">datapress</a> An opinionated small and fast data server on parquet and delta tables.</p></li>
 <li><p><a class="reference external" href="https://github.com/dbt-labs/dbt-fusion">dbt Fusion engine</a> The dbt Fusion engine, written in Rust, designed for speed and correctness with a native SQL understanding across DWH SQL dialects.</p></li>
 <li><p><a class="reference external" href="https://github.com/delta-io/delta-rs">delta-rs</a> Native Rust implementation of Delta Lake</p></li>
 <li><p><a class="reference external" href="https://www.enterprisedb.com/products/analytics">EDB Postgres Lakehouse</a> built with <a class="reference external" href="https://github.com/splitgraph/seafowl">Seafowl</a></p></li>
@@ -531,6 +532,7 @@ parallelized streaming execution plans, file format support, etc.</p>
 <li><p><a class="reference external" href="https://github.com/GreptimeTeam/greptimedb">GreptimeDB</a> Open Source &amp; Cloud Native Distributed Time Series Database</p></li>
 <li><p><a class="reference external" href="https://hiop.io">hiop</a> Serverless Data Logistic Platform</p></li>
 <li><p><a class="reference external" href="https://github.com/apache/incubator-horaedb">HoraeDB</a> Distributed Time-Series Database</p></li>
+<li><p><a class="reference external" href="https://www.hotdata.dev">Hotdata</a> On-demand databases for AI agents with a unified query engine for vector, OLAP, and full-text search.</p></li>
 <li><p><a class="reference external" href="https://github.com/apache/iceberg-rust">Iceberg-rust</a> Rust implementation of Apache Iceberg</p></li>
 <li><p><a class="reference external" href="https://github.com/influxdata/influxdb">InfluxDB</a> Time Series Database</p></li>
 <li><p><a class="reference external" href="https://github.com/kamu-data/kamu-cli">Kamu</a> Planet-scale streaming data pipeline</p></li>
@@ -541,7 +543,7 @@ scalable LLMs fine-tuning and distributed AI model training.</p></li>
 <li><p><a class="reference external" href="https://github.com/openobserve/openobserve">OpenObserve</a> Distributed cloud native observability platform</p></li>
 <li><p><a class="reference external" href="https://github.com/paradedb/paradedb">ParadeDB</a> PostgreSQL for Search &amp; Analytics</p></li>
 <li><p><a class="reference external" href="https://github.com/parseablehq/parseable">Parseable</a> Log storage and observability platform</p></li>
-<li><p><a class="reference external" href="https://polygon.io/">Polygon.io</a> Stock Market API</p></li>
+<li><p><a class="reference external" href="https://massive.com/">Massive.com</a> Stock Market API</p></li>
 <li><p><a class="reference external" href="https://github.com/timvw/qv">qv</a> Quickly view your data</p></li>
 <li><p><a class="reference external" href="https://blog.cloudflare.com/r2-sql-deep-dive/">R2 Query Engine</a> Cloudflare’s distributed engine for querying data in Iceberg Catalogs</p></li>
 <li><p><a class="reference external" href="https://rerun.io/">rerun.io</a> Visualize and query robotics logs and transform them into training data.</p></li>
@@ -551,12 +553,14 @@ scalable LLMs fine-tuning and distributed AI model training.</p></li>
 <li><p><a class="reference external" href="https://github.com/apache/sedona-db">SedonaDB</a> A single-node analytical database engine with geospatial as a first-class citizen</p></li>
 <li><p><a class="reference external" href="https://github.com/gchq/sleeper">Sleeper</a> Serverless, cloud-native, log-structured merge tree based, scalable key-value store</p></li>
 <li><p><a class="reference external" href="https://github.com/spiceai/spiceai">Spice.ai</a> Building blocks for data-driven AI applications</p></li>
+<li><p><a class="reference external" href="https://supermetal.io/">Supermetal</a> is a change data capture (CDC) platform that synchronizes data between databases, data warehouses, and lakehouses</p></li>
 <li><p><a class="reference external" href="https://synnada.ai/">Synnada</a> Streaming-first framework for data products</p></li>
 <li><p><a class="reference external" href="https://vegafusion.io/">VegaFusion</a> Server-side acceleration for the <a class="reference external" href="https://vega.github.io/">Vega</a> visualization grammar</p></li>
 <li><p><a class="reference external" href="https://vortex.dev/">Vortex</a> An extensible, state of the art columnar file format</p></li>
 <li><p><a class="reference external" href="https://telemetry.sh/">Telemetry</a> Structured logging made easy</p></li>
 <li><p><a class="reference external" href="https://github.com/xorq-labs/xorq/">Xorq</a> Xorq is a multi-engine batch transformation framework built on Ibis, DataFusion and Arrow</p></li>
 <li><p><a class="reference external" href="https://github.com/jamals86/KalamDB">KalamDB</a> SQL-first realtime state database for AI agents, chat products, and multi-tenant SaaS.</p></li>
+<li><p><a class="reference external" href="https://github.com/infino-ai/infino">Infino</a> Fast retrieval engine for SQL, full-text search, and vector search over Parquet on object storage</p></li>
 </ul>
 <p>Here are some less active projects that used DataFusion:</p>
 <ul class="simple">
@@ -711,8 +715,8 @@ by a version string like <code class="docutils literal notranslate"><span class=
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

@@ -27,17 +27,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
@@ -451,6 +451,142 @@
 <p><strong>Note:</strong> DataFusion <code class="docutils literal notranslate"><span class="pre">55.0.0</span></code> has not been released yet. The information provided
 in this section pertains to features and changes that have already been merged
 to the main branch and are awaiting release in this version.</p>
+<section id="dataframe-fill-null-now-borrows-its-arguments">
+<h3><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> now borrows its arguments<a class="headerlink" href="#dataframe-fill-null-now-borrows-its-arguments" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> previously took its arguments by value:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">fill_null</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">ScalarValue</span><span class="p">,</span>
+<span class="w">    </span><span class="n">columns</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">DataFrame</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>It now borrows them, matching the signature of the newly added
+<code class="docutils literal notranslate"><span class="pre">DataFrame::fill_nan</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// After</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">fill_null</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">ScalarValue</span><span class="p">,</span>
+<span class="w">    </span><span class="n">columns</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="o">&amp;</span><span class="kt">str</span><span class="p">],</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">DataFrame</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This lets callers pass a borrowed <code class="docutils literal notranslate"><span class="pre">ScalarValue</span></code> and slice literals (or
+<code class="docutils literal notranslate"><span class="pre">&amp;str</span></code> column names) without first allocating owned <code class="docutils literal notranslate"><span class="pre">String</span></code>s.</p>
+<p><strong>Migration guide:</strong></p>
+<p>Borrow the value and pass a slice of <code class="docutils literal notranslate"><span class="pre">&amp;str</span></code> instead of an owned <code class="docutils literal notranslate"><span class="pre">Vec&lt;String&gt;</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">ScalarValue</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="s">&quot;a&quot;</span><span class="p">.</span><span class="n">to_owned</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">.</span><span class="n">to_owned</span><span class="p">()])</span><span class="o">?</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">fill_null</span><span class="p">(</span><span class="n">ScalarValue</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[])</span><span class="o">?</span><span class="p">;</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">fill_null</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalarValue</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;c&quot;</span><span class="p">])</span><span class="o">?</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">fill_null</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ScalarValue</span><span class="p">::</span><span class="n">from</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="p">[])</span><span class="o">?</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="filescanconfig-partitioned-by-file-group-removed">
+<h3><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> removed<a class="headerlink" href="#filescanconfig-partitioned-by-file-group-removed" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> and
+<code class="docutils literal notranslate"><span class="pre">FileScanConfigBuilder::with_partitioned_by_file_group(...)</span></code> have been removed.
+Use <code class="docutils literal notranslate"><span class="pre">FileScanConfig::output_partitioning</span></code> and
+<code class="docutils literal notranslate"><span class="pre">FileScanConfigBuilder::with_output_partitioning(...)</span></code> instead.
+The corresponding
+<code class="docutils literal notranslate"><span class="pre">datafusion_proto::protobuf::FileScanExecConf::partitioned_by_file_group</span></code>
+field has also been removed.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users who accessed <code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> directly.</p></li>
+<li><p>Users who called
+<code class="docutils literal notranslate"><span class="pre">FileScanConfigBuilder::with_partitioned_by_file_group(true)</span></code>.</p></li>
+<li><p>Users who constructed or accessed
+<code class="docutils literal notranslate"><span class="pre">datafusion_proto::protobuf::FileScanExecConf::partitioned_by_file_group</span></code>.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>If your file groups are organized by table partition column values, declare hash
+output partitioning over those partition columns:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion_datasource</span><span class="p">::</span><span class="n">file_scan_config</span><span class="p">::{</span>
+<span class="w">    </span><span class="n">FileScanConfigBuilder</span><span class="p">,</span><span class="w"> </span><span class="n">output_partitioning_from_partition_fields</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">output_partitioning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">output_partitioning_from_partition_fields</span><span class="p">(</span>
+<span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">table_schema</span><span class="p">().</span><span class="n">table_schema</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">source</span><span class="p">.</span><span class="n">table_schema</span><span class="p">().</span><span class="n">table_partition_cols</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">file_groups</span><span class="p">.</span><span class="n">len</span><span class="p">(),</span>
+<span class="p">);</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileScanConfigBuilder</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">object_store_url</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_file_groups</span><span class="p">(</span><span class="n">file_groups</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_output_partitioning</span><span class="p">(</span><span class="n">output_partitioning</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">output_partitioning_from_partition_fields</span></code> returns
+<code class="docutils literal notranslate"><span class="pre">Some(Partitioning::Hash(...))</span></code> when partition columns are present and <code class="docutils literal notranslate"><span class="pre">None</span></code>
+otherwise. If you construct the partitioning manually, pass
+<code class="docutils literal notranslate"><span class="pre">Some(Partitioning::Hash(partition_exprs,</span> <span class="pre">partition_count))</span></code> to
+<code class="docutils literal notranslate"><span class="pre">with_output_partitioning(...)</span></code>.</p>
+<p>When constructing <code class="docutils literal notranslate"><span class="pre">FileScanExecConf</span></code>, omit <code class="docutils literal notranslate"><span class="pre">partitioned_by_file_group</span></code> and set
+<code class="docutils literal notranslate"><span class="pre">output_partitioning</span></code> instead.</p>
+</section>
+<section id="user-spillfile-traits-instead-of-refcountedtempfile">
+<h3>User <code class="docutils literal notranslate"><span class="pre">SpillFile</span></code> traits instead of <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile</span></code></a><a class="headerlink" href="#user-spillfile-traits-instead-of-refcountedtempfile" title="Link to this heading">#</a></h3>
+<p>Spill file APIs now use the <code class="docutils literal notranslate"><span class="pre">datafusion_execution::SpillFile</span></code> trait instead of
+the concrete <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile</span></code></a> type. <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.DiskManager.html#method.create_tmp_file"><code class="docutils literal notranslate"><span class="pre">DiskManager::create_tmp_file</span></code></a> now
+returns <code class="docutils literal notranslate"><span class="pre">Arc&lt;dyn</span> <span class="pre">SpillFile&gt;</span></code>.
+This change was introduced in [PR #21882], which adds pluggable spill file
+backends via <code class="docutils literal notranslate"><span class="pre">SpillFile</span></code> and <code class="docutils literal notranslate"><span class="pre">TempFileFactory</span></code>.</p>
+<p>If your code matched on <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/enum.DiskManagerMode.html"><code class="docutils literal notranslate"><span class="pre">DiskManagerMode</span></code></a>, add a <code class="docutils literal notranslate"><span class="pre">DiskManagerMode::Custom(_)</span></code>
+arm.</p>
+<p>If your code wrote directly to a <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile</span></code></a> or called
+<a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html#method.update_disk_usage"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile::update_disk_usage</span></code></a>, open a spill writer instead:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- temp_file.inner().as_file().write_all(bytes)?;</span>
+<span class="gd">- temp_file.update_disk_usage()?;</span>
+<span class="gi">+ temp_file.open_writer()?.write_all(bytes)?;</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">temp_file.size()</span></code> instead of <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html#method.current_disk_usage"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile::current_disk_usage</span></code></a>.</p>
+</section>
+<section id="dialect-available-replaced-by-dialect-available">
+<h3><code class="docutils literal notranslate"><span class="pre">Dialect::AVAILABLE</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code><a class="headerlink" href="#dialect-available-replaced-by-dialect-available" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">datafusion_common::config::Dialect::AVAILABLE</span></code> has been removed. Use
+<code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code> instead.</p>
+</section>
+<section id="spill-record-batch-by-size-removed">
+<h3><code class="docutils literal notranslate"><span class="pre">spill_record_batch_by_size</span></code> removed<a class="headerlink" href="#spill-record-batch-by-size-removed" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_plan::spill::spill_record_batch_by_size</span></code> has been removed.
+This function was deprecated in DataFusion <code class="docutils literal notranslate"><span class="pre">46.0.0</span></code>.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">datafusion_physical_plan::spill::SpillManager::spill_record_batch_by_size</span></code>
+instead.</p>
+</section>
+<section id="createexternaltable-supports-multiple-locations">
+<h3><code class="docutils literal notranslate"><span class="pre">CreateExternalTable</span></code> supports multiple locations<a class="headerlink" href="#createexternaltable-supports-multiple-locations" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXTERNAL</span> <span class="pre">TABLE</span></code> now accepts multiple paths in a single <code class="docutils literal notranslate"><span class="pre">LOCATION</span></code>
+clause, which are read together as one table:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">hits</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PARQUET</span>
+<span class="k">LOCATION</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;file_1.parquet&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;file_2.parquet&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To support this, the <code class="docutils literal notranslate"><span class="pre">location</span></code> field of both
+<code class="docutils literal notranslate"><span class="pre">datafusion_expr::CreateExternalTable</span></code> and
+<code class="docutils literal notranslate"><span class="pre">datafusion_sql::parser::CreateExternalTable</span></code> changed from a <code class="docutils literal notranslate"><span class="pre">String</span></code> to a
+<code class="docutils literal notranslate"><span class="pre">Vec&lt;String&gt;</span></code> named <code class="docutils literal notranslate"><span class="pre">locations</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before (54.0.0)</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">location</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_external_table</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+
+<span class="c1">// After (55.0.0)</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">locations</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_external_table</span><span class="p">.</span><span class="n">locations</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">CreateExternalTable::builder(name,</span> <span class="pre">location,</span> <span class="pre">file_type,</span> <span class="pre">schema)</span></code>
+constructor is unchanged and still takes a single location; use the new
+<code class="docutils literal notranslate"><span class="pre">CreateExternalTableBuilder::with_locations(Vec&lt;String&gt;)</span></code> to set more than one.
+All listed locations must resolve to the same schema and reside on the same
+object store. A plain string literal remains a single location, so paths that
+contain commas continue to work, for example <code class="docutils literal notranslate"><span class="pre">LOCATION</span> <span class="pre">'path/with,comma.csv'</span></code>.</p>
+</section>
 <section id="decimal-scalar-formatting-uses-human-readable-values">
 <h3>Decimal scalar formatting uses human-readable values<a class="headerlink" href="#decimal-scalar-formatting-uses-human-readable-values" title="Link to this heading">#</a></h3>
 <p>Decimal scalar literals in <code class="docutils literal notranslate"><span class="pre">EXPLAIN</span></code> output, expression display strings, and
@@ -463,6 +599,102 @@ stored value <code class="docutils literal notranslate"><span class="pre">1</spa
 will now appear as <code class="docutils literal notranslate"><span class="pre">Decimal128(NULL,10,2)</span></code>.</p>
 <p>Query result values already used human-readable decimal formatting and are
 unchanged.</p>
+</section>
+<section id="coercion-supports-dictionary-encoding-preservation">
+<h3><code class="docutils literal notranslate"><span class="pre">Coercion</span></code> supports dictionary encoding preservation<a class="headerlink" href="#coercion-supports-dictionary-encoding-preservation" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::signature::Coercion</span></code> now supports optional dictionary
+encoding preservation. Typed coercions materialize dictionary inputs by
+default, including both <code class="docutils literal notranslate"><span class="pre">TypeSignatureClass::Native(...)</span></code> and broader classes
+such as <code class="docutils literal notranslate"><span class="pre">Integer</span></code>, <code class="docutils literal notranslate"><span class="pre">Numeric</span></code>, and <code class="docutils literal notranslate"><span class="pre">Binary</span></code>. When preservation is enabled,
+DataFusion instead coerces dictionary inputs to
+<code class="docutils literal notranslate"><span class="pre">Dictionary(original_key_type,</span> <span class="pre">coerced_value_type)</span></code> instead of materializing them
+to the coerced value type.</p>
+<p>User-defined functions can opt in by setting dictionary encoding preservation on
+the relevant coercion:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="n">Coercion</span><span class="p">::</span><span class="n">new_exact</span><span class="p">(</span><span class="n">TypeSignatureClass</span><span class="p">::</span><span class="n">Native</span><span class="p">(</span><span class="n">logical_string</span><span class="p">()))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_encoding_preservation</span><span class="p">(</span><span class="n">EncodingPreservation</span><span class="p">::</span><span class="n">dictionary</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>This changes the coerced argument type passed to the function. If a function
+derives its return type from that coerced argument type, code that checks exact
+result types may need to update its expectations or add an explicit cast to
+materialize the result.</p>
+<p>This changes the previous behavior of typed non-native classes such as
+<code class="docutils literal notranslate"><span class="pre">Integer</span></code> and <code class="docutils literal notranslate"><span class="pre">Binary</span></code>, which retained the physical dictionary type by default.
+UDFs relying on that behavior must now explicitly enable dictionary
+preservation. <code class="docutils literal notranslate"><span class="pre">TypeSignatureClass::Any</span></code> is unaffected.</p>
+</section>
+<section id="groupsaccumulator-merge-batch-no-longer-takes-opt-filter">
+<h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::merge_batch</span></code> no longer takes <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code><a class="headerlink" href="#groupsaccumulator-merge-batch-no-longer-takes-opt-filter" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code> argument has been removed from
+<code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::groups_accumulator::GroupsAccumulator::merge_batch</span></code>:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> fn merge_batch(
+<span class="w"> </span>     &amp;mut self,
+<span class="w"> </span>     values: &amp;[ArrayRef],
+<span class="w"> </span>     group_indices: &amp;[usize],
+<span class="gd">-     opt_filter: Option&lt;&amp;BooleanArray&gt;,</span>
+<span class="w"> </span>     total_num_groups: usize,
+<span class="w"> </span> ) -&gt; Result&lt;()&gt;;
+</pre></div>
+</div>
+<p>Aggregate <code class="docutils literal notranslate"><span class="pre">FILTER</span></code> clauses only apply to raw input rows during the partial
+(update) phase, so by the time intermediate states are merged there is nothing
+left to filter per row. In practice <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code> was always <code class="docutils literal notranslate"><span class="pre">None</span></code> here, so
+removing it makes the API self-explanatory and impossible to misuse.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Anyone with a custom <code class="docutils literal notranslate"><span class="pre">GroupsAccumulator</span></code> implementation.</p></li>
+<li><p>Anyone calling <code class="docutils literal notranslate"><span class="pre">merge_batch</span></code> directly.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Drop the <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code> argument from your <code class="docutils literal notranslate"><span class="pre">merge_batch</span></code> signature and from any
+call sites:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> fn merge_batch(
+<span class="w"> </span>     &amp;mut self,
+<span class="w"> </span>     values: &amp;[ArrayRef],
+<span class="w"> </span>     group_indices: &amp;[usize],
+<span class="gd">-     opt_filter: Option&lt;&amp;BooleanArray&gt;,</span>
+<span class="w"> </span>     total_num_groups: usize,
+<span class="w"> </span> ) -&gt; Result&lt;()&gt; {
+<span class="w"> </span>     // ...
+<span class="w"> </span> }
+</pre></div>
+</div>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- acc.merge_batch(values, group_indices, None, total_num_groups)?;</span>
+<span class="gi">+ acc.merge_batch(values, group_indices, total_num_groups)?;</span>
+</pre></div>
+</div>
+<p>If your implementation previously inspected <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code> (for example asserting
+it was <code class="docutils literal notranslate"><span class="pre">None</span></code>), that code can simply be deleted.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/issues/22775">issue #22775</a> for details.</p>
+</section>
+<section id="groupsaccumulator-convert-to-state-is-now-required">
+<h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::convert_to_state</span></code> is now required<a class="headerlink" href="#groupsaccumulator-convert-to-state-is-now-required" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::groups_accumulator::GroupsAccumulator::convert_to_state</span></code>
+no longer provides a default implementation, and the
+<code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::supports_convert_to_state</span></code> capability method has been
+removed. All <code class="docutils literal notranslate"><span class="pre">GroupsAccumulator</span></code> implementations must now support converting
+input batches directly to intermediate aggregate state.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users with custom <code class="docutils literal notranslate"><span class="pre">GroupsAccumulator</span></code> implementations.</p></li>
+<li><p>FFI providers and consumers that use <code class="docutils literal notranslate"><span class="pre">FFI_GroupsAccumulator</span></code>.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Custom <code class="docutils literal notranslate"><span class="pre">GroupsAccumulator</span></code> implementations must now provide their own
+<code class="docutils literal notranslate"><span class="pre">convert_to_state</span></code> implementation.</p>
+<p>Delete <code class="docutils literal notranslate"><span class="pre">supports_convert_to_state</span></code> implementations because <code class="docutils literal notranslate"><span class="pre">convert_to_state</span></code>
+is now required:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- fn supports_convert_to_state(&amp;self) -&gt; bool {</span>
+<span class="gd">-     true</span>
+<span class="gd">- }</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">supports_convert_to_state</span></code> field has also been removed from
+<code class="docutils literal notranslate"><span class="pre">datafusion_ffi::udaf::groups_accumulator::FFI_GroupsAccumulator</span></code>, changing its
+ABI layout. Rebuild both FFI providers and consumers against DataFusion 55, and
+do not exchange this struct with libraries built against older major versions.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/issues/23081">issue #23081</a> for details.</p>
 </section>
 <section id="is-dynamic-physical-expr-is-deprecated">
 <h3><code class="docutils literal notranslate"><span class="pre">is_dynamic_physical_expr</span></code> is deprecated<a class="headerlink" href="#is-dynamic-physical-expr-is-deprecated" title="Link to this heading">#</a></h3>
@@ -513,6 +745,82 @@ statistics, and predicates that carry a dynamic filter, are unaffected.</p>
 as a supertrait:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- pub trait QueryPlanner: Debug</span>
 <span class="gi">+ pub trait QueryPlanner: Any + Debug</span>
+</pre></div>
+</div>
+</section>
+<section id="executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs">
+<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> deprecated in favor of <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code><a class="headerlink" href="#executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> is deprecated. Statistics computation is
+now split into two parts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">StatisticsContext</span></code> owns the bottom-up plan-tree traversal and a per-walk
+cache of memoized child statistics. Call <code class="docutils literal notranslate"><span class="pre">StatisticsContext::compute</span></code> to
+obtain statistics for a plan.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::statistics_from_inputs</span></code> computes a node’s statistics from its
+children’s already-resolved statistics, which the context passes in. The node
+does not traverse the tree itself.</p></li>
+</ul>
+<p>Existing implementations of <code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code> continue to work unchanged.
+The default <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code> delegates to the deprecated method, so no
+migration is required until the deprecated method is removed.</p>
+<blockquote>
+<div><p><strong>Warning:</strong> The delegation is <strong>one-way</strong>: the default <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code>
+calls <code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code>, but the default <code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code> does
+<strong>not</strong> call <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code> — it returns <code class="docutils literal notranslate"><span class="pre">Statistics::new_unknown</span></code>.
+Nodes that override only <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code> will silently return
+<code class="docutils literal notranslate"><span class="pre">Statistics::new_unknown</span></code> to any caller still using the deprecated
+<code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code>.</p>
+</div></blockquote>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users who implement custom <code class="docutils literal notranslate"><span class="pre">ExecutionPlan</span></code> nodes (recommended to migrate)</p></li>
+<li><p>Users who call <code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code> directly (recommended to switch to <code class="docutils literal notranslate"><span class="pre">StatisticsContext::compute</span></code>)</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>For <strong>implementations</strong>, override <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">partition_statistics</span></code>, plus <code class="docutils literal notranslate"><span class="pre">child_stats_requests</span></code> to declare which children to
+resolve. Child statistics then arrive pre-computed in <code class="docutils literal notranslate"><span class="pre">input_stats</span></code> (one entry per
+child, in <code class="docutils literal notranslate"><span class="pre">children()</span></code> order), so the node only expresses its local propagation
+logic. Leaf nodes, and nodes that derive their statistics without reading children,
+need neither override (the default <code class="docutils literal notranslate"><span class="pre">child_stats_requests</span></code> skips every child).</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before:</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">partition_statistics</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">partition</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="n">Statistics</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">child_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">input</span><span class="p">.</span><span class="n">partition_statistics</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// ... transform child_stats ...</span>
+<span class="p">}</span>
+
+<span class="c1">// After: declare the child to resolve, then compute from its statistics.</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">child_stats_requests</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">partition</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="kt">usize</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">ChildStats</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">vec!</span><span class="p">[</span><span class="n">ChildStats</span><span class="p">::</span><span class="n">At</span><span class="p">(</span><span class="n">partition</span><span class="p">)]</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">statistics_from_inputs</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">input_stats</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">Arc</span><span class="o">&lt;</span><span class="n">Statistics</span><span class="o">&gt;</span><span class="p">],</span>
+<span class="w">    </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">StatisticsArgs</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="n">Statistics</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">child_stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_stats</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="w">    </span><span class="c1">// ... transform child_stats ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Important:</strong> the default <code class="docutils literal notranslate"><span class="pre">child_stats_requests</span></code> skips every child, so a node that
+reads <code class="docutils literal notranslate"><span class="pre">input_stats</span></code> must override it to declare the children it uses, or those slots
+are filled with <code class="docutils literal notranslate"><span class="pre">Statistics::new_unknown</span></code> placeholders. Request a child with
+<code class="docutils literal notranslate"><span class="pre">ChildStats::At(partition)</span></code> (<code class="docutils literal notranslate"><span class="pre">None</span></code> = overall) and omit one with <code class="docutils literal notranslate"><span class="pre">ChildStats::Skip</span></code>.
+For example, a partition-merging operator requests <code class="docutils literal notranslate"><span class="pre">ChildStats::At(None)</span></code>, and a
+broadcast join requests its build side at <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</div></blockquote>
+<p>For <strong>callers</strong>, walk a plan through <code class="docutils literal notranslate"><span class="pre">StatisticsContext::compute</span></code>. The cache is
+created with the context:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion_physical_plan</span><span class="p">::{</span><span class="n">StatisticsArgs</span><span class="p">,</span><span class="w"> </span><span class="n">StatisticsContext</span><span class="p">};</span>
+
+<span class="c1">// Before:</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plan</span><span class="p">.</span><span class="n">partition_statistics</span><span class="p">(</span><span class="nb">None</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+<span class="c1">// After:</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">stats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StatisticsContext</span><span class="p">::</span><span class="n">new</span><span class="p">().</span><span class="n">compute</span><span class="p">(</span><span class="n">plan</span><span class="p">.</span><span class="n">as_ref</span><span class="p">(),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">StatisticsArgs</span><span class="p">::</span><span class="n">new</span><span class="p">())</span><span class="o">?</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -612,6 +920,38 @@ the variant, dereference the box with <code class="docutils literal notranslate"
 details, including the per-variant size breakdown and benchmark
 results.</p>
 </section>
+<section id="listingoptions-target-partitions-and-collect-stat-removed">
+<h3><code class="docutils literal notranslate"><span class="pre">ListingOptions::target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> removed<a class="headerlink" href="#listingoptions-target-partitions-and-collect-stat-removed" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> fields on
+<code class="docutils literal notranslate"><span class="pre">datafusion_catalog_listing::ListingOptions</span></code>, their builder methods
+(<code class="docutils literal notranslate"><span class="pre">with_target_partitions</span></code>, <code class="docutils literal notranslate"><span class="pre">with_collect_stat</span></code>), and the
+<code class="docutils literal notranslate"><span class="pre">with_session_config_options</span></code> helper have been removed.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ListingTable</span></code> now reads both values directly from the active <code class="docutils literal notranslate"><span class="pre">SessionConfig</span></code>
+at scan time instead of from a copy snapshotted onto the table at construction
+time.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Code that set <code class="docutils literal notranslate"><span class="pre">target_partitions</span></code> / <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> per table via
+<code class="docutils literal notranslate"><span class="pre">ListingOptions</span></code>, or read those public fields.</p></li>
+<li><p>Code that relied on a <code class="docutils literal notranslate"><span class="pre">ListingTable</span></code> freezing these values at construction
+time independently of the session config. The table now always reflects the
+current <code class="docutils literal notranslate"><span class="pre">SessionConfig</span></code>.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Configure these on the <code class="docutils literal notranslate"><span class="pre">SessionConfig</span></code> instead:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ListingOptions</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">format</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_target_partitions</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_collect_stat</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SessionConfig</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_target_partitions</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_collect_statistics</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/22969">PR #22969</a> for details.</p>
+</section>
 <section id="spark-map-functions-now-reject-duplicate-keys-by-default">
 <h3>Spark map functions now reject duplicate keys by default<a class="headerlink" href="#spark-map-functions-now-reject-duplicate-keys-by-default" title="Link to this heading">#</a></h3>
 <p>The Spark-compatibility map-construction functions (<code class="docutils literal notranslate"><span class="pre">map_from_arrays</span></code>,
@@ -638,6 +978,422 @@ silently or raised a non-configurable error.</p></li>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/21720">PR #21720</a> for details.</p>
+</section>
+<section id="unify-lru-memory-limiting-caches-into-one-generic-cache">
+<h3>Unify LRU memory-limiting caches into one generic cache<a class="headerlink" href="#unify-lru-memory-limiting-caches-into-one-generic-cache" title="Link to this heading">#</a></h3>
+<p>The caches <code class="docutils literal notranslate"><span class="pre">DefaultFileMetadataCache</span></code>, <code class="docutils literal notranslate"><span class="pre">DefaultListFilesCache</span></code> and <code class="docutils literal notranslate"><span class="pre">DefaultFileStatisticsCache</span></code>
+are merged into one generic implementation <code class="docutils literal notranslate"><span class="pre">DefaultCache</span></code>. The corresponding traits are now
+type aliases:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- pub trait FileStatisticsCache: CacheAccessor&lt;TableScopedPath, CachedFileMetadata&gt;</span>
+<span class="gd">- pub trait ListFilesCache: CacheAccessor&lt;TableScopedPath, CachedFileList&gt;</span>
+<span class="gd">- pub trait FileMetadataCache: CacheAccessor&lt;Path, CachedFileMetadataEntry&gt;</span>
+<span class="gi">+ pub type FileStatisticsCache = dyn Cache&lt;TableScopedPath, CachedFileMetadata&gt;;</span>
+<span class="gi">+ pub type ListFilesCache = dyn Cache&lt;TableScopedPath, CachedFileList&gt;;</span>
+<span class="gi">+ pub type FileMetadataCache = dyn Cache&lt;Path, CachedFileMetadataEntry&gt;;</span>
+</pre></div>
+</div>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users who introduced their own implementation of <code class="docutils literal notranslate"><span class="pre">FileMetadataCache</span></code>, <code class="docutils literal notranslate"><span class="pre">ListFilesCache</span></code> or <code class="docutils literal notranslate"><span class="pre">FileStatisticsCache</span></code>.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Implement the newly introduced types for your custom cache implementation.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/22613">PR #22613</a> for details.</p>
+</section>
+<section id="cachedfilemetadata-now-validates-file-schema">
+<h3><code class="docutils literal notranslate"><span class="pre">CachedFileMetadata</span></code> now validates file schema<a class="headerlink" href="#cachedfilemetadata-now-validates-file-schema" title="Link to this heading">#</a></h3>
+<p>The file-statistics cache remains keyed by <code class="docutils literal notranslate"><span class="pre">TableScopedPath</span></code>, but
+<code class="docutils literal notranslate"><span class="pre">CachedFileMetadata</span></code> now stores a <code class="docutils literal notranslate"><span class="pre">SchemaFingerprint</span></code> of the <code class="docutils literal notranslate"><span class="pre">file_schema</span></code> used
+to compute the cached statistics. Cache hits are valid only when both the file
+metadata and schema fingerprint match.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users constructing <code class="docutils literal notranslate"><span class="pre">CachedFileMetadata</span></code> values directly.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<ul class="simple">
+<li><p>Pass <code class="docutils literal notranslate"><span class="pre">Arc::new(SchemaFingerprint::from_schema(file_schema))</span></code> to
+<code class="docutils literal notranslate"><span class="pre">CachedFileMetadata::new</span></code>.</p></li>
+<li><p>Pass the current schema fingerprint to <code class="docutils literal notranslate"><span class="pre">CachedFileMetadata::is_valid_for</span></code>.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23201">PR #23201</a> for details.</p>
+</section>
+<section id="emptyexecnode-and-placeholderrowexecnode-gained-a-partitions-field">
+<h3><code class="docutils literal notranslate"><span class="pre">EmptyExecNode</span></code> and <code class="docutils literal notranslate"><span class="pre">PlaceholderRowExecNode</span></code> gained a <code class="docutils literal notranslate"><span class="pre">partitions</span></code> field<a class="headerlink" href="#emptyexecnode-and-placeholderrowexecnode-gained-a-partitions-field" title="Link to this heading">#</a></h3>
+<p>The generated protobuf structs <code class="docutils literal notranslate"><span class="pre">EmptyExecNode</span></code> and <code class="docutils literal notranslate"><span class="pre">PlaceholderRowExecNode</span></code>
+encoded only a schema, so the partition count set by <code class="docutils literal notranslate"><span class="pre">EmptyExec::with_partitions</span></code>
+was silently dropped when a physical plan was serialized and deserialized: a plan
+that reported <code class="docutils literal notranslate"><span class="pre">n</span></code> partitions before encoding reported <code class="docutils literal notranslate"><span class="pre">1</span></code> after. Both messages now
+carry a <code class="docutils literal notranslate"><span class="pre">partitions</span></code> field that round-trips the count.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Users constructing <code class="docutils literal notranslate"><span class="pre">EmptyExecNode</span></code> or <code class="docutils literal notranslate"><span class="pre">PlaceholderRowExecNode</span></code> with an
+exhaustive struct literal.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Set the new field, or fill it from <code class="docutils literal notranslate"><span class="pre">Default</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="n">EmptyExecNode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">schema</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// After</span>
+<span class="n">EmptyExecNode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">schema</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span><span class="w"> </span><span class="n">partitions</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="p">}</span>
+<span class="c1">// or</span>
+<span class="n">EmptyExecNode</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">schema</span><span class="p">:</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">schema</span><span class="p">),</span><span class="w"> </span><span class="o">..</span><span class="nb">Default</span><span class="p">::</span><span class="n">default</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The wire format stays compatible in both directions. Plans encoded before this
+field existed decode as a single partition, the previous default, and plans
+encoded after it add a field that older readers ignore.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23643">PR #23643</a> for details.</p>
+</section>
+<section id="time-interval-now-returns-a-time-instead-of-an-interval">
+<h3><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">±</span> <span class="pre">interval</span></code> now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code> instead of an <code class="docutils literal notranslate"><span class="pre">interval</span></code><a class="headerlink" href="#time-interval-now-returns-a-time-instead-of-an-interval" title="Link to this heading">#</a></h3>
+<p>Adding or subtracting an <code class="docutils literal notranslate"><span class="pre">interval</span></code> to/from a <code class="docutils literal notranslate"><span class="pre">time</span></code> value now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code>
+that wraps within the 24-hour clock, matching PostgreSQL and DuckDB. Previously
+DataFusion returned an <code class="docutils literal notranslate"><span class="pre">interval</span></code>.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- 55.0.0 onwards: returns a time</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">time</span><span class="w"> </span><span class="s1">&#39;23:30:00&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">interval</span><span class="w"> </span><span class="s1">&#39;2 hours&#39;</span><span class="p">;</span>
+<span class="c1">-- 01:30:00</span>
+</pre></div>
+</div>
+<p>Only the sub-day portion of the interval affects the result; whole days and
+months are ignored, as in PostgreSQL. The result keeps the input time’s unit
+(mirroring <code class="docutils literal notranslate"><span class="pre">timestamp</span> <span class="pre">+</span> <span class="pre">interval</span></code>), and any interval precision finer than that
+unit is truncated – so <code class="docutils literal notranslate"><span class="pre">time(s)</span> <span class="pre">+</span> <span class="pre">interval</span> <span class="pre">'1</span> <span class="pre">nanosecond'</span></code> is a no-op.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23279">PR #23279</a> for details.</p>
+</section>
+<section id="scalar-subquery-state-moved-to-an-explicit-physicalplanningcontext">
+<h3>Scalar-subquery state moved to an explicit <code class="docutils literal notranslate"><span class="pre">PhysicalPlanningContext</span></code><a class="headerlink" href="#scalar-subquery-state-moved-to-an-explicit-physicalplanningcontext" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">subquery_indexes</span></code> and <code class="docutils literal notranslate"><span class="pre">subquery_results</span></code> public fields on
+<code class="docutils literal notranslate"><span class="pre">datafusion_expr::execution_props::ExecutionProps</span></code> have been removed. They were
+added in <code class="docutils literal notranslate"><span class="pre">54.0.0</span></code> as the channel through which the physical planner passed
+uncorrelated scalar-subquery state to functions that create physical
+<code class="docutils literal notranslate"><span class="pre">Arc&lt;dyn</span> <span class="pre">PhysicalExpr&gt;</span></code> values from logical <code class="docutils literal notranslate"><span class="pre">Expr</span></code> values.</p>
+<p>That state is now carried by a dedicated
+<code class="docutils literal notranslate"><span class="pre">datafusion_expr::physical_planning_context::PhysicalPlanningContext</span></code> passed explicitly
+through functions and planner traits. Unlike <code class="docutils literal notranslate"><span class="pre">ExecutionProps</span></code>, which applies
+throughout the planning of an entire query, this context is scoped to the
+logical plan subtree currently being converted. This removes the need for the
+physical planner to clone and mutate a <code class="docutils literal notranslate"><span class="pre">SessionState</span></code>, is a prerequisite for
+letting the planner take <code class="docutils literal notranslate"><span class="pre">&amp;dyn</span> <span class="pre">Session</span></code>, and lets <code class="docutils literal notranslate"><span class="pre">ExtensionPlanner</span></code>
+implementations create physical
+expressions containing scalar subqueries against the same subquery state as the
+rest of the plan.</p>
+<p>The following functions take a new trailing
+<code class="docutils literal notranslate"><span class="pre">planning_ctx:</span> <span class="pre">&amp;PhysicalPlanningContext</span></code> parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_expr::create_physical_expr</span></code> / <code class="docutils literal notranslate"><span class="pre">create_physical_exprs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_expr::create_physical_sort_expr</span></code> /
+<code class="docutils literal notranslate"><span class="pre">create_physical_sort_exprs</span></code> / <code class="docutils literal notranslate"><span class="pre">create_physical_partitioning</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion::physical_planner::create_window_expr</span></code> /
+<code class="docutils literal notranslate"><span class="pre">create_window_expr_with_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_expr::aggregate::LoweredAggregateBuilder::new</span></code></p></li>
+</ul>
+<p>The planner traits changed accordingly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PhysicalPlanner::create_physical_expr</span></code> takes
+<code class="docutils literal notranslate"><span class="pre">planning_ctx:</span> <span class="pre">&amp;PhysicalPlanningContext</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ExtensionPlanner::plan_extension</span></code> and <code class="docutils literal notranslate"><span class="pre">plan_table_scan</span></code> receive
+<code class="docutils literal notranslate"><span class="pre">planning_ctx:</span> <span class="pre">&amp;PhysicalPlanningContext</span></code> and should forward it to
+<code class="docutils literal notranslate"><span class="pre">PhysicalPlanner::create_physical_expr</span></code> when creating physical expressions</p></li>
+</ul>
+<p>Convenience methods such as <code class="docutils literal notranslate"><span class="pre">SessionContext::create_physical_expr</span></code> and
+<code class="docutils literal notranslate"><span class="pre">SessionState::create_physical_expr</span></code> are unchanged.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Code calling the functions above: pass
+<code class="docutils literal notranslate"><span class="pre">&amp;PhysicalPlanningContext::default()</span></code> unless you are creating physical
+expressions as part of a physical plan that contains uncorrelated scalar
+subqueries.</p></li>
+<li><p>Custom <code class="docutils literal notranslate"><span class="pre">PhysicalPlanner</span></code> or <code class="docutils literal notranslate"><span class="pre">ExtensionPlanner</span></code> implementations: add the new
+parameter and forward it.</p></li>
+<li><p>Code that read or wrote <code class="docutils literal notranslate"><span class="pre">execution_props.subquery_indexes</span></code> /
+<code class="docutils literal notranslate"><span class="pre">execution_props.subquery_results</span></code>: build a <code class="docutils literal notranslate"><span class="pre">PhysicalPlanningContext</span></code> instead.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>When creating a physical expression outside of physical planning, pass an empty
+context:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion_expr</span><span class="p">::</span><span class="n">physical_planning_context</span><span class="p">::</span><span class="n">PhysicalPlanningContext</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion_physical_expr</span><span class="p">::</span><span class="n">create_physical_expr</span><span class="p">;</span>
+
+<span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">phys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_physical_expr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">expr</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">schema</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">props</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">phys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_physical_expr</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">expr</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">schema</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">props</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">PhysicalPlanningContext</span><span class="p">::</span><span class="n">default</span><span class="p">(),</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">ExtensionPlanner</span></code> implementations, accept and forward the context:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">plan_extension</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">planner</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">PhysicalPlanner</span><span class="p">,</span>
+<span class="w">    </span><span class="n">node</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">UserDefinedLogicalNode</span><span class="p">,</span>
+<span class="w">    </span><span class="n">logical_inputs</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="o">&amp;</span><span class="n">LogicalPlan</span><span class="p">],</span>
+<span class="w">    </span><span class="n">physical_inputs</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">ExecutionPlan</span><span class="o">&gt;</span><span class="p">],</span>
+<span class="w">    </span><span class="n">session</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Session</span><span class="p">,</span>
+<span class="w">    </span><span class="n">planning_ctx</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">PhysicalPlanningContext</span><span class="p">,</span><span class="w"> </span><span class="c1">// new parameter</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">ExecutionPlan</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">expr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="n">expressions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Forward the context so scalar subqueries in this node&#39;s</span>
+<span class="w">        </span><span class="c1">// expressions resolve against the plan&#39;s subquery state</span>
+<span class="w">        </span><span class="n">planner</span><span class="p">.</span><span class="n">create_physical_expr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">expr</span><span class="p">,</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="n">schema</span><span class="p">(),</span><span class="w"> </span><span class="n">session</span><span class="p">,</span><span class="w"> </span><span class="n">planning_ctx</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23649">PR #23649</a> for details.</p>
+</section>
+<section id="catalog-planner-and-optimizer-contracts-moved-to-datafusion-session">
+<h3>Catalog, planner, and optimizer contracts moved to <code class="docutils literal notranslate"><span class="pre">datafusion-session</span></code><a class="headerlink" href="#catalog-planner-and-optimizer-contracts-moved-to-datafusion-session" title="Link to this heading">#</a></h3>
+<p>The catalog, planner, and physical optimizer contract traits now live in the
+<code class="docutils literal notranslate"><span class="pre">datafusion-session</span></code> crate. This makes them available through <code class="docutils literal notranslate"><span class="pre">Session</span></code> without
+downcasting to <code class="docutils literal notranslate"><span class="pre">SessionState</span></code>, including across the FFI boundary.</p>
+<p>The moved catalog traits are <code class="docutils literal notranslate"><span class="pre">CatalogProviderList</span></code>, <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code>,
+<code class="docutils literal notranslate"><span class="pre">SchemaProvider</span></code>, <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code>, <code class="docutils literal notranslate"><span class="pre">TableProviderFactory</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">TableFunctionImpl</span></code>. The related <code class="docutils literal notranslate"><span class="pre">TableFunction</span></code> struct also moved. The
+<code class="docutils literal notranslate"><span class="pre">datafusion-catalog</span></code> crate re-exports these items from their new location, so
+paths such as <code class="docutils literal notranslate"><span class="pre">datafusion::catalog::TableProvider</span></code> and
+<code class="docutils literal notranslate"><span class="pre">datafusion_catalog::CatalogProvider</span></code> continue to work unchanged.</p>
+<p>The moved planning and optimization traits are <code class="docutils literal notranslate"><span class="pre">QueryPlanner</span></code>,
+<code class="docutils literal notranslate"><span class="pre">PhysicalPlanner</span></code>, <code class="docutils literal notranslate"><span class="pre">ExtensionPlanner</span></code>, <code class="docutils literal notranslate"><span class="pre">PhysicalOptimizerRule</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">PhysicalOptimizerContext</span></code>. Their previous paths also continue to work through
+re-exports:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion::execution::context::QueryPlanner</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion::physical_planner::{PhysicalPlanner,</span> <span class="pre">ExtensionPlanner}</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_optimizer::{PhysicalOptimizerRule,</span> <span class="pre">PhysicalOptimizerContext}</span></code></p></li>
+</ul>
+<p>The session argument for methods on <code class="docutils literal notranslate"><span class="pre">QueryPlanner</span></code>, <code class="docutils literal notranslate"><span class="pre">PhysicalPlanner</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">ExtensionPlanner</span></code> changed from <code class="docutils literal notranslate"><span class="pre">&amp;SessionState</span></code> to <code class="docutils literal notranslate"><span class="pre">&amp;dyn</span> <span class="pre">Session</span></code>. Custom planner
+implementations should update their signatures. Planner code should use methods
+on <code class="docutils literal notranslate"><span class="pre">Session</span></code> instead of downcasting it to <code class="docutils literal notranslate"><span class="pre">SessionState</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Session</span></code> trait now requires a <code class="docutils literal notranslate"><span class="pre">catalog_list</span></code> method that returns the
+catalogs registered with the session:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">fn</span><span class="w"> </span><span class="nf">catalog_list</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">CatalogProviderList</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Custom <code class="docutils literal notranslate"><span class="pre">Session</span></code> implementations must add this method. Implementations that do
+not expose a catalog can return the new <code class="docutils literal notranslate"><span class="pre">EmptyCatalogProviderList</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion_session</span><span class="p">::{</span><span class="n">CatalogProviderList</span><span class="p">,</span><span class="w"> </span><span class="n">EmptyCatalogProviderList</span><span class="p">};</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">catalog_list</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">CatalogProviderList</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">EmptyCatalogProviderList</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Session</span></code> gains a <code class="docutils literal notranslate"><span class="pre">query_planner</span></code> method alongside <code class="docutils literal notranslate"><span class="pre">optimize</span></code>,
+<code class="docutils literal notranslate"><span class="pre">physical_optimizers</span></code>, and <code class="docutils literal notranslate"><span class="pre">statistics_registry</span></code>. All four have default
+implementations, so existing <code class="docutils literal notranslate"><span class="pre">Session</span></code> implementations that do not perform
+physical planning require no changes: <code class="docutils literal notranslate"><span class="pre">query_planner</span></code> defaults to the new
+<code class="docutils literal notranslate"><span class="pre">UnsupportedQueryPlanner</span></code>, <code class="docutils literal notranslate"><span class="pre">optimize</span></code> returns the plan unchanged,
+<code class="docutils literal notranslate"><span class="pre">physical_optimizers</span></code> returns no rules, and <code class="docutils literal notranslate"><span class="pre">statistics_registry</span></code> returns
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<p>A custom session that drives planning through <code class="docutils literal notranslate"><span class="pre">DefaultQueryPlanner</span></code> or
+<code class="docutils literal notranslate"><span class="pre">DefaultPhysicalPlanner</span></code> must override these methods to expose its planning and
+optimization behavior; the defaults will otherwise produce unoptimized plans or
+fail to plan at all. The simplest approach is to delegate to a <code class="docutils literal notranslate"><span class="pre">SessionState</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion_session</span><span class="p">::{</span><span class="n">PhysicalOptimizerRule</span><span class="p">,</span><span class="w"> </span><span class="n">QueryPlanner</span><span class="p">};</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">query_planner</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">QueryPlanner</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Send</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Sync</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">query_planner</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">optimize</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">plan</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">LogicalPlan</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">LogicalPlan</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">physical_optimizers</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kp">&amp;</span><span class="p">[</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">PhysicalOptimizerRule</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Send</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Sync</span><span class="o">&gt;</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">physical_optimizers</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ForeignSession::create_physical_plan</span></code> continues to run the complete planning
+pipeline in the library that owns the session. <code class="docutils literal notranslate"><span class="pre">ForeignSession::query_planner</span></code>
+returns <code class="docutils literal notranslate"><span class="pre">UnsupportedQueryPlanner</span></code> until the query planner FFI interface is
+available. FFI wrappers for the individual planner and optimizer interfaces are
+not included in this release.</p>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23703">PR #23703</a> for details on
+the catalog changes.</p>
+</section>
+<section id="unused-async-removed-from-several-public-functions">
+<h3>Unused <code class="docutils literal notranslate"><span class="pre">async</span></code> removed from several public functions<a class="headerlink" href="#unused-async-removed-from-several-public-functions" title="Link to this heading">#</a></h3>
+<p>Public functions that were declared <code class="docutils literal notranslate"><span class="pre">async</span></code> but never awaited anything are now
+synchronous:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CsvFormat::read_to_delimited_chunks_from_stream</span></code> (in
+<code class="docutils literal notranslate"><span class="pre">datafusion_datasource_csv</span></code>, re-exported as
+<code class="docutils literal notranslate"><span class="pre">datafusion::datasource::file_format::csv::CsvFormat</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion_substrait::serializer::deserialize_bytes</span></code>, which now also borrows
+its input as <code class="docutils literal notranslate"><span class="pre">&amp;[u8]</span></code> instead of taking an owned <code class="docutils literal notranslate"><span class="pre">Vec&lt;u8&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">datafusion::test_util::parquet::TestParquetFile::create_scan</span></code></p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Remove <code class="docutils literal notranslate"><span class="pre">.await</span></code> from call sites; the compiler flags each one, since <code class="docutils literal notranslate"><span class="pre">.await</span></code>
+on a non-future value does not compile:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csv_format</span>
+<span class="w">    </span><span class="p">.</span><span class="n">read_to_delimited_chunks_from_stream</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="k">await</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">plan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserialize_bytes</span><span class="p">(</span><span class="n">proto_bytes</span><span class="p">).</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csv_format</span><span class="p">.</span><span class="n">read_to_delimited_chunks_from_stream</span><span class="p">(</span><span class="n">input</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">plan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserialize_bytes</span><span class="p">(</span><span class="o">&amp;</span><span class="n">proto_bytes</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="movingmin-and-movingmax-changed-to-pub-crate">
+<h3><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> changed to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code><a class="headerlink" href="#movingmin-and-movingmax-changed-to-pub-crate" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> in <code class="docutils literal notranslate"><span class="pre">datafusion_functions_aggregate::min_max</span></code> have been changed from <code class="docutils literal notranslate"><span class="pre">pub</span></code> to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code> visibility as they are internal helper data structures for DataFusion’s sliding window aggregators.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Code that directly imported <code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> or <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> from <code class="docutils literal notranslate"><span class="pre">datafusion_functions_aggregate</span></code>. Standard SQL window functions (<code class="docutils literal notranslate"><span class="pre">MIN(...)</span> <span class="pre">OVER</span> <span class="pre">(...)</span></code> / <code class="docutils literal notranslate"><span class="pre">MAX(...)</span> <span class="pre">OVER</span> <span class="pre">(...)</span></code>) are unaffected.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23827">PR #23827</a> for details.</p>
+</section>
+<section id="windowexpr-evaluate-stateful-now-takes-a-windowevalcontext">
+<h3><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> now takes a <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code><a class="headerlink" href="#windowexpr-evaluate-stateful-now-takes-a-windowevalcontext" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> (and the provided
+<code class="docutils literal notranslate"><span class="pre">AggregateWindowExpr::aggregate_evaluate_stateful</span></code> method) take a new
+<code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code> argument carrying stream-level information that is shared
+by all partitions:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">evaluate_stateful</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partition_batches</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">PartitionBatches</span><span class="p">,</span>
+<span class="w">    </span><span class="n">window_agg_state</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">PartitionWindowAggStates</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span>
+
+<span class="c1">// After</span>
+<span class="k">fn</span><span class="w"> </span><span class="nf">evaluate_stateful</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partition_batches</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">PartitionBatches</span><span class="p">,</span>
+<span class="w">    </span><span class="n">window_agg_state</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">PartitionWindowAggStates</span><span class="p">,</span>
+<span class="w">    </span><span class="n">eval_ctx</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">WindowEvalContext</span><span class="o">&lt;&#39;</span><span class="nb">_</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code> currently carries the most recent input row, which
+previously lived in each partition’s <code class="docutils literal notranslate"><span class="pre">PartitionBatchState</span></code> (see the next
+section). The struct is <code class="docutils literal notranslate"><span class="pre">#[non_exhaustive]</span></code> so that fields can be added
+without further signature changes: construct it with
+<code class="docutils literal notranslate"><span class="pre">WindowEvalContext::default()</span></code> and set fields through its builder methods.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Implementations of the <code class="docutils literal notranslate"><span class="pre">WindowExpr</span></code> trait that override <code class="docutils literal notranslate"><span class="pre">evaluate_stateful</span></code>
+must add the new parameter.</p></li>
+<li><p>Callers of <code class="docutils literal notranslate"><span class="pre">evaluate_stateful</span></code> or <code class="docutils literal notranslate"><span class="pre">aggregate_evaluate_stateful</span></code> must pass a
+context.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion_physical_expr</span><span class="p">::</span><span class="n">window</span><span class="p">::</span><span class="n">WindowEvalContext</span><span class="p">;</span>
+
+<span class="c1">// Before</span>
+<span class="n">window_expr</span><span class="p">.</span><span class="n">evaluate_stateful</span><span class="p">(</span><span class="o">&amp;</span><span class="n">partition_batches</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">window_agg_state</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">eval_ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WindowEvalContext</span><span class="p">::</span><span class="n">default</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_most_recent_row</span><span class="p">(</span><span class="n">most_recent_row</span><span class="p">.</span><span class="n">as_ref</span><span class="p">());</span>
+<span class="n">window_expr</span><span class="p">.</span><span class="n">evaluate_stateful</span><span class="p">(</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">partition_batches</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">window_agg_state</span><span class="p">,</span>
+<span class="w">    </span><span class="o">&amp;</span><span class="n">eval_ctx</span><span class="p">,</span>
+<span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">WindowEvalContext::default()</span></code> when no most-recent-row watermark is
+available (for example, when the input is sorted by the partition keys and
+partition ends are detected directly).</p>
+</section>
+<section id="partitionbatchstate-most-recent-row-removed">
+<h3><code class="docutils literal notranslate"><span class="pre">PartitionBatchState::most_recent_row</span></code> removed<a class="headerlink" href="#partitionbatchstate-most-recent-row-removed" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">most_recent_row</span></code> field and the <code class="docutils literal notranslate"><span class="pre">set_most_recent_row</span></code> method have been
+removed from <code class="docutils literal notranslate"><span class="pre">datafusion_expr::window_state::PartitionBatchState</span></code>. The most
+recent input row is a property of the whole input stream rather than
+per-partition state: every partition observed the same value. It is now
+tracked once by the operator driving the evaluation and passed to window
+expressions through the new <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code> argument of
+<code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> described above.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Code that read <code class="docutils literal notranslate"><span class="pre">PartitionBatchState::most_recent_row</span></code> or called
+<code class="docutils literal notranslate"><span class="pre">set_most_recent_row</span></code>, such as custom streaming window operators.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p>Track the most recent input row once per stream (for example, a one-row
+slice of the last non-empty input batch) and pass it to window expressions
+via <code class="docutils literal notranslate"><span class="pre">WindowEvalContext::with_most_recent_row</span></code> instead of copying it into
+each partition’s state.</p>
+</section>
+<section id="msrv-updated-to-1-94-0">
+<h3><code class="docutils literal notranslate"><span class="pre">MSRV</span></code> updated to 1.94.0<a class="headerlink" href="#msrv-updated-to-1-94-0" title="Link to this heading">#</a></h3>
+<p>The Minimum Supported Rust Version (MSRV) has been updated to <a class="reference external" href="https://releases.rs/docs/1.94.0/"><code class="docutils literal notranslate"><span class="pre">1.94.0</span></code></a>.</p>
+</section>
+<section id="cachedparquetfilereader-removed-parquetfilereader-fields-are-now-private">
+<h3><code class="docutils literal notranslate"><span class="pre">CachedParquetFileReader</span></code> removed; <code class="docutils literal notranslate"><span class="pre">ParquetFileReader</span></code> fields are now private<a class="headerlink" href="#cachedparquetfilereader-removed-parquetfilereader-fields-are-now-private" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">CachedParquetFileReader</span></code> duplicated <code class="docutils literal notranslate"><span class="pre">ParquetFileReader</span></code> and has been removed;
+<code class="docutils literal notranslate"><span class="pre">ParquetFileReader</span></code>’s fields are also now private, with
+<code class="docutils literal notranslate"><span class="pre">file_metrics()</span></code> and <code class="docutils literal notranslate"><span class="pre">partitioned_file()</span></code> accessors added for the two that
+were previously public.</p>
+<p><strong>Who is affected:</strong></p>
+<ul class="simple">
+<li><p>Code that names the <code class="docutils literal notranslate"><span class="pre">CachedParquetFileReader</span></code> type.</p></li>
+<li><p>Code that constructs a <code class="docutils literal notranslate"><span class="pre">ParquetFileReader</span></code> directly via a struct literal, or
+reads/writes its fields.</p></li>
+</ul>
+<p><strong>Migration guide:</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">ParquetFileReader::new</span></code> is no longer public; build a reader through
+<code class="docutils literal notranslate"><span class="pre">ParquetFileReaderFactory::create_reader</span></code> (via <code class="docutils literal notranslate"><span class="pre">DefaultParquetFileReaderFactory</span></code>
+or <code class="docutils literal notranslate"><span class="pre">CachedParquetFileReaderFactory</span></code>) instead of constructing one directly:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">inner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParquetObjectReader</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">Arc</span><span class="p">::</span><span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">store</span><span class="p">),</span><span class="w"> </span><span class="n">location</span><span class="p">).</span><span class="n">with_file_size</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CachedParquetFileReader</span><span class="p">::</span><span class="n">new</span><span class="p">(</span>
+<span class="w">    </span><span class="n">file_metrics</span><span class="p">,</span>
+<span class="w">    </span><span class="n">store</span><span class="p">,</span>
+<span class="w">    </span><span class="n">inner</span><span class="p">,</span>
+<span class="w">    </span><span class="n">partitioned_file</span><span class="p">,</span>
+<span class="w">    </span><span class="n">metadata_cache</span><span class="p">,</span>
+<span class="w">    </span><span class="n">metadata_size_hint</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CachedParquetFileReaderFactory</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">store</span><span class="p">,</span><span class="w"> </span><span class="n">metadata_cache</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="n">create_reader</span><span class="p">(</span><span class="n">partition_index</span><span class="p">,</span><span class="w"> </span><span class="n">partitioned_file</span><span class="p">,</span><span class="w"> </span><span class="n">metadata_size_hint</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">metrics</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Replace field access with the new accessor methods:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">bytes_scanned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">file_metrics</span><span class="p">.</span><span class="n">bytes_scanned</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reader</span><span class="p">.</span><span class="n">partitioned_file</span><span class="p">.</span><span class="n">object_meta</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+
+<span class="c1">// After</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">bytes_scanned</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">file_metrics</span><span class="p">().</span><span class="n">bytes_scanned</span><span class="p">.</span><span class="n">value</span><span class="p">();</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">reader</span><span class="p">.</span><span class="n">partitioned_file</span><span class="p">().</span><span class="n">object_meta</span><span class="p">.</span><span class="n">location</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="array-distance-scalar-function-now-rejects-multidimensional-arrays">
+<h3><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> scalar function now rejects multidimensional arrays<a class="headerlink" href="#array-distance-scalar-function-now-rejects-multidimensional-arrays" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> only supports one-dimensional arrays. Previously, when given
+multidimensional arrays, it computed the distance using only the first
+subarray and ignored the remaining subarrays. For example:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">array_distance</span><span class="p">(</span>
+<span class="w">    </span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">]],</span>
+<span class="w">    </span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]]</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Previously, this query returned <code class="docutils literal notranslate"><span class="pre">2.0</span></code>, the distance between <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">4]</span></code>. It now returns a planning error stating that <code class="docutils literal notranslate"><span class="pre">array_distance</span></code> only
+supports one-dimensional arrays.</p>
 </section>
 </section>
 </section>
@@ -690,12 +1446,36 @@ silently or raised a non-configurable error.</p></li>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datafusion-55-0-0">DataFusion 55.0.0</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-fill-null-now-borrows-its-arguments"><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> now borrows its arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filescanconfig-partitioned-by-file-group-removed"><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> removed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-spillfile-traits-instead-of-refcountedtempfile">User <code class="docutils literal notranslate"><span class="pre">SpillFile</span></code> traits instead of <code class="docutils literal notranslate"><span class="pre">RefCountedTempFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dialect-available-replaced-by-dialect-available"><code class="docutils literal notranslate"><span class="pre">Dialect::AVAILABLE</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spill-record-batch-by-size-removed"><code class="docutils literal notranslate"><span class="pre">spill_record_batch_by_size</span></code> removed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#createexternaltable-supports-multiple-locations"><code class="docutils literal notranslate"><span class="pre">CreateExternalTable</span></code> supports multiple locations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decimal-scalar-formatting-uses-human-readable-values">Decimal scalar formatting uses human-readable values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coercion-supports-dictionary-encoding-preservation"><code class="docutils literal notranslate"><span class="pre">Coercion</span></code> supports dictionary encoding preservation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupsaccumulator-merge-batch-no-longer-takes-opt-filter"><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::merge_batch</span></code> no longer takes <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#groupsaccumulator-convert-to-state-is-now-required"><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::convert_to_state</span></code> is now required</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#is-dynamic-physical-expr-is-deprecated"><code class="docutils literal notranslate"><span class="pre">is_dynamic_physical_expr</span></code> is deprecated</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filepruner-try-new-no-longer-builds-a-pruner-for-static-predicates-without-statistics"><code class="docutils literal notranslate"><span class="pre">FilePruner::try_new</span></code> no longer builds a pruner for static predicates without statistics</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#queryplanner-adds-any-as-a-supertrait"><code class="docutils literal notranslate"><span class="pre">QueryPlanner</span></code> adds <code class="docutils literal notranslate"><span class="pre">Any</span></code> as a supertrait</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs"><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> deprecated in favor of <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ddlstatement-createexternaltable-and-createfunction-are-now-boxed"><code class="docutils literal notranslate"><span class="pre">DdlStatement::CreateExternalTable</span></code> and <code class="docutils literal notranslate"><span class="pre">CreateFunction</span></code> are now boxed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#listingoptions-target-partitions-and-collect-stat-removed"><code class="docutils literal notranslate"><span class="pre">ListingOptions::target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> removed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spark-map-functions-now-reject-duplicate-keys-by-default">Spark map functions now reject duplicate keys by default</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unify-lru-memory-limiting-caches-into-one-generic-cache">Unify LRU memory-limiting caches into one generic cache</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cachedfilemetadata-now-validates-file-schema"><code class="docutils literal notranslate"><span class="pre">CachedFileMetadata</span></code> now validates file schema</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#emptyexecnode-and-placeholderrowexecnode-gained-a-partitions-field"><code class="docutils literal notranslate"><span class="pre">EmptyExecNode</span></code> and <code class="docutils literal notranslate"><span class="pre">PlaceholderRowExecNode</span></code> gained a <code class="docutils literal notranslate"><span class="pre">partitions</span></code> field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-interval-now-returns-a-time-instead-of-an-interval"><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">±</span> <span class="pre">interval</span></code> now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code> instead of an <code class="docutils literal notranslate"><span class="pre">interval</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scalar-subquery-state-moved-to-an-explicit-physicalplanningcontext">Scalar-subquery state moved to an explicit <code class="docutils literal notranslate"><span class="pre">PhysicalPlanningContext</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-planner-and-optimizer-contracts-moved-to-datafusion-session">Catalog, planner, and optimizer contracts moved to <code class="docutils literal notranslate"><span class="pre">datafusion-session</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unused-async-removed-from-several-public-functions">Unused <code class="docutils literal notranslate"><span class="pre">async</span></code> removed from several public functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#movingmin-and-movingmax-changed-to-pub-crate"><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> changed to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windowexpr-evaluate-stateful-now-takes-a-windowevalcontext"><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> now takes a <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#partitionbatchstate-most-recent-row-removed"><code class="docutils literal notranslate"><span class="pre">PartitionBatchState::most_recent_row</span></code> removed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#msrv-updated-to-1-94-0"><code class="docutils literal notranslate"><span class="pre">MSRV</span></code> updated to 1.94.0</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cachedparquetfilereader-removed-parquetfilereader-fields-are-now-private"><code class="docutils literal notranslate"><span class="pre">CachedParquetFileReader</span></code> removed; <code class="docutils literal notranslate"><span class="pre">ParquetFileReader</span></code> fields are now private</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#array-distance-scalar-function-now-rejects-multidimensional-arrays"><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> scalar function now rejects multidimensional arrays</a></li>
 </ul>
 </li>
 </ul>
@@ -739,8 +1519,8 @@ silently or raised a non-configurable error.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

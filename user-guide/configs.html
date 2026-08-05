@@ -27,17 +27,17 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=d08b24aa" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
@@ -535,7 +535,7 @@ example, to configure <code class="docutils literal notranslate"><span class="pr
 </tr>
 <tr class="row-even"><td><p>datafusion.execution.collect_statistics</p></td>
 <td><p>true</p></td>
-<td><p>Should DataFusion collect statistics when first creating a table. Has no effect after the table is created. Applies to the default <code class="docutils literal notranslate"><span class="pre">ListingTableProvider</span></code> in DataFusion. Defaults to true.</p></td>
+<td><p>Should DataFusion collect statistics when first creating a table. Has no effect after the table is created. Defaults to true.</p></td>
 </tr>
 <tr class="row-odd"><td><p>datafusion.execution.target_partitions</p></td>
 <td><p>0</p></td>
@@ -638,7 +638,7 @@ example, to configure <code class="docutils literal notranslate"><span class="pr
 <td><p>(writing) Target maximum size of each row group in bytes. When set, the writer flushes whenever either this limit or <code class="docutils literal notranslate"><span class="pre">max_row_group_size</span></code> is reached, whichever comes first. Useful for bounding writer memory on wide schemas where a row-count limit can map to very different byte sizes. Matches the behavior of <code class="docutils literal notranslate"><span class="pre">parquet.block.size</span></code> in parquet-mr. If <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), only the row-count limit applies. Currently only honored when <code class="docutils literal notranslate"><span class="pre">allow_single_file_parallelism</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code>; by default the parallel file writer ignores this limit.</p></td>
 </tr>
 <tr class="row-even"><td><p>datafusion.execution.parquet.created_by</p></td>
-<td><p>datafusion version 53.1.0</p></td>
+<td><p>datafusion version 54.1.0</p></td>
 <td><p>(writing) Sets “created by” property</p></td>
 </tr>
 <tr class="row-odd"><td><p>datafusion.execution.parquet.column_index_truncate_length</p></td>
@@ -705,61 +705,69 @@ example, to configure <code class="docutils literal notranslate"><span class="pr
 <td><p>false</p></td>
 <td><p>When set to true, skips verifying that the schema produced by planning the input of <code class="docutils literal notranslate"><span class="pre">LogicalPlan::Aggregate</span></code> exactly matches the schema of the input plan. When set to false, if the schema does not match exactly (including nullability and metadata), a planning error will be raised. This is used to workaround bugs in the planner that are now caught by the new schema verification step.</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.spill_compression</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.enable_migration_aggregate</p></td>
+<td><p>true</p></td>
+<td><p>Temporary switch for aggregate stream implementations that are being migrated from <code class="docutils literal notranslate"><span class="pre">GroupedHashAggregateStream</span></code>. When set to true, DataFusion tries the migrated implementations when their preconditions are satisfied. When set to false, grouped aggregation falls back to <code class="docutils literal notranslate"><span class="pre">GroupedHashAggregateStream</span></code>. This option will be removed after the migration is finished. See <a class="github reference external" href="https://github.com/apache/datafusion/issues/22710">apache/datafusion#22710</a> for details.</p></td>
+</tr>
+<tr class="row-even"><td><p>datafusion.execution.spill_compression</p></td>
 <td><p>uncompressed</p></td>
 <td><p>Sets the compression codec used when spilling data to disk. Since datafusion writes spill files using the Arrow IPC Stream format, only codecs supported by the Arrow IPC Stream Writer are allowed. Valid values are: uncompressed, lz4_frame, zstd. Note: lz4_frame offers faster (de)compression, but typically results in larger spill files. In contrast, zstd achieves higher compression ratios at the cost of slower (de)compression speed.</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.sort_spill_reservation_bytes</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.sort_spill_reservation_bytes</p></td>
 <td><p>10485760</p></td>
 <td><p>Specifies the reserved memory for each spillable sort operation to facilitate an in-memory merge. When a sort operation spills to disk, the in-memory data must be sorted and merged before being written to a file. This setting reserves a specific amount of memory for that in-memory sort/merge process. Note: This setting is irrelevant if the sort operation cannot spill (i.e., if there’s no <code class="docutils literal notranslate"><span class="pre">DiskManager</span></code> configured).</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.sort_in_place_threshold_bytes</p></td>
+<tr class="row-even"><td><p>datafusion.execution.sort_in_place_threshold_bytes</p></td>
 <td><p>1048576</p></td>
 <td><p>When sorting, below what size should data be concatenated and sorted in a single RecordBatch rather than sorted in batches and merged.</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.sort_pushdown_buffer_capacity</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.sort_pushdown_buffer_capacity</p></td>
 <td><p>1073741824</p></td>
 <td><p>Maximum buffer capacity (in bytes) per partition for BufferExec inserted during sort pushdown optimization. When PushdownSort eliminates a SortExec under SortPreservingMergeExec, a BufferExec is inserted to replace SortExec’s buffering role. This prevents I/O stalls by allowing the scan to run ahead of the merge. This uses strictly less memory than the SortExec it replaces (which buffers the entire partition). The buffer respects the global memory pool limit. Setting this to a large value is safe — actual memory usage is bounded by partition size and global memory limits.</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.max_spill_file_size_bytes</p></td>
+<tr class="row-even"><td><p>datafusion.execution.max_spill_file_size_bytes</p></td>
 <td><p>134217728</p></td>
 <td><p>Maximum size in bytes for individual spill files before rotating to a new file. When operators spill data to disk (e.g., RepartitionExec), they write multiple batches to the same file until this size limit is reached, then rotate to a new file. This reduces syscall overhead compared to one-file-per-batch while preventing files from growing too large. A larger value reduces file creation overhead but may hold more disk space. A smaller value creates more files but allows finer-grained space reclamation as files can be deleted once fully consumed. Now only <code class="docutils literal notranslate"><span class="pre">RepartitionExec</span></code> supports this spill file rotation feature, other spilling operators may create spill files larger than the limit. Default: 128 MB</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.meta_fetch_concurrency</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.meta_fetch_concurrency</p></td>
 <td><p>32</p></td>
 <td><p>Number of files to read in parallel when inferring schema and statistics</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.minimum_parallel_output_files</p></td>
+<tr class="row-even"><td><p>datafusion.execution.minimum_parallel_output_files</p></td>
 <td><p>4</p></td>
 <td><p>Guarantees a minimum level of output files running in parallel. RecordBatches will be distributed in round robin fashion to each parallel writer. Each writer is closed and a new file opened once soft_max_rows_per_output_file is reached.</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.soft_max_rows_per_output_file</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.soft_max_rows_per_output_file</p></td>
 <td><p>50000000</p></td>
 <td><p>Target number of rows in output files when writing multiple. This is a soft max, so it can be exceeded slightly. There also will be one file smaller than the limit if the total number of rows written is not roughly divisible by the soft max</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.max_buffered_batches_per_output_file</p></td>
+<tr class="row-even"><td><p>datafusion.execution.max_buffered_batches_per_output_file</p></td>
 <td><p>2</p></td>
 <td><p>This is the maximum number of RecordBatches buffered for each output file being worked. Higher values can potentially give faster write performance at the cost of higher peak memory consumption</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.listing_table_ignore_subdirectory</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.listing_table_ignore_subdirectory</p></td>
 <td><p>true</p></td>
 <td><p>Should sub directories be ignored when scanning directories for data files. Defaults to true (ignores subdirectories), consistent with Hive. Note that this setting does not affect reading partitioned tables (e.g. <code class="docutils literal notranslate"><span class="pre">/table/year=2021/month=01/data.parquet</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.listing_table_factory_infer_partitions</p></td>
+<tr class="row-even"><td><p>datafusion.execution.listing_table_factory_infer_partitions</p></td>
 <td><p>true</p></td>
 <td><p>Should a <code class="docutils literal notranslate"><span class="pre">ListingTable</span></code> created through the <code class="docutils literal notranslate"><span class="pre">ListingTableFactory</span></code> infer table partitions from Hive compliant directories. Defaults to true (partition columns are inferred and will be represented in the table schema).</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.enable_recursive_ctes</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.enable_recursive_ctes</p></td>
 <td><p>true</p></td>
 <td><p>Should DataFusion support recursive CTEs</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.execution.split_file_groups_by_statistics</p></td>
+<tr class="row-even"><td><p>datafusion.execution.split_file_groups_by_statistics</p></td>
 <td><p>false</p></td>
 <td><p>Attempt to eliminate sorts by packing &amp; sorting files with non-overlapping statistics into the same file groups. Currently experimental</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.execution.keep_partition_by_columns</p></td>
+<tr class="row-odd"><td><p>datafusion.execution.keep_partition_by_columns</p></td>
 <td><p>false</p></td>
 <td><p>Should DataFusion keep the columns used for partition_by in the output RecordBatches</p></td>
+</tr>
+<tr class="row-even"><td><p>datafusion.execution.enable_file_stream_work_stealing</p></td>
+<td><p>true</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> (the default), DataFusion’s built-in file scans dynamically rebalance files across partitions at query execution time: a partition that goes idle reads files (or byte-range morsels) originally assigned to a sibling partition, which keeps all partitions busy in a single process. Executors that depend on the plan-time partition assignment — such as Ballista and datafusion-distributed, which run each partition as an isolated task and never poll the siblings — should set this to <code class="docutils literal notranslate"><span class="pre">false</span></code> so each partition reads only its own file group and no runtime reassignment occurs.</p></td>
 </tr>
 <tr class="row-odd"><td><p>datafusion.execution.skip_partial_aggregation_probe_ratio_threshold</p></td>
 <td><p>0.8</p></td>
@@ -859,7 +867,7 @@ example, to configure <code class="docutils literal notranslate"><span class="pr
 </tr>
 <tr class="row-odd"><td><p>datafusion.optimizer.preserve_file_partitions</p></td>
 <td><p>0</p></td>
-<td><p>Minimum number of distinct partition values required to group files by their Hive partition column values (enabling Hash partitioning declaration). How the option is used: - preserve_file_partitions=0: Disable it. - preserve_file_partitions=1: Always enable it. - preserve_file_partitions=N, actual file partitions=M: Only enable when M &gt;= N. This threshold preserves I/O parallelism when file partitioning is below it. Note: This may reduce parallelism, rooting from the I/O level, if the number of distinct partitions is less than the target_partitions.</p></td>
+<td><p>Minimum number of distinct partition values required to group files by their Hive partition column values (enabling output partitioning declaration). How the option is used: - preserve_file_partitions=0: Disable it. - preserve_file_partitions=1: Always enable it. - preserve_file_partitions=N, actual file partitions=M: Only enable when M &gt;= N. This threshold preserves I/O parallelism when file partitioning is below it. Note: This may reduce parallelism, rooting from the I/O level, if the number of distinct partitions is less than the target_partitions.</p></td>
 </tr>
 <tr class="row-even"><td><p>datafusion.optimizer.repartition_windows</p></td>
 <td><p>true</p></td>
@@ -995,7 +1003,7 @@ example, to configure <code class="docutils literal notranslate"><span class="pr
 </tr>
 <tr class="row-odd"><td><p>datafusion.sql_parser.dialect</p></td>
 <td><p>generic</p></td>
-<td><p>Configure the SQL dialect used by DataFusion’s parser; supported values include: Generic, MySQL, PostgreSQL, Hive, SQLite, Snowflake, Redshift, MsSQL, ClickHouse, BigQuery, Ansi, DuckDB, Databricks and Spark.</p></td>
+<td><p>Configure the SQL dialect used by DataFusion’s parser; supported values include: Generic, MySQL, PostgreSQL, Hive, SQLite, Snowflake, Redshift, MsSQL, ClickHouse, BigQuery, Ansi, DuckDB, Databricks, Spark.</p></td>
 </tr>
 <tr class="row-even"><td><p>datafusion.sql_parser.support_varchar_with_length</p></td>
 <td><p>true</p></td>
@@ -1108,19 +1116,23 @@ example, to set and reset <code class="docutils literal notranslate"><span class
 <td><p>NULL</p></td>
 <td><p>TTL (time-to-live) of the entries in the list file cache. Supports units m (minutes), and s (seconds). Example: ‘2m’ for 2 minutes.</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.runtime.max_temp_directory_size</p></td>
+<tr class="row-odd"><td><p>datafusion.runtime.max_spill_merge_fan_in</p></td>
+<td><p>0</p></td>
+<td><p>Maximum number of spill files opened by one external merge pass. Use 0 for unlimited. Values below 2 still use 2 so a merge can make progress.</p></td>
+</tr>
+<tr class="row-even"><td><p>datafusion.runtime.max_temp_directory_size</p></td>
 <td><p>100G</p></td>
 <td><p>Maximum temporary file directory size. Supports suffixes K (kilobytes), M (megabytes), and G (gigabytes) or ‘0’ for 0. Example: ‘2G’ for 2 gigabytes.</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.runtime.memory_limit</p></td>
+<tr class="row-odd"><td><p>datafusion.runtime.memory_limit</p></td>
 <td><p>NULL</p></td>
 <td><p>Maximum memory limit for query execution. Supports suffixes K (kilobytes), M (megabytes), and G (gigabytes) or ‘0’ for 0. Example: ‘2G’ for 2 gigabytes.</p></td>
 </tr>
-<tr class="row-odd"><td><p>datafusion.runtime.metadata_cache_limit</p></td>
+<tr class="row-even"><td><p>datafusion.runtime.metadata_cache_limit</p></td>
 <td><p>50M</p></td>
 <td><p>Maximum memory to use for file metadata cache such as Parquet metadata. Supports suffixes K (kilobytes), M (megabytes), and G (gigabytes) or ‘0’ for 0. Example: ‘2G’ for 2 gigabytes.</p></td>
 </tr>
-<tr class="row-even"><td><p>datafusion.runtime.temp_directory</p></td>
+<tr class="row-odd"><td><p>datafusion.runtime.temp_directory</p></td>
 <td><p>NULL</p></td>
 <td><p>The path to the temporary file directory.</p></td>
 </tr>
@@ -1343,8 +1355,8 @@ equal in size.</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">
