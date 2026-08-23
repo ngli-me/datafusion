@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction &#8212; Apache DataFusion  documentation</title>
+    <title>Reviewing Pull Requests &#8212; Apache DataFusion  documentation</title>
   
   
   
@@ -42,14 +42,14 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'contributor-guide/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contributor-guide/pr_review';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://datafusion.apache.org/contributor-guide/index.html" />
+    <link rel="canonical" href="https://datafusion.apache.org/contributor-guide/pr_review.html" />
     <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Reviewing Pull Requests" href="pr_review.html" />
-    <link rel="prev" title="Query Optimizer" href="../library-user-guide/query-optimizer.html" />
+    <link rel="next" title="Community Communication" href="communication.html" />
+    <link rel="prev" title="Introduction" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -337,9 +337,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contributor Guide</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="pr_review.html">Reviewing Pull Requests</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
@@ -410,7 +410,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Introduction</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Reviewing Pull Requests</span></li>
   </ul>
 </nav>
 </div>
@@ -445,196 +445,203 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
-<p>We welcome and encourage contributions of all kinds, from all levels, such as:</p>
-<ol class="arabic simple">
-<li><p>Tickets with issue reports or feature requests</p></li>
-<li><p>Discussions</p></li>
-<li><p>Documentation improvements</p></li>
-<li><p>Code, both PR and (especially) PR Review.</p></li>
-</ol>
-<p>In addition to submitting new PRs, we have a healthy tradition of community
-members reviewing each other’s PRs. Doing so is a great way to help the
-community as well as get more familiar with Rust and the relevant codebases.</p>
-<section id="development-environment">
-<h2>Development Environment<a class="headerlink" href="#development-environment" title="Link to this heading">#</a></h2>
-<p>Start with the <a class="reference internal" href="development_environment.html#quick-start"><span class="std std-ref">Development Environment Quick Start</span></a>.</p>
-<p>For more detail, see the full <a class="reference internal" href="development_environment.html"><span class="std std-doc">development environment guide</span></a>
-and the <a class="reference internal" href="testing.html"><span class="std std-doc">testing guide</span></a>.</p>
-</section>
-<section id="finding-and-creating-issues-to-work-on">
-<h2>Finding and Creating Issues to Work On<a class="headerlink" href="#finding-and-creating-issues-to-work-on" title="Link to this heading">#</a></h2>
-<p>You can find a curated <a class="reference external" href="https://github.com/apache/datafusion/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22">good-first-issue</a> list to help you get started.
-You can read about how we plan larger projects in the <a class="reference internal" href="roadmap.html"><span class="std std-doc">Roadmap and Improvement Proposals</span></a> section.</p>
-<section id="open-contribution-and-assigning-tickets">
-<h3>Open Contribution and Assigning tickets<a class="headerlink" href="#open-contribution-and-assigning-tickets" title="Link to this heading">#</a></h3>
-<p>DataFusion is an open contribution project, and thus there is no particular
-project imposed deadline for completing issues or restrictions on who can
-work on an issue, nor limits to how many people can work on an issue at the same time.</p>
-<p>Contributors drive the project forward based on their own priorities and
-interests and thus you are free to work on any issue that interests you.</p>
-<p>If someone is already working on an issue that you want or need but hasn’t
-been able to finish it yet, you should feel free to work on it as well. In
-general it is both polite and will help avoid unnecessary duplication of work if
-you leave a note on an issue when you start working on it.</p>
-<p>If you want to work on an issue which is not already assigned to someone else
-and there are no comment indicating that someone is already working on that
-issue then you can assign the issue to yourself by submitting a single word
-comment <code class="docutils literal notranslate"><span class="pre">take</span></code>. This will assign the issue to yourself. However, if you are
-unable to make progress you should unassign the issue by commenting a single
-word <code class="docutils literal notranslate"><span class="pre">untake</span></code>.</p>
-</section>
-</section>
-</section>
-<section id="developer-s-guide">
-<h1>Developer’s guide<a class="headerlink" href="#developer-s-guide" title="Link to this heading">#</a></h1>
-<section id="pull-request-overview">
-<h2>Pull Request Overview<a class="headerlink" href="#pull-request-overview" title="Link to this heading">#</a></h2>
-<p>We welcome pull requests (PRs) from anyone in the community.</p>
-<p>DataFusion is a rapidly evolving project and we try to review and merge PRs quickly.</p>
-<p>Review bandwidth is currently our most limited resource, and we highly encourage reviews by the broader community. If you are waiting for your PR to be reviewed, consider helping review other PRs that are waiting. Such review both helps the reviewer to learn the codebase and become more expert, as well as helps identify issues in the PR (such as lack of test coverage), that can be addressed and make future reviews faster and more efficient.</p>
-<p>The lifecycle of a PR is:</p>
-<ol class="arabic simple">
-<li><p>Create a PR targeting the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch.</p></li>
-<li><p>For new contributors a committer must first trigger the CI tasks. Please mention the members from committers list in the PR to help trigger the CI</p></li>
-<li><p>Your PR will be reviewed. Please respond to all feedback on the PR: you don’t have to change the code, but you should acknowledge the feedback. PRs waiting for the feedback for more than a few days will be marked as draft.</p></li>
-<li><p>Once the PR is approved, one of the <a class="reference external" href="https://people.apache.org/phonebook.html?unix=datafusion">committers</a> will merge your PR, typically within 24 hours. We leave approved “major” changes (see below) open for 24 hours prior to merging, and sometimes leave “minor” PRs open for the same time to permit additional feedback.</p></li>
-</ol>
-<p>Note that the above time frames are estimates. Due to limited committer
-bandwidth, it may take longer to merge your PR. Please wait
-patiently. If it has been several days you can friendly ping the
-committer who approved your PR to help remind them to merge it.</p>
-</section>
-<section id="creating-pull-requests">
-<h2>Creating Pull Requests<a class="headerlink" href="#creating-pull-requests" title="Link to this heading">#</a></h2>
-<p>When possible, we recommend splitting your contributions into multiple smaller focused PRs rather than large PRs (500+ lines) because:</p>
-<ol class="arabic simple">
-<li><p>The PR is more likely to be reviewed quickly – our reviewers struggle to find the contiguous time needed to review large PRs.</p></li>
-<li><p>The PR discussions tend to be more focused and less likely to get lost among several different threads.</p></li>
-<li><p>It is often easier to accept and act on feedback when it comes early on in a small change, before a particular approach has been polished too much.</p></li>
-</ol>
-<p>If you are concerned that a larger design will be lost in a string of small PRs, creating a large draft PR that shows how they all work together can help.</p>
-<p>Note all commits in a PR are squashed when merged to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch so there is one commit per PR after merge.</p>
-<p>For larger PRs, it is often helpful to leave a review on your own PR with
-comments calling out important changes or specific important choices. These
-annotations can help reviewers quickly find areas they should focus on, thus
-speeding up review.</p>
-</section>
-<section id="release-management-and-backports">
-<h2>Release Management and Backports<a class="headerlink" href="#release-management-and-backports" title="Link to this heading">#</a></h2>
-<p>Contributor-facing guidance for release branches, patch releases, and backports
-is documented in the <a class="reference internal" href="release_management.html"><span class="std std-doc">Release Management</span></a> guide.</p>
-</section>
-<section id="before-submitting-a-pr">
-<h2>Before Submitting a PR<a class="headerlink" href="#before-submitting-a-pr" title="Link to this heading">#</a></h2>
-<p>Before submitting a PR, run the standard non-functional checks. PRs must pass
-before merge.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev/rust_lint.sh
-<span class="c1"># use `--write` to automatically fix some formatting and lint errors</span>
-<span class="c1"># ./dev/rust_lint.sh --write --allow-dirty</span>
-</pre></div>
-</div>
-<p>You should also run any relevant commands from the <a class="reference internal" href="testing.html#testing-quick-start"><span class="std std-ref">testing quick start</span></a>.</p>
-</section>
-<section id="conventional-commits-labeling-prs">
-<h2>Conventional Commits &amp; Labeling PRs<a class="headerlink" href="#conventional-commits-labeling-prs" title="Link to this heading">#</a></h2>
-<p>We generate change logs for each release using an automated process that will categorize PRs based on the title
-and/or the GitHub labels attached to the PR.</p>
-<p>We follow the <a class="reference external" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a> specification to categorize PRs based on the title. This most often simply means
-looking for titles starting with prefixes such as <code class="docutils literal notranslate"><span class="pre">fix:</span></code>, <code class="docutils literal notranslate"><span class="pre">feat:</span></code>, <code class="docutils literal notranslate"><span class="pre">docs:</span></code>, or <code class="docutils literal notranslate"><span class="pre">chore:</span></code>. We do not enforce this
-convention but encourage its use if you want your PR to feature in the correct section of the changelog.</p>
-<p>The change log generator will also look at GitHub labels such as <code class="docutils literal notranslate"><span class="pre">bug</span></code>, <code class="docutils literal notranslate"><span class="pre">enhancement</span></code>, or <code class="docutils literal notranslate"><span class="pre">api</span> <span class="pre">change</span></code>, and labels
-do take priority over the conventional commit approach, allowing maintainers to re-categorize PRs after they have been merged.</p>
-</section>
 <section id="reviewing-pull-requests">
-<h2>Reviewing Pull Requests<a class="headerlink" href="#reviewing-pull-requests" title="Link to this heading">#</a></h2>
-<p>See the <a class="reference internal" href="pr_review.html"><span class="std std-doc">Reviewing Pull Requests</span></a> guide for what we look for
-when reviewing PRs and how to prepare your own for review.</p>
-</section>
-<section id="performance-improvements">
-<h2>Performance Improvements<a class="headerlink" href="#performance-improvements" title="Link to this heading">#</a></h2>
-<p>Performance improvements are always welcome: performance is a key DataFusion
-feature.</p>
-<p>In general, the performance improvement from a change should be “enough” to
-justify any added code complexity. How much is “enough” is a judgement made by
-the committers, but generally means that the improvement should be noticeable in
-a real-world scenario and is greater than the noise of the benchmarking system.</p>
-<p>To help committers evaluate the potential improvement, performance PRs should
-in general be accompanied by benchmark results that demonstrate the improvement.</p>
-<p>The best way to demonstrate a performance improvement is with the existing
-benchmarks:</p>
+<h1>Reviewing Pull Requests<a class="headerlink" href="#reviewing-pull-requests" title="Link to this heading">#</a></h1>
+<p>When reviewing PRs, our primary goal is to improve DataFusion and its community
+together. PR feedback should be constructive and help improve the code as well
+as the understanding of the contributor.</p>
+<p>Review bandwidth is currently our most limited resource, and reviews from the
+broader community are both welcomed and encouraged. Reviewing PRs is a great way
+to learn the codebase, and you do not need to be a committer to leave valuable
+review feedback. In fact, one of the best ways to become a committer is to
+thoughtfully review other PRs.</p>
+<p>Please ensure any comments you leave contain a rationale and suggested
+alternative – it is frustrating to be told “don’t do it this way” without any
+clear reason or alternative provided.</p>
+<p>The criteria in this guide are also a useful checklist when preparing your own
+PR for review.</p>
+<section id="pr-review-mechanics">
+<h2>PR Review Mechanics<a class="headerlink" href="#pr-review-mechanics" title="Link to this heading">#</a></h2>
+<p>Some helpful links:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/apache/datafusion/tree/main/benchmarks">System level SQL Benchmarks</a></p></li>
-<li><p>Microbenchmarks such as those in <a class="reference external" href="https://github.com/apache/datafusion/tree/main/datafusion/functions/benches">functions/benches</a></p></li>
+<li><p><a class="reference external" href="https://github.com/apache/datafusion/pulls?q=is%3Apr+is%3Aopen+-review%3Aapproved+-is%3Adraft+">PRs Waiting for Review</a> on GitHub</p></li>
+<li><p><a class="reference external" href="https://github.com/apache/datafusion/pulls?q=is%3Apr+is%3Aopen+review%3Aapproved+-is%3Adraft">Approved PRs Waiting for Merge</a> on GitHub</p></li>
 </ul>
-<p>If there is no suitable existing benchmark, you can create a new one. It helps
-to isolate the effects of your change by creating a separate PR with the
-benchmark, and then a PR with the code change that improves the benchmark.</p>
-</section>
-<section id="major-and-minor-prs">
-<h2>“Major” and “Minor” PRs<a class="headerlink" href="#major-and-minor-prs" title="Link to this heading">#</a></h2>
-<p>Since we are a worldwide community, we have contributors in many timezones who review and comment. To ensure anyone who wishes has an opportunity to review a PR, our committers try to ensure that at least 24 hours passes between when a “major” PR is approved and when it is merged.</p>
-<p>A “major” PR means there is a substantial change in design or a change in the API. Committers apply their best judgment to determine what constitutes a substantial change. A “minor” PR might be merged without a 24 hour delay, again subject to the judgment of the committer. Examples of potential “minor” PRs are:</p>
+<p>The overall PR lifecycle (CI triggering, approval, the 24-hour rule for
+“major” PRs, and merging) is described in the
+<a class="reference internal" href="index.html#pull-request-overview"><span class="std std-ref">Pull Request Overview</span></a> section of the
+contributor guide.</p>
+<p>Practical tips:</p>
 <ol class="arabic simple">
-<li><p>Documentation improvements/additions</p></li>
-<li><p>Small bug fixes</p></li>
-<li><p>Non-controversial build-related changes (clippy, version upgrades etc.)</p></li>
-<li><p>Smaller non-controversial feature additions</p></li>
+<li><p>Check out the changes locally to explore them in your IDE or with an
+agent, e.g. <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">pr</span> <span class="pre">checkout</span> <span class="pre">&lt;PR</span> <span class="pre">number&gt;</span></code> using the <a class="reference external" href="https://cli.github.com/">GitHub CLI</a>.</p></li>
+<li><p>There is normally no need to rerun locally any tests that CI has already run.</p></li>
+<li><p>Leave comments on specific lines of the diff where possible, so the
+discussion has context.</p></li>
+<li><p>If you review a PR but don’t feel confident approving it, leaving comments
+is still valuable: a partial review (e.g. “I reviewed the tests and they
+look good”) helps the next reviewer focus their time.</p></li>
+<li><p>Anything that does not need to block the current PR can be noted as a
+potential follow-up (ideally by filing an issue), keeping the PR focused
+and quick to merge.</p></li>
 </ol>
-<p>The good thing about open code and open development is that any issues in one change can almost always be fixed with a follow on PR.</p>
 </section>
-<section id="stale-prs">
-<h2>Stale PRs<a class="headerlink" href="#stale-prs" title="Link to this heading">#</a></h2>
-<p>Pull requests will be marked with a <code class="docutils literal notranslate"><span class="pre">stale</span></code> label after 60 days of inactivity and then closed 7 days after that.
-Commenting on the PR will remove the <code class="docutils literal notranslate"><span class="pre">stale</span></code> label.</p>
-</section>
-<section id="ai-assisted-contributions">
-<h2>AI-Assisted contributions<a class="headerlink" href="#ai-assisted-contributions" title="Link to this heading">#</a></h2>
-<p>DataFusion has the following policy for AI-assisted PRs:</p>
-<ul class="simple">
-<li><p>The PR author should <strong>understand the core ideas</strong> behind the implementation <strong>end-to-end</strong>, and be able to justify the design and code during review.</p></li>
-<li><p><strong>Calls out unknowns and assumptions</strong>. It’s okay to not fully understand some bits of AI generated code. You should comment on these cases and point them out to reviewers so that they can use their knowledge of the codebase to clear up any concerns. For example, you might comment “calling this function here seems to work but I’m not familiar with how it works internally, I wonder if there’s a race condition if it is called concurrently”.</p></li>
-</ul>
-<section id="why-fully-ai-generated-prs-without-understanding-are-not-helpful">
-<h3>Why fully AI-generated PRs without understanding are not helpful<a class="headerlink" href="#why-fully-ai-generated-prs-without-understanding-are-not-helpful" title="Link to this heading">#</a></h3>
-<p>Today, AI tools cannot reliably make complex changes to DataFusion on their own, which is why we rely on pull requests and code review.</p>
-<p>The purposes of code review are:</p>
+<section id="review-the-pr-description">
+<h2>Review the PR Description<a class="headerlink" href="#review-the-pr-description" title="Link to this heading">#</a></h2>
+<p>The PR description is often what users and contributors will find when they have
+a question about the intention behind a change, or when the code itself is not
+clear. The PR description also becomes the extended commit message.</p>
+<p>Check that the description:</p>
 <ol class="arabic simple">
-<li><p>Finish the intended task.</p></li>
-<li><p>Share knowledge between authors and reviewers, as a long-term investment in the project. For this reason, even if someone familiar with the codebase can finish a task quickly, we’re still happy to help a new contributor work on it even if it takes longer.</p></li>
+<li><p>Concisely describes the <strong>problem being solved from the user’s point of
+view</strong>.</p></li>
+<li><p>Follows the <a class="reference external" href="https://github.com/apache/datafusion/blob/main/.github/pull_request_template.md">PR template</a>, and answers the template’s questions.</p></li>
+<li><p>Accurately describes the content of the PR, including any relevant context or
+background.
+Great descriptions have a high signal-to-noise ratio, summarizing
+important implementation changes without repeating technical minutiae that
+are already present in the code itself.</p></li>
+<li><p>Explicitly calls out any user-facing or API changes (see
+<a class="reference internal" href="#review-the-code">Review the Code</a> below).</p></li>
 </ol>
-<p>An AI dump for an issue doesn’t meet these purposes. Maintainers could finish the task faster by using AI directly, and the submitters gain little knowledge if they act only as a pass through AI proxy without understanding.</p>
-<p>Please understand the reviewing capacity is <strong>very limited</strong> for the project, so large PRs which appear to not have the requisite understanding might not get reviewed, and eventually closed or redirected.</p>
 </section>
-<section id="better-ways-to-contribute-than-an-ai-dump">
-<h3>Better ways to contribute than an “AI dump”<a class="headerlink" href="#better-ways-to-contribute-than-an-ai-dump" title="Link to this heading">#</a></h3>
-<p>It’s recommended to write a high-quality issue with a clear problem statement and a minimal, reproducible example. This can make it easier for others to contribute.</p>
+<section id="review-the-code-comments">
+<h2>Review the Code Comments<a class="headerlink" href="#review-the-code-comments" title="Link to this heading">#</a></h2>
+<p>The goal of code comments is to help future readers of the code understand what
+is not obvious from reading the code itself. Great comments make the code easier
+to reason about for readers with the expected background, and help future
+maintainers.</p>
+<p>Some practical guidelines for reviewing comments:</p>
+<ol class="arabic simple">
+<li><p>The code has adequate comments focused on the <strong>rationale</strong> for any
+non-obvious change (the “why”), not a restatement of what the code does
+(the “what”), which is typically clear from reading the code itself.</p></li>
+<li><p>Comments do not narrate irrelevant internal implementation details or the
+history of how the change was developed (this is common in LLM-assisted
+code, e.g. “// changed to use a HashMap” or “// this handles the case
+mentioned above”). Such comments become irrelevant as soon as the PR merges.</p></li>
+<li><p>When comments refer to other structs, functions, or modules, they should use
+<a class="reference external" href="https://doc.rust-lang.org/rustdoc/write-documentation/linking-to-items-by-name.html">rustdoc intra-doc links</a> (e.g. <code class="docutils literal notranslate"><span class="pre">[`SessionContext`]</span></code>) rather than plain
+text names, so that <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">doc</span></code> link checking ensures the references stay
+valid as the code evolves.</p></li>
+<li><p>New public APIs have doc comments, including examples where appropriate
+(doc examples are also tested by CI, so they double as test coverage).</p></li>
+<li><p>When documenting modules, functions, or fields, start with simple examples
+and intuitive explanations, and optionally add formal, math-like
+definitions when necessary. This makes the implementation easier to reason
+about.</p></li>
+<li><p>When something is confusing on first read, treat that as a good
+opportunity to improve the comments.</p></li>
+</ol>
 </section>
-<section id="ci-runners">
-<h3>CI Runners<a class="headerlink" href="#ci-runners" title="Link to this heading">#</a></h3>
-<section id="runs-on">
-<h4>Runs-On<a class="headerlink" href="#runs-on" title="Link to this heading">#</a></h4>
-<p>We use <a class="reference external" href="https://runs-on.com/">Runs-On</a> for some actions in the main repository, which run in the ASF AWS account to speed up CI. In forks, these actions run on the default GitHub runners since forks do not have access to ASF infrastructure.</p>
-<p>To configure them, we use the following format:</p>
-<p><code class="docutils literal notranslate"><span class="pre">runs-on:</span> <span class="pre">${{</span> <span class="pre">github.repository_owner</span> <span class="pre">==</span> <span class="pre">'apache'</span> <span class="pre">&amp;&amp;</span> <span class="pre">format('runs-on={0},family=m8a,cpu=16,image=ubuntu24-full-x64,extras=s3-cache,disk=large,tag=datafusion',</span> <span class="pre">github.run_id)</span> <span class="pre">||</span> <span class="pre">'ubuntu-latest'</span> <span class="pre">}}</span></code></p>
-<p>This is a conditional expression that uses Runs-On custom runners for the main repository and falls back to the standard GitHub runners for forks. Runs-On configuration follows the <a class="reference external" href="https://runs-on.com/configuration/job-labels/">Runs-On pattern</a>.</p>
-<p>For those actions we also use the <a class="reference external" href="https://runs-on.com/caching/magic-cache/#how-to-use">Runs-On action</a>, which adds support for external caching and reports job metrics:</p>
-<p><code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">uses:</span> <span class="pre">runs-on/action&#64;cd2b598b0515d39d78c38a02d529db87d2196d1e</span></code></p>
-<p>For the standard GitHub runners, this action will do nothing.</p>
-<section id="spot-instances">
-<h5>Spot Instances<a class="headerlink" href="#spot-instances" title="Link to this heading">#</a></h5>
-<p>By default, Runs-On actions run as <a class="reference external" href="https://runs-on.com/configuration/spot-instances/">spot instances</a>, which means they might occasionally be interrupted. In the CI you would see:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span><span class="p">:</span> <span class="n">The</span> <span class="n">operation</span> <span class="n">was</span> <span class="n">canceled</span><span class="o">.</span>
-</pre></div>
-</div>
-<p>According to Runs-On, spot instance termination is extremely rare for instances running for less than 1h. Those actions will be restarted automatically.</p>
+<section id="review-the-test-coverage">
+<h2>Review the Test Coverage<a class="headerlink" href="#review-the-test-coverage" title="Link to this heading">#</a></h2>
+<p>Check that the feature or fix is covered sufficiently with tests (see the
+<a class="reference internal" href="testing.html"><span class="std std-doc">Testing</span></a> guide for more details): the PR should include tests for
+any new functionality, and a bug fix should include a test that reproduces the
+reported problem.</p>
+<p>Guidelines for evaluating tests:</p>
+<ol class="arabic simple">
+<li><p>Prefer <code class="docutils literal notranslate"><span class="pre">sqllogictest</span></code> (<code class="docutils literal notranslate"><span class="pre">.slt</span></code>) tests or DataFrame API tests where
+possible, as they exercise <strong>user-visible behavior</strong> and are less coupled
+to internal implementation details than unit tests.</p></li>
+<li><p>Verify tests cover edge cases and common failure scenarios, not just the
+common successful path. However, it is NOT necessary to test every possible
+error path, especially if it is difficult to trigger or unlikely to occur in
+practice.</p></li>
+<li><p>Verify test coverage of changed code using the <code class="docutils literal notranslate"><span class="pre">codecov</span></code> check on the PR,
+or by running <a class="reference external" href="https://github.com/taiki-e/cargo-llvm-cov"><code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">llvm-cov</span></code></a> locally for an HTML report. Use judgment
+about any uncovered lines – the goal is confidence in the change, not
+slavishly hitting some coverage number.</p></li>
+<li><p>Avoid tests with lots of repeated boilerplate: when many tests share
+near-identical setup, it is hard to understand what is different
+(and thus what is actually being tested) between them. Make the <em>difference</em>
+between cases obvious.</p></li>
+<li><p>Check that tests assert on specific expected values or plans (e.g. via
+<code class="docutils literal notranslate"><span class="pre">insta</span></code> snapshots or <code class="docutils literal notranslate"><span class="pre">.slt</span></code> expected output) rather than merely checking
+“no error occurred”.</p></li>
+<li><p>Verify tests actually cover the bug (“Ablation Testing”): For bug fixes, revert
+the fix locally and check that the new test fails without it (i.e. the test
+actually reproduces the bug or covers the new feature).</p></li>
+</ol>
 </section>
+<section id="review-the-code">
+<h2>Review the Code<a class="headerlink" href="#review-the-code" title="Link to this heading">#</a></h2>
+<p>Check that:</p>
+<ol class="arabic simple">
+<li><p>The code is clear and fits the style of the existing codebase.</p></li>
+<li><p>New functions and tests are placed near similar functions and
+tests. For example, helper functions should be defined close to where they are used,
+and new tests should be placed in the same module as the code they test.
+SLT tests should be placed in an existing .slt file with related functionality,
+unless the new tests are large enough to justify their own file.</p></li>
+<li><p>New APIs are consistent with existing public APIs and patterns; where a
+similar mechanism already exists, the PR should extend it rather than
+introduce a parallel one.</p></li>
+<li><p>Any changes to the public API follow the <a class="reference internal" href="api-health.html"><span class="std std-doc">API health policy</span></a>.</p></li>
+<li><p>The change is appropriately scoped: unrelated refactoring, formatting
+churn, or drive-by changes make review longer and are better as separate
+PRs.</p></li>
+<li><p>New errors are actionable, mention the offending item, and use
+the right error variant (e.g. <code class="docutils literal notranslate"><span class="pre">plan_err!</span></code> for user-triggerable errors vs
+<code class="docutils literal notranslate"><span class="pre">internal_err!</span></code> for invariant violations).</p></li>
+</ol>
 </section>
-<section id="github-runners">
-<h4>GitHub Runners<a class="headerlink" href="#github-runners" title="Link to this heading">#</a></h4>
-<p>We also use standard GitHub runners for some actions in the main repository; these are also runnable in forks.</p>
+<section id="review-the-performance">
+<h2>Review the Performance<a class="headerlink" href="#review-the-performance" title="Link to this heading">#</a></h2>
+<p>Performance is a key feature of DataFusion. See <a class="reference internal" href="index.html#performance-improvements"><span class="std std-ref">Performance Improvements</span></a>
+for the project policy: an improvement should be “enough” to justify any
+added code complexity, and performance PRs should come with benchmark
+results.</p>
+<p>When reviewing:</p>
+<ol class="arabic simple">
+<li><p>Find any relevant existing benchmarks and run them against <code class="docutils literal notranslate"><span class="pre">main</span></code>:
+the <a class="reference external" href="https://github.com/apache/datafusion/tree/main/benchmarks">system-level SQL benchmarks</a> are run with <code class="docutils literal notranslate"><span class="pre">bench.sh</span></code> (see the
+<a class="reference external" href="https://github.com/apache/datafusion/blob/main/benchmarks/README.md">benchmarks README</a>), and microbenchmarks (e.g. in
+<code class="docutils literal notranslate"><span class="pre">datafusion/functions/benches</span></code>) are run with <code class="docutils literal notranslate"><span class="pre">cargo</span> <span class="pre">bench</span></code>.</p></li>
+<li><p>Be aware that benchmarking on a machine where other
+work is being done will make results hard to reproduce. Prefer a quiet,
+dedicated machine and repeated runs.</p></li>
+<li><p>If the PR claims a performance improvement, check that the reported
+results are reproducible and that the benchmark exercises the changed
+code path.</p></li>
+</ol>
 </section>
+<section id="best-practices-for-reviewers">
+<h2>Best Practices for Reviewers<a class="headerlink" href="#best-practices-for-reviewers" title="Link to this heading">#</a></h2>
+<p>Here are some suggested best practices to follow when reviewing PRs.</p>
+<section id="review-tone-thank-contributors-and-praise-good-work-specifically">
+<h3>Review Tone: Thank Contributors and Praise Good Work Specifically<a class="headerlink" href="#review-tone-thank-contributors-and-praise-good-work-specifically" title="Link to this heading">#</a></h3>
+<p>Open reviews by thanking the author by name, and when a PR is well done, say
+specifically what makes it good – positive feedback encourages people to keep
+contributing and helps them understand what is valued in the project.</p>
+</section>
+<section id="state-approval-conditions-explicitly">
+<h3>State Approval Conditions Explicitly<a class="headerlink" href="#state-approval-conditions-explicitly" title="Link to this heading">#</a></h3>
+<p>If you are not ready to approve, list concretely what you would need to see
+before approving (e.g. “benchmark results and an upgrade guide entry”) so
+the author has a clear path to merge.</p>
+</section>
+<section id="defer-non-blocking-work-to-follow-on-issues">
+<h3>Defer Non-Blocking Work to Follow-On Issues<a class="headerlink" href="#defer-non-blocking-work-to-follow-on-issues" title="Link to this heading">#</a></h3>
+<p>Explicitly defer non-critical suggestions to a follow-on PR and file
+(or ask the author to file) issues for them, so good PRs merge quickly
+without scope creep.</p>
+<p>Similarly, when a PR mixes refactoring with behavior changes or fixes a narrow
+problem with a broad mechanism, ask for it to be split or scoped down rather
+than reviewing it as-is.</p>
+</section>
+<section id="narrate-what-you-verified-when-approving">
+<h3>Narrate What You Verified When Approving<a class="headerlink" href="#narrate-what-you-verified-when-approving" title="Link to this heading">#</a></h3>
+<p>Rather than a bare “LGTM”, say what you actually checked (“traced the state
+transitions by hand”, “confirmed the hasher change cannot affect ordering”)
+so it is clear what was verified and what was not.</p>
+</section>
+<section id="invite-additional-committers-on-core-changes">
+<h3>Invite Additional Committers on Core Changes<a class="headerlink" href="#invite-additional-committers-on-core-changes" title="Link to this heading">#</a></h3>
+<p>For changes to core, widely shared code, leave the PR open for other
+committers to look at and cc those who know the area, even after you have
+approved.</p>
 </section>
 </section>
 </section>
@@ -650,20 +657,20 @@ Commenting on the PR will remove the <code class="docutils literal notranslate">
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../library-user-guide/query-optimizer.html"
+       href="index.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Query Optimizer</p>
+        <p class="prev-next-title">Introduction</p>
       </div>
     </a>
     <a class="right-next"
-       href="pr_review.html"
+       href="communication.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Reviewing Pull Requests</p>
+        <p class="prev-next-title">Community Communication</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -686,48 +693,28 @@ Commenting on the PR will remove the <code class="docutils literal notranslate">
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development-environment">Development Environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-and-creating-issues-to-work-on">Finding and Creating Issues to Work On</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-contribution-and-assigning-tickets">Open Contribution and Assigning tickets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pr-review-mechanics">PR Review Mechanics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-pr-description">Review the PR Description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-code-comments">Review the Code Comments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-test-coverage">Review the Test Coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-code">Review the Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-performance">Review the Performance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices-for-reviewers">Best Practices for Reviewers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#review-tone-thank-contributors-and-praise-good-work-specifically">Review Tone: Thank Contributors and Praise Good Work Specifically</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#state-approval-conditions-explicitly">State Approval Conditions Explicitly</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defer-non-blocking-work-to-follow-on-issues">Defer Non-Blocking Work to Follow-On Issues</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#narrate-what-you-verified-when-approving">Narrate What You Verified When Approving</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#invite-additional-committers-on-core-changes">Invite Additional Committers on Core Changes</a></li>
 </ul>
 </li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#developer-s-guide">Developer’s guide</a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pull-request-overview">Pull Request Overview</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-pull-requests">Creating Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#release-management-and-backports">Release Management and Backports</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-submitting-a-pr">Before Submitting a PR</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conventional-commits-labeling-prs">Conventional Commits &amp; Labeling PRs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reviewing-pull-requests">Reviewing Pull Requests</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-improvements">Performance Improvements</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#major-and-minor-prs">“Major” and “Minor” PRs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stale-prs">Stale PRs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ai-assisted-contributions">AI-Assisted contributions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-fully-ai-generated-prs-without-understanding-are-not-helpful">Why fully AI-generated PRs without understanding are not helpful</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better-ways-to-contribute-than-an-ai-dump">Better ways to contribute than an “AI dump”</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-runners">CI Runners</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#runs-on">Runs-On</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#spot-instances">Spot Instances</a></li>
-</ul>
-</li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#github-runners">GitHub Runners</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
   </nav></div>
 
   <div class="sidebar-secondary-item">
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/apache/arrow-datafusion/edit/main/docs/source/contributor-guide/index.md">
+    <a href="https://github.com/apache/arrow-datafusion/edit/main/docs/source/contributor-guide/pr_review.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -742,7 +729,7 @@ Commenting on the PR will remove the <code class="docutils literal notranslate">
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/contributor-guide/index.md.txt">
+    <a href="../_sources/contributor-guide/pr_review.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

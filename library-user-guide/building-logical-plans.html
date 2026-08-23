@@ -44,6 +44,7 @@
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'library-user-guide/building-logical-plans';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="canonical" href="https://datafusion.apache.org/library-user-guide/building-logical-plans.html" />
     <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -252,6 +253,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/concepts-readings-events.html">Concepts, Readings, Events</a></li>
 
+
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/crate-configuration.html">Crate Configuration</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user-guide/cli/index.html">DataFusion CLI</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user-guide/cli/overview.html">Overview</a></li>
@@ -292,6 +294,7 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/explain-usage.html">Reading Explain Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user-guide/parquet-content-defined-chunking.html">Parquet Content-Defined Chunking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user-guide/faq.html">Frequently Asked Questions</a></li>
 
@@ -336,6 +339,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/architecture.html">Architecture</a></li>
@@ -502,7 +506,7 @@ much easier to use the <a class="reference external" href="https://docs.rs/dataf
 <h2>Building Logical Plans with LogicalPlanBuilder<a class="headerlink" href="#building-logical-plans-with-logicalplanbuilder" title="Link to this heading">#</a></h2>
 <p>DataFusion logical plans can be created using the <a class="reference external" href="https://docs.rs/datafusion-expr/latest/datafusion_expr/logical_plan/builder/struct.LogicalPlanBuilder.html">LogicalPlanBuilder</a> struct. There is also a <a class="reference internal" href="using-the-dataframe-api.html"><span class="std std-doc">DataFrame</span></a> API which is
 a higher-level API that delegates to <a class="reference external" href="https://docs.rs/datafusion-expr/latest/datafusion_expr/logical_plan/builder/struct.LogicalPlanBuilder.html">LogicalPlanBuilder</a>.</p>
-<p>There are several functions that can can be used to create a new builder, such as</p>
+<p>There are several functions that can be used to create a new builder, such as</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">empty</span></code> - create an empty plan with no fields</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">values</span></code> - create a plan from a set of literal values</p></li>

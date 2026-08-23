@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction &#8212; Apache DataFusion  documentation</title>
+    <title>Parquet Content-Defined Chunking &#8212; Apache DataFusion  documentation</title>
   
   
   
@@ -42,14 +42,14 @@
     <script src="../_static/documentation_options.js?v=5929fcd5"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/introduction';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/parquet-content-defined-chunking';</script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
-    <link rel="canonical" href="https://datafusion.apache.org/user-guide/introduction.html" />
+    <link rel="canonical" href="https://datafusion.apache.org/user-guide/parquet-content-defined-chunking.html" />
     <link rel="icon" href="../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example Usage" href="example-usage.html" />
-    <link rel="prev" title="Download" href="../download.html" />
+    <link rel="next" title="Metrics" href="metrics.html" />
+    <link rel="prev" title="Reading Explain Plans" href="explain-usage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -248,7 +248,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example-usage.html">Example Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="concepts-readings-events.html">Concepts, Readings, Events</a></li>
@@ -294,7 +294,7 @@
 
 
 <li class="toctree-l1"><a class="reference internal" href="explain-usage.html">Reading Explain Plans</a></li>
-<li class="toctree-l1"><a class="reference internal" href="parquet-content-defined-chunking.html">Parquet Content-Defined Chunking</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Parquet Content-Defined Chunking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 
@@ -410,7 +410,7 @@
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Introduction</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Parquet Content-Defined Chunking</span></li>
   </ul>
 </nav>
 </div>
@@ -445,180 +445,149 @@
   specific language governing permissions and limitations
   under the License.
 -->
-<section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
-<p>DataFusion is a very fast, extensible query engine for building
-high-quality data-centric systems in <a class="reference external" href="http://rustlang.org">Rust</a>,
-using the <a class="reference external" href="https://arrow.apache.org">Apache Arrow</a> in-memory format.
-DataFusion originated as part of the <a class="reference external" href="https://arrow.apache.org/">Apache Arrow</a>
-project.</p>
-<p>DataFusion offers SQL and Dataframe APIs, excellent <a class="reference external" href="https://benchmark.clickhouse.com/">performance</a>, built-in support for CSV, Parquet, JSON, and Avro, <a class="reference external" href="https://github.com/apache/datafusion-python">python bindings</a>, extensive customization, a great community, and more.</p>
-<section id="project-goals">
-<h2>Project Goals<a class="headerlink" href="#project-goals" title="Link to this heading">#</a></h2>
-<p>DataFusion aims to be the query engine of choice for new, fast
-data centric systems such as databases, dataframe libraries, machine
-learning and streaming applications by leveraging the unique features
-of <a class="reference external" href="https://www.rust-lang.org/">Rust</a> and <a class="reference external" href="https://arrow.apache.org/">Apache
-Arrow</a>.</p>
-</section>
-<section id="features">
-<h2>Features<a class="headerlink" href="#features" title="Link to this heading">#</a></h2>
+<section id="parquet-content-defined-chunking">
+<h1>Parquet Content-Defined Chunking<a class="headerlink" href="#parquet-content-defined-chunking" title="Link to this heading">#</a></h1>
+<p>Content-defined chunking (CDC) is an experimental Parquet writer feature that
+makes data page boundaries depend on column values rather than fixed row or byte
+counts. This makes unchanged regions more likely to produce identical pages when
+closely related versions of a dataset are written with the same settings.</p>
+<p>CDC is useful when the resulting files are stored or transferred through a
+content-addressable or block-deduplicating system. Such a system can reuse the
+identical pages instead of storing or transferring them again. For example, a
+small insertion near the beginning of a dataset can change one page while later
+page boundaries converge back to those of the previous version.</p>
+<p>CDC does not itself deduplicate data or provide a page store. On a conventional
+filesystem or object store, each Parquet file is still stored in full. The output
+is a normal Parquet file and requires no CDC-specific reader support.</p>
+<section id="when-to-enable-cdc">
+<h2>When to enable CDC<a class="headerlink" href="#when-to-enable-cdc" title="Link to this heading">#</a></h2>
+<p>Consider CDC when all of the following apply:</p>
 <ul class="simple">
-<li><p>Feature-rich <a class="reference external" href="https://datafusion.apache.org/user-guide/sql/index.html">SQL support</a> and <a class="reference external" href="https://datafusion.apache.org/user-guide/dataframe.html">DataFrame API</a></p></li>
-<li><p>Blazingly fast, vectorized, multithreaded, streaming execution engine.</p></li>
-<li><p>Native support for Parquet, CSV, JSON, and Avro file formats. Support
-for custom file formats and non-file datasources via the <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> trait.</p></li>
-<li><p>Many extension points: user defined scalar/aggregate/window functions, DataSources, SQL,
-other query languages, custom plan and execution nodes, optimizer passes, and more.</p></li>
-<li><p>Streaming, asynchronous IO directly from popular object stores, including AWS S3,
-Azure Blob Storage, and Google Cloud Storage (Other storage systems are supported via the
-<code class="docutils literal notranslate"><span class="pre">ObjectStore</span></code> trait).</p></li>
-<li><p><a class="reference external" href="https://docs.rs/datafusion/latest">Excellent Documentation</a> and a
-<a class="reference external" href="https://datafusion.apache.org/contributor-guide/communication.html">welcoming community</a>.</p></li>
-<li><p>A state of the art query optimizer with expression coercion and
-simplification, projection and filter pushdown, sort and distribution
-aware optimizations, automatic join reordering, and more.</p></li>
-<li><p>Permissive Apache 2.0 License, predictable and well understood
-<a class="reference external" href="https://www.apache.org/">Apache Software Foundation</a> governance.</p></li>
-<li><p>Implementation in <a class="reference external" href="https://www.rust-lang.org/">Rust</a>, a modern
-system language with development productivity similar to Java or
-Golang, the performance of C++, and <a class="reference external" href="https://insights.stackoverflow.com/survey/2021#technology-most-loved-dreaded-and-wanted">loved by programmers
-everywhere</a>.</p></li>
-<li><p>Support for <a class="reference external" href="https://substrait.io/">Substrait</a> query plans, to
-easily pass plans across language and system boundaries.</p></li>
+<li><p>You regularly write similar versions of the same dataset.</p></li>
+<li><p>Your storage or transfer layer detects and reuses duplicate byte ranges.</p></li>
+<li><p>Reducing storage or network transfer is more important than maximizing write
+parallelism for an individual file.</p></li>
 </ul>
+<p>Leave CDC disabled for ordinary Parquet output unless you have measured a benefit
+in the system that stores or transfers the files. CDC is disabled by default.</p>
+<p>When CDC is enabled, DataFusion uses the sequential Arrow writer for each output
+file because the chunker’s state must persist across row groups. This can reduce
+write throughput compared with DataFusion’s parallel writer path. Writing
+different output files can still proceed concurrently.</p>
+<p>CDC operates independently for each output file. When <code class="docutils literal notranslate"><span class="pre">COPY</span></code> targets a
+directory, DataFusion distributes input RecordBatches in round-robin order across
+parallel output files; <code class="docutils literal notranslate"><span class="pre">datafusion.execution.minimum_parallel_output_files</span></code>
+defaults to four. If batching or file assignment changes between dataset
+versions, unchanged rows can move between files and reduce deduplication. For
+the best results, keep the input order and output file layout stable. Use a
+filename target for single-file output, or partition by stable keys when
+multiple files are required. See
+<a class="reference internal" href="configs.html#setting-configuration-options"><span class="std std-ref">Configuration Settings</span></a>.</p>
 </section>
-<section id="use-cases">
-<h2>Use Cases<a class="headerlink" href="#use-cases" title="Link to this heading">#</a></h2>
-<p>DataFusion can be used without modification as an embedded SQL
-engine or can be customized and used as a foundation for
-building new systems.</p>
-<p>While most current use cases are “analytic” or (throughput) some
-components of DataFusion such as the plan representations, are
-suitable for “streaming” and “transaction” style systems (low
-latency).</p>
-<p>Here are some example systems built using DataFusion:</p>
-<ul class="simple">
-<li><p>Specialized Analytical Database systems such as <a class="reference external" href="https://github.com/apache/incubator-horaedb">HoraeDB</a> and more general Apache Spark like system such as <a class="reference external" href="https://github.com/apache/datafusion-ballista">Ballista</a></p></li>
-<li><p>New query language engines such as <a class="reference external" href="https://github.com/prql/prql-query">prql-query</a> and accelerators such as <a class="reference external" href="https://vegafusion.io/">VegaFusion</a></p></li>
-<li><p>Research platform for new Database Systems, such as <a class="reference external" href="https://github.com/flock-lab/flock">Flock</a></p></li>
-<li><p>SQL support to another library, such as <a class="reference external" href="https://vortex.dev/">Vortex</a></p></li>
-<li><p>Streaming data platforms such as <a class="reference external" href="https://synnada.ai/">Synnada</a></p></li>
-<li><p>Tools for reading / sorting / transcoding Parquet, CSV, AVRO, and JSON files such as <a class="reference external" href="https://github.com/timvw/qv">qv</a></p></li>
-<li><p>Native Spark runtime replacement such as <a class="reference external" href="https://github.com/apache/auron">Auron</a></p></li>
-<li><p>Distributed data cache to boost GPU utilization of AI workloads with <a class="reference external" href="https://www.kubeflow.org/docs/components/trainer/user-guides/data-cache/">Kubeflow Trainer</a></p></li>
-</ul>
-<p>By using DataFusion, projects are freed to focus on their specific
-features, and avoid reimplementing general (but still necessary)
-features such as an expression representation, standard optimizations,
-parallelized streaming execution plans, file format support, etc.</p>
+<section id="enable-cdc-with-sql">
+<h2>Enable CDC with SQL<a class="headerlink" href="#enable-cdc-with-sql" title="Link to this heading">#</a></h2>
+<p>Set CDC for one <a class="reference internal" href="sql/dml.html#copy"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">COPY</span></code></span></a> operation with Parquet format options.
+The filename target in this example selects single-file output:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">COPY</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span>
+<span class="w">        </span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;event-&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">event</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">100000</span><span class="p">)</span>
+<span class="p">)</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;cdc-output.parquet&#39;</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PARQUET</span>
+<span class="k">OPTIONS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;format.content_defined_chunking.enabled&#39;</span><span class="w"> </span><span class="s1">&#39;true&#39;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>The default chunking parameters are a good starting point. The next example
+specifies those defaults explicitly for one write; it does not change their
+values:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">COPY</span><span class="w"> </span><span class="n">source_table</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;cdc-output.parquet&#39;</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PARQUET</span>
+<span class="k">OPTIONS</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;format.content_defined_chunking.enabled&#39;</span><span class="w"> </span><span class="s1">&#39;true&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;format.content_defined_chunking.min_chunk_size&#39;</span><span class="w"> </span><span class="s1">&#39;262144&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;format.content_defined_chunking.max_chunk_size&#39;</span><span class="w"> </span><span class="s1">&#39;1048576&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;format.content_defined_chunking.norm_level&#39;</span><span class="w"> </span><span class="s1">&#39;0&#39;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>Change these values only after measuring with representative data.</p>
+<p>You can instead enable CDC for subsequent Parquet writes in the session:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SET</span><span class="w"> </span><span class="n">datafusion</span><span class="p">.</span><span class="n">execution</span><span class="p">.</span><span class="n">parquet</span><span class="p">.</span><span class="n">content_defined_chunking</span><span class="p">.</span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The corresponding environment variable is
+<code class="docutils literal notranslate"><span class="pre">DATAFUSION_EXECUTION_PARQUET_CONTENT_DEFINED_CHUNKING_ENABLED</span></code>. See
+<a class="reference internal" href="configs.html#setting-configuration-options"><span class="std std-ref">Configuration Settings</span></a> for all ways
+to set session options.</p>
 </section>
-<section id="known-users">
-<h2>Known Users<a class="headerlink" href="#known-users" title="Link to this heading">#</a></h2>
-<p>Here are some active projects using DataFusion:</p>
- <!-- "Active" means github repositories that had at least one commit in the last 6 months -->
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ArroyoSystems/arroyo">Arroyo</a> Distributed stream processing engine in Rust</p></li>
-<li><p><a class="reference external" href="https://github.com/arkflow-rs/arkflow">ArkFlow</a> High-performance Rust stream processing engine</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/auron">Auron</a> The Auron accelerator for big data engine (e.g., Spark, Flink) leverages native vectorized execution to accelerate query processing</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/datafusion-ballista">Ballista</a> Distributed SQL Query Engine</p></li>
-<li><p><a class="reference external" href="https://github.com/cnosdb/cnosdb">CnosDB</a> Open Source Distributed Time Series Database</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/datafusion-comet">Comet</a> Apache Spark native query execution plugin</p></li>
-<li><p><a class="reference external" href="https://github.com/cube-js/cube.js/tree/master/rust">Cube Store</a> Cube’s universal semantic layer platform is the next evolution of OLAP technology for AI, BI, spreadsheets, and embedded analytics</p></li>
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-dft">datafusion-dft</a> Batteries included CLI, TUI, and server implementations for DataFusion.</p></li>
-<li><p><a class="reference external" href="https://docs.datap-rs.org">datapress</a> An opinionated small and fast data server on parquet and delta tables.</p></li>
-<li><p><a class="reference external" href="https://github.com/dbt-labs/dbt-fusion">dbt Fusion engine</a> The dbt Fusion engine, written in Rust, designed for speed and correctness with a native SQL understanding across DWH SQL dialects.</p></li>
-<li><p><a class="reference external" href="https://github.com/delta-io/delta-rs">delta-rs</a> Native Rust implementation of Delta Lake</p></li>
-<li><p><a class="reference external" href="https://www.enterprisedb.com/products/analytics">EDB Postgres Lakehouse</a> built with <a class="reference external" href="https://github.com/splitgraph/seafowl">Seafowl</a></p></li>
-<li><p><a class="reference external" href="https://github.com/feldera/feldera">Feldera</a> Fast query engine for incremental computation</p></li>
-<li><p><a class="reference external" href="https://funnel.io/">Funnel</a> Data Platform powering Marketing Intelligence applications.</p></li>
-<li><p><a class="reference external" href="https://github.com/GlareDB/glaredb">GlareDB</a> Fast SQL database for querying and analyzing distributed data.</p></li>
-<li><p><a class="reference external" href="https://github.com/GreptimeTeam/greptimedb">GreptimeDB</a> Open Source &amp; Cloud Native Distributed Time Series Database</p></li>
-<li><p><a class="reference external" href="https://hiop.io">hiop</a> Serverless Data Logistic Platform</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/incubator-horaedb">HoraeDB</a> Distributed Time-Series Database</p></li>
-<li><p><a class="reference external" href="https://www.hotdata.dev">Hotdata</a> On-demand databases for AI agents with a unified query engine for vector, OLAP, and full-text search.</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/iceberg-rust">Iceberg-rust</a> Rust implementation of Apache Iceberg</p></li>
-<li><p><a class="reference external" href="https://icegate.tech">IceGate</a> Observability data lake engine for metrics, traces, logs, and events, built on Apache Iceberg with OpenTelemetry ingestion</p></li>
-<li><p><a class="reference external" href="https://github.com/influxdata/influxdb">InfluxDB</a> Time Series Database</p></li>
-<li><p><a class="reference external" href="https://github.com/kamu-data/kamu-cli">Kamu</a> Planet-scale streaming data pipeline</p></li>
-<li><p><a class="reference external" href="https://github.com/kubeflow/trainer">Kubeflow Trainer</a> Kubernetes-native project designed for
-scalable LLMs fine-tuning and distributed AI model training.</p></li>
-<li><p><a class="reference external" href="https://github.com/lakesoul-io/LakeSoul">LakeSoul</a> Open source LakeHouse framework with native IO in Rust.</p></li>
-<li><p><a class="reference external" href="https://github.com/lancedb/lance">Lance</a> Modern columnar data format for ML</p></li>
-<li><p><a class="reference external" href="https://github.com/openobserve/openobserve">OpenObserve</a> Distributed cloud native observability platform</p></li>
-<li><p><a class="reference external" href="https://github.com/paradedb/paradedb">ParadeDB</a> PostgreSQL for Search &amp; Analytics</p></li>
-<li><p><a class="reference external" href="https://github.com/parseablehq/parseable">Parseable</a> Log storage and observability platform</p></li>
-<li><p><a class="reference external" href="https://massive.com/">Massive.com</a> Stock Market API</p></li>
-<li><p><a class="reference external" href="https://github.com/timvw/qv">qv</a> Quickly view your data</p></li>
-<li><p><a class="reference external" href="https://blog.cloudflare.com/r2-sql-deep-dive/">R2 Query Engine</a> Cloudflare’s distributed engine for querying data in Iceberg Catalogs</p></li>
-<li><p><a class="reference external" href="https://rerun.io/">rerun.io</a> Visualize and query robotics logs and transform them into training data.</p></li>
-<li><p><a class="reference external" href="https://github.com/restatedev">Restate</a> Easily build resilient applications using distributed durable async/await</p></li>
-<li><p><a class="reference external" href="https://github.com/roapi/roapi">ROAPI</a> Create full-fledged APIs for slowly moving datasets without writing a single line of code</p></li>
-<li><p><a class="reference external" href="https://github.com/lakehq/sail">Sail</a> Unifying stream, batch and AI workloads with Apache Spark compatibility</p></li>
-<li><p><a class="reference external" href="https://github.com/apache/sedona-db">SedonaDB</a> A single-node analytical database engine with geospatial as a first-class citizen</p></li>
-<li><p><a class="reference external" href="https://github.com/gchq/sleeper">Sleeper</a> Serverless, cloud-native, log-structured merge tree based, scalable key-value store</p></li>
-<li><p><a class="reference external" href="https://github.com/spiceai/spiceai">Spice.ai</a> Building blocks for data-driven AI applications</p></li>
-<li><p><a class="reference external" href="https://www.streamling.dev/">Streamling</a> Data streaming runtime focused on performance, consistency, and extensibility</p></li>
-<li><p><a class="reference external" href="https://supermetal.io/">Supermetal</a> is a change data capture (CDC) platform that synchronizes data between databases, data warehouses, and lakehouses</p></li>
-<li><p><a class="reference external" href="https://synnada.ai/">Synnada</a> Streaming-first framework for data products</p></li>
-<li><p><a class="reference external" href="https://vegafusion.io/">VegaFusion</a> Server-side acceleration for the <a class="reference external" href="https://vega.github.io/">Vega</a> visualization grammar</p></li>
-<li><p><a class="reference external" href="https://vortex.dev/">Vortex</a> An extensible, state of the art columnar file format</p></li>
-<li><p><a class="reference external" href="https://telemetry.sh/">Telemetry</a> Structured logging made easy</p></li>
-<li><p><a class="reference external" href="https://github.com/xorq-labs/xorq/">Xorq</a> Xorq is a multi-engine batch transformation framework built on Ibis, DataFusion and Arrow</p></li>
-<li><p><a class="reference external" href="https://github.com/jamals86/KalamDB">KalamDB</a> SQL-first realtime state database for AI agents, chat products, and multi-tenant SaaS.</p></li>
-<li><p><a class="reference external" href="https://github.com/infino-ai/infino">Infino</a> Fast retrieval engine for SQL, full-text search, and vector search over Parquet on object storage</p></li>
-</ul>
-<p>Here are some less active projects that used DataFusion:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/bdt">bdt</a> Boring Data Tool</p></li>
-<li><p><a class="reference external" href="https://github.com/cloudfuse-io/buzz-rust">Cloudfuse Buzz</a></p></li>
-<li><p><a class="reference external" href="https://github.com/dask-contrib/dask-sql">Dask SQL</a> Distributed SQL query engine in Python</p></li>
-<li><p><a class="reference external" href="https://github.com/wheretrue/exon">Exon</a> Analysis toolkit for life-science applications</p></li>
-<li><p><a class="reference external" href="https://github.com/flock-lab/flock">Flock</a></p></li>
-<li><p><a class="reference external" href="https://github.com/tensorbase/tensorbase">Tensorbase</a></p></li>
-</ul>
-<p>If you know of another project, please submit a PR to add a link!</p>
+<section id="enable-cdc-with-the-rust-api">
+<h2>Enable CDC with the Rust API<a class="headerlink" href="#enable-cdc-with-the-rust-api" title="Link to this heading">#</a></h2>
+<p>Pass <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/common/config/struct.TableParquetOptions.html"><code class="docutils literal notranslate"><span class="pre">TableParquetOptions</span></code></a> to <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/dataframe/struct.DataFrame.html#method.write_parquet"><code class="docutils literal notranslate"><span class="pre">DataFrame::write_parquet</span></code></a>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">config</span><span class="p">::{</span><span class="n">ParquetCdcOptions</span><span class="p">,</span><span class="w"> </span><span class="n">TableParquetOptions</span><span class="p">};</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">dataframe</span><span class="p">::</span><span class="n">DataFrameWriteOptions</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">error</span><span class="p">::</span><span class="nb">Result</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">prelude</span><span class="p">::</span><span class="n">SessionContext</span><span class="p">;</span>
+
+<span class="cp">#[tokio::main]</span>
+<span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SessionContext</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span>
+<span class="w">        </span><span class="p">.</span><span class="n">sql</span><span class="p">(</span><span class="s">&quot;SELECT value AS id FROM generate_series(1, 100000)&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">parquet_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TableParquetOptions</span><span class="p">::</span><span class="n">default</span><span class="p">();</span>
+<span class="w">    </span><span class="n">parquet_options</span><span class="p">.</span><span class="n">global</span><span class="p">.</span><span class="n">content_defined_chunking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ParquetCdcOptions</span><span class="p">::</span><span class="n">enabled</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">df</span><span class="p">.</span><span class="n">write_parquet</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;cdc-output.parquet&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">DataFrameWriteOptions</span><span class="p">::</span><span class="n">new</span><span class="p">().</span><span class="n">with_single_file_output</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+<span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="n">parquet_options</span><span class="p">),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="k">await</span><span class="o">?</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Set the fields of <code class="docutils literal notranslate"><span class="pre">ParquetCdcOptions</span></code> directly to use non-default chunk sizes or
+normalization.</p>
 </section>
-<section id="integrations-and-extensions">
-<h2>Integrations and Extensions<a class="headerlink" href="#integrations-and-extensions" title="Link to this heading">#</a></h2>
-<p>There are a number of community projects that extend DataFusion or
-provide integrations with other systems, some of which are described below:</p>
-<section id="language-bindings">
-<h3>Language Bindings<a class="headerlink" href="#language-bindings" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-c">datafusion-c</a></p></li>
-<li><p><a class="reference external" href="https://github.com/apache/datafusion-python">datafusion-python</a></p></li>
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-ruby">datafusion-ruby</a></p></li>
-<li><p><a class="reference external" href="https://github.com/apache/datafusion-java">datafusion-java</a></p></li>
-</ul>
-</section>
-<section id="integrations">
-<h3>Integrations<a class="headerlink" href="#integrations" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-bigtable">datafusion-bigtable</a></p></li>
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-catalogprovider-glue">datafusion-catalogprovider-glue</a></p></li>
-<li><p><a class="reference external" href="https://github.com/datafusion-contrib/datafusion-federation">datafusion-federation</a></p></li>
-</ul>
-</section>
-</section>
-<section id="why-datafusion">
-<h2>Why DataFusion?<a class="headerlink" href="#why-datafusion" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><em>High Performance</em>: Leveraging Rust and Arrow’s memory model, DataFusion is very fast.</p></li>
-<li><p><em>Easy to Connect</em>: Being part of the Apache Arrow ecosystem (Arrow, Parquet, and Flight), DataFusion works well with the rest of the big data ecosystem</p></li>
-<li><p><em>Easy to Embed</em>: Allowing extension at almost any point in its design, and published regularly as a crate on <a class="reference external" href="http://crates.io">crates.io</a>, DataFusion can be integrated and tailored for your specific usecase.</p></li>
-<li><p><em>High Quality</em>: Extensively tested, both by itself and with the rest of the Arrow ecosystem, DataFusion can and is used as the foundation for production systems.</p></li>
-</ul>
-</section>
-<section id="rust-version-compatibility-policy">
-<h2>Rust Version Compatibility Policy<a class="headerlink" href="#rust-version-compatibility-policy" title="Link to this heading">#</a></h2>
-<p>The Rust toolchain releases are tracked at <a class="reference external" href="https://releases.rs">Rust Versions</a> and follow
-<a class="reference external" href="https://semver.org/">semantic versioning</a>. A Rust toolchain release can be identified
-by a version string like <code class="docutils literal notranslate"><span class="pre">1.80.0</span></code>, or more generally <code class="docutils literal notranslate"><span class="pre">major.minor.patch</span></code>.</p>
-<p>DataFusion supports the last 4 stable Rust minor versions released and any such versions released within the last 4 months.</p>
-<p>For example, given the releases <code class="docutils literal notranslate"><span class="pre">1.78.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.79.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.80.0</span></code>, <code class="docutils literal notranslate"><span class="pre">1.80.1</span></code> and <code class="docutils literal notranslate"><span class="pre">1.81.0</span></code> DataFusion will support 1.78.0, which is 3 minor versions prior to the most minor recent <code class="docutils literal notranslate"><span class="pre">1.81</span></code>.</p>
-<p>Note: If a Rust hotfix is released for the current MSRV, the MSRV will be updated to the specific minor version that includes all applicable hotfixes preceding other policies.</p>
-<p>DataFusion enforces MSRV policy using a <a class="reference external" href="https://github.com/search?q=repo%3Aapache%2Fdatafusion+rust-version+language%3ATOML+path%3A%2F%5ECargo.toml%2F&amp;type=code">MSRV CI Check</a></p>
+<section id="tuning">
+<h2>Tuning<a class="headerlink" href="#tuning" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_chunk_size</span></code></p></td>
+<td><p>256 KiB</p></td>
+<td><p>Minimum logical size before the rolling hash can select a boundary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_chunk_size</span></code></p></td>
+<td><p>1 MiB</p></td>
+<td><p>Maximum logical size before the writer forces a boundary. It must be greater than <code class="docutils literal notranslate"><span class="pre">min_chunk_size</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">norm_level</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Controls how aggressively boundaries are selected. Higher values can improve deduplication but create more small pages; recommended range is <code class="docutils literal notranslate"><span class="pre">-3</span></code> through <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Chunk sizes are measured from logical column data before encoding and
+compression. Definition and repetition levels for nested data also count toward
+the size.</p>
+<p>Use the same CDC, encoding, compression, and schema settings when comparing
+dataset versions. Changing writer settings can change the page bytes and reduce
+deduplication even when the logical data is unchanged. Measure the deduplication
+ratio, output size, network transfer, and write time with representative data
+before changing the defaults.</p>
 </section>
 </section>
 
@@ -633,20 +602,20 @@ by a version string like <code class="docutils literal notranslate"><span class=
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../download.html"
+       href="explain-usage.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Download</p>
+        <p class="prev-next-title">Reading Explain Plans</p>
       </div>
     </a>
     <a class="right-next"
-       href="example-usage.html"
+       href="metrics.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example Usage</p>
+        <p class="prev-next-title">Metrics</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -669,17 +638,10 @@ by a version string like <code class="docutils literal notranslate"><span class=
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-goals">Project Goals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features">Features</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-cases">Use Cases</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-users">Known Users</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrations-and-extensions">Integrations and Extensions</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#language-bindings">Language Bindings</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrations">Integrations</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-datafusion">Why DataFusion?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rust-version-compatibility-policy">Rust Version Compatibility Policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-enable-cdc">When to enable CDC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-cdc-with-sql">Enable CDC with SQL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enable-cdc-with-the-rust-api">Enable CDC with the Rust API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tuning">Tuning</a></li>
 </ul>
   </nav></div>
 
@@ -687,7 +649,7 @@ by a version string like <code class="docutils literal notranslate"><span class=
 
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/apache/arrow-datafusion/edit/main/docs/source/user-guide/introduction.md">
+    <a href="https://github.com/apache/arrow-datafusion/edit/main/docs/source/user-guide/parquet-content-defined-chunking.md">
       <i class="fa-solid fa-pencil"></i>
       
       
@@ -702,7 +664,7 @@ by a version string like <code class="docutils literal notranslate"><span class=
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../_sources/user-guide/introduction.md.txt">
+    <a href="../_sources/user-guide/parquet-content-defined-chunking.md.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
