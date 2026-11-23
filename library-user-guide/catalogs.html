@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Catalogs, Schemas, and Tables &#8212; Apache DataFusion  documentation</title>
+    <title>Catalogs, Schemas, and Tables &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,22 +26,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'library-user-guide/catalogs';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/library-user-guide/catalogs.html" />
     <link rel="icon" href="../_static/favicon.svg"/>
@@ -51,8 +57,9 @@
     <link rel="next" title="Functions" href="functions/index.html" />
     <link rel="prev" title="Building Logical Plans" href="building-logical-plans.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -302,7 +349,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="upgrading/57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading/56.0.0.html">DataFusion 56.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
@@ -323,7 +373,7 @@
 <li class="toctree-l1"><a class="reference internal" href="using-the-dataframe-api.html">Using the DataFrame API</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="building-logical-plans.html">Building Logical Plans</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Catalogs, Schemas, and Tables</a></li>
+<li class="toctree-l1 current active"><a aria-current="page" class="current reference internal" href="#">Catalogs, Schemas, and Tables</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="functions/index.html">Functions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="functions/adding-udfs.html">Adding User Defined Functions: Scalar/Window/Aggregate/Table Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="functions/spark.html">Spark Compatible Functions</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Catalogs, Schemas, and Tables</span></li>
@@ -427,23 +481,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="catalogs-schemas-and-tables">
 <h1>Catalogs, Schemas, and Tables<a class="headerlink" href="#catalogs-schemas-and-tables" title="Link to this heading">#</a></h1>
@@ -454,7 +495,7 @@
 <p>DataFusion comes with a basic in memory catalog functionality in the <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/catalog/index.html"><code class="docutils literal notranslate"><span class="pre">catalog</span></code> module</a>. You can use these in memory implementations as is, or extend DataFusion with your own catalog implementations, for example based on local files or files on remote object storage.</p>
 <p>DataFusion supports DDL queries (e.g. <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">TABLE</span></code>) using the catalog API described in this section. See the <a class="reference internal" href="custom-table-providers.html"><span class="std std-doc">TableProvider</span></a> section for information on DML queries (e.g. <code class="docutils literal notranslate"><span class="pre">INSERT</span> <span class="pre">INTO</span></code>).</p>
 <p>Similarly to other concepts in DataFusion, you’ll implement various traits to create your own catalogs, schemas, and tables. The following sections describe the traits you’ll need to implement.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">CatalogProviderList</span></code> trait has methods to register new catalogs, get a catalog by name and list all catalogs .The <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code> trait has methods to set a schema to a name, get a schema by name, and list all schemas. The <code class="docutils literal notranslate"><span class="pre">SchemaProvider</span></code>, which can be registered with a <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code>, has methods to set a table to a name, get a table by name, list all tables, deregister a table, and check for a table’s existence. The <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> trait has methods to scan underlying data and use it in DataFusion. The <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> trait is covered in more detail <a class="reference internal" href="custom-table-providers.html"><span class="std std-doc">here</span></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CatalogProviderList</span></code> trait has methods to register new catalogs, get a catalog by name and list all catalogs. The <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code> trait has methods to set a schema to a name, get a schema by name, and list all schemas. The <code class="docutils literal notranslate"><span class="pre">SchemaProvider</span></code>, which can be registered with a <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code>, has methods to set a table to a name, get a table by name, list all tables, deregister a table, and check for a table’s existence. The <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> trait has methods to scan underlying data and use it in DataFusion. The <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> trait is covered in more detail <a class="reference internal" href="custom-table-providers.html"><span class="std std-doc">here</span></a>.</p>
 <p>In the following example, we’ll implement an in memory catalog, starting with the <code class="docutils literal notranslate"><span class="pre">SchemaProvider</span></code> trait as we need one to register with the <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code>. Finally we will implement <code class="docutils literal notranslate"><span class="pre">CatalogProviderList</span></code> to register the <code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code>.</p>
 </section>
 <section id="implementing-memoryschemaprovider">
@@ -641,6 +682,65 @@
 </div>
 <p>Like other traits, it also maintains the mapping of the Catalog’s name to the CatalogProvider.</p>
 </section>
+<section id="catalog-provider-factories">
+<h2>Catalog Provider Factories<a class="headerlink" href="#catalog-provider-factories" title="Link to this heading">#</a></h2>
+<p>The catalogs above are all registered programmatically, ahead of time,
+before a query ever runs. Sometimes it is useful to let users attach a
+catalog dynamically from SQL instead — for example, a catalog backed by a
+remote catalog service such as an Iceberg REST catalog. This is exactly
+analogous to how <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/catalog/trait.TableProviderFactory.html"><code class="docutils literal notranslate"><span class="pre">TableProviderFactory</span></code></a> lets <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXTERNAL</span> <span class="pre">TABLE</span></code>
+create a <code class="docutils literal notranslate"><span class="pre">TableProvider</span></code> “on the fly”: <code class="docutils literal notranslate"><span class="pre">CatalogProviderFactory</span></code> lets
+<code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXTERNAL</span> <span class="pre">CATALOG</span> <span class="pre">...</span> <span class="pre">STORED</span> <span class="pre">AS</span> <span class="pre">&lt;catalog_type&gt;</span> <span class="pre">...</span></code> create a
+<code class="docutils literal notranslate"><span class="pre">CatalogProvider</span></code> on the fly.</p>
+<p>To support <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXTERNAL</span> <span class="pre">CATALOG</span></code>, implement <code class="docutils literal notranslate"><span class="pre">CatalogProviderFactory</span></code>:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">sync</span><span class="p">::</span><span class="n">Arc</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">async_trait</span><span class="p">::</span><span class="n">async_trait</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">catalog</span><span class="p">::{</span><span class="n">CatalogProvider</span><span class="p">,</span><span class="w"> </span><span class="n">CatalogProviderFactory</span><span class="p">,</span><span class="w"> </span><span class="n">MemoryCatalogProvider</span><span class="p">,</span><span class="w"> </span><span class="n">Session</span><span class="p">};</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">common</span><span class="p">::</span><span class="nb">Result</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">logical_expr</span><span class="p">::</span><span class="n">CreateExternalCatalog</span><span class="p">;</span>
+
+<span class="cp">#[derive(Debug)]</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">MyCatalogProviderFactory</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="cp">#[async_trait]</span>
+<span class="k">impl</span><span class="w"> </span><span class="n">CatalogProviderFactory</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MyCatalogProviderFactory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">async</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span>
+<span class="w">        </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span>
+<span class="w">        </span><span class="n">_state</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">Session</span><span class="p">,</span>
+<span class="w">        </span><span class="n">cmd</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="nc">CreateExternalCatalog</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">Arc</span><span class="o">&lt;</span><span class="k">dyn</span><span class="w"> </span><span class="n">CatalogProvider</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// `cmd.location` and `cmd.options` carry whatever was supplied in the</span>
+<span class="w">        </span><span class="c1">// `LOCATION` and `OPTIONS` clauses of the SQL statement; a real</span>
+<span class="w">        </span><span class="c1">// implementation would use them to connect to the remote catalog</span>
+<span class="w">        </span><span class="c1">// service. This example just returns an empty in-memory catalog.</span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">MemoryCatalogProvider</span><span class="p">::</span><span class="n">new</span><span class="p">()))</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then register it on the <code class="docutils literal notranslate"><span class="pre">SessionState</span></code>, keyed by the <code class="docutils literal notranslate"><span class="pre">STORED</span> <span class="pre">AS</span></code> value that
+should resolve to it:</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">datafusion</span><span class="p">::</span><span class="n">execution</span><span class="p">::</span><span class="n">session_state</span><span class="p">::</span><span class="n">SessionStateBuilder</span><span class="p">;</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SessionStateBuilder</span><span class="p">::</span><span class="n">new</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_default_features</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="n">with_catalog_factory</span><span class="p">(</span><span class="s">&quot;MY_CATALOG_TYPE&quot;</span><span class="p">.</span><span class="n">to_string</span><span class="p">(),</span><span class="w"> </span><span class="n">Arc</span><span class="p">::</span><span class="n">new</span><span class="p">(</span><span class="n">MyCatalogProviderFactory</span><span class="w"> </span><span class="p">{}))</span>
+<span class="w">    </span><span class="p">.</span><span class="n">build</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>With the factory registered, users can attach and detach the catalog from
+SQL:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">CATALOG</span><span class="w"> </span><span class="n">my_catalog</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">MY_CATALOG_TYPE</span>
+<span class="k">LOCATION</span><span class="w"> </span><span class="s1">&#39;s3://bucket/warehouse&#39;</span>
+<span class="k">OPTIONS</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;warehouse&#39;</span><span class="w"> </span><span class="s1">&#39;my_catalog&#39;</span><span class="p">);</span>
+
+<span class="k">DROP</span><span class="w"> </span><span class="k">CATALOG</span><span class="w"> </span><span class="n">my_catalog</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../user-guide/sql/ddl.html#create-external-catalog"><span class="std std-ref">DDL: <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">EXTERNAL</span> <span class="pre">CATALOG</span></code></span></a>
+for the full SQL syntax.</p>
+</section>
 <section id="recap">
 <h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
 <p>To recap, you need to:</p>
@@ -688,7 +788,7 @@
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -707,6 +807,7 @@
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-memorycatalogprovider">Implementing <code class="docutils literal notranslate"><span class="pre">MemoryCatalogProvider</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-memorycatalogproviderlist">Implementing <code class="docutils literal notranslate"><span class="pre">MemoryCatalogProviderList</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#catalog-provider-factories">Catalog Provider Factories</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
 </ul>
   </nav></div>
@@ -749,8 +850,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

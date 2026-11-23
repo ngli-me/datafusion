@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Upgrade Guides &#8212; Apache DataFusion  documentation</title>
+    <title>Upgrade Guides &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,22 +26,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'library-user-guide/upgrading/53.0.0';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/library-user-guide/upgrading/53.0.0.html" />
     <link rel="icon" href="../../_static/favicon.svg"/>
@@ -51,8 +57,9 @@
     <link rel="next" title="Upgrade Guides" href="52.0.0.html" />
     <link rel="prev" title="Upgrade Guides" href="54.0.0.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -302,10 +349,13 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Upgrade Guides</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="56.0.0.html">DataFusion 56.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="55.0.0.html">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="54.0.0.html">DataFusion 54.0.0</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">DataFusion 53.0.0</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">DataFusion 53.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="52.0.0.html">DataFusion 52.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="51.0.0.html">DataFusion 51.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="50.0.0.html">DataFusion 50.0.0</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -430,37 +484,24 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="upgrade-guides">
 <h1>Upgrade Guides<a class="headerlink" href="#upgrade-guides" title="Link to this heading">#</a></h1>
 <section id="datafusion-53-0-0">
-<h2>DataFusion 53.0.0<a class="headerlink" href="#datafusion-53-0-0" title="Link to this heading">#</a></h2>
+<span id="datafusion-5300"></span><h2>DataFusion 53.0.0<a class="headerlink" href="#datafusion-53-0-0" title="Link to this heading">#</a></h2>
 <section id="upgrade-arrow-parquet-to-58-0-0-and-object-store-to-0-13-0">
-<h3>Upgrade arrow/parquet to 58.0.0 and object_store to 0.13.0<a class="headerlink" href="#upgrade-arrow-parquet-to-58-0-0-and-object-store-to-0-13-0" title="Link to this heading">#</a></h3>
+<span id="upgrade-arrowparquet-to-5800-and-object_store-to-0130"></span><h3>Upgrade arrow/parquet to 58.0.0 and object_store to 0.13.0<a class="headerlink" href="#upgrade-arrow-parquet-to-58-0-0-and-object-store-to-0-13-0" title="Link to this heading">#</a></h3>
 <p>DataFusion 53.0.0 uses <code class="docutils literal notranslate"><span class="pre">arrow</span></code> and <code class="docutils literal notranslate"><span class="pre">parquet</span></code> 58.0.0, and <code class="docutils literal notranslate"><span class="pre">object_store</span></code> 0.13.0.
 This may require updates to your Cargo.toml if you have direct dependencies on
 these crates.</p>
 <p>See the <a class="reference external" href="https://github.com/apache/arrow-rs/releases/tag/58.0.0">Arrow 58.0.0 release notes</a> and the <a class="reference external" href="https://github.com/apache/arrow-rs-object-store/blob/v0.13.0/CHANGELOG.md">object_store 0.13.0 upgrade guide</a> for details on breaking changes in those versions.</p>
 </section>
 <section id="executionplan-statistics-removed">
-<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::statistics</span></code> removed<a class="headerlink" href="#executionplan-statistics-removed" title="Link to this heading">#</a></h3>
+<span id="executionplanstatistics-removed"></span><h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::statistics</span></code> removed<a class="headerlink" href="#executionplan-statistics-removed" title="Link to this heading">#</a></h3>
 <p>The deprecated <code class="docutils literal notranslate"><span class="pre">ExecutionPlan::statistics()</span></code> method has been removed. If you
 implement custom <code class="docutils literal notranslate"><span class="pre">ExecutionPlan</span></code>s, remove that method from your impl and
 implement <code class="docutils literal notranslate"><span class="pre">partition_statistics()</span></code> instead.</p>
@@ -488,7 +529,7 @@ implement <code class="docutils literal notranslate"><span class="pre">partition
 <code class="docutils literal notranslate"><span class="pre">None</span></code> and for any partition index.</p>
 </section>
 <section id="executionplan-properties-now-returns-arc-planproperties">
-<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::properties</span></code> now returns <code class="docutils literal notranslate"><span class="pre">&amp;Arc&lt;PlanProperties&gt;</span></code><a class="headerlink" href="#executionplan-properties-now-returns-arc-planproperties" title="Link to this heading">#</a></h3>
+<span id="executionplanproperties-now-returns-arcplanproperties"></span><h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::properties</span></code> now returns <code class="docutils literal notranslate"><span class="pre">&amp;Arc&lt;PlanProperties&gt;</span></code><a class="headerlink" href="#executionplan-properties-now-returns-arc-planproperties" title="Link to this heading">#</a></h3>
 <p>Now <code class="docutils literal notranslate"><span class="pre">ExecutionPlan::properties()</span></code> returns <code class="docutils literal notranslate"><span class="pre">&amp;Arc&lt;PlanProperties&gt;</span></code> instead of a
 reference. This make it possible to cheaply clone properties and reuse them across multiple
 <code class="docutils literal notranslate"><span class="pre">ExecutionPlans</span></code>. It also makes it possible to optimize [<code class="docutils literal notranslate"><span class="pre">ExecutionPlan::with_new_children</span></code>]
@@ -564,7 +605,7 @@ outer relations.</p>
 </div>
 </section>
 <section id="hashjoinexec-try-new-adds-null-aware">
-<h3><code class="docutils literal notranslate"><span class="pre">HashJoinExec::try_new</span></code> adds <code class="docutils literal notranslate"><span class="pre">null_aware</span></code><a class="headerlink" href="#hashjoinexec-try-new-adds-null-aware" title="Link to this heading">#</a></h3>
+<span id="hashjoinexectry_new-adds-null_aware"></span><h3><code class="docutils literal notranslate"><span class="pre">HashJoinExec::try_new</span></code> adds <code class="docutils literal notranslate"><span class="pre">null_aware</span></code><a class="headerlink" href="#hashjoinexec-try-new-adds-null-aware" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">HashJoinExec::try_new</span></code> now takes an extra <code class="docutils literal notranslate"><span class="pre">null_aware:</span> <span class="pre">bool</span></code> argument. This
 flag is used for null-aware anti joins, such as plans generated for <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">IN</span></code>
 subqueries.</p>
@@ -572,7 +613,7 @@ subqueries.</p>
 <code class="docutils literal notranslate"><span class="pre">JoinType::LeftAnti</span></code> joins.</p>
 </section>
 <section id="filesinkconfig-adds-file-output-mode">
-<h3><code class="docutils literal notranslate"><span class="pre">FileSinkConfig</span></code> adds <code class="docutils literal notranslate"><span class="pre">file_output_mode</span></code><a class="headerlink" href="#filesinkconfig-adds-file-output-mode" title="Link to this heading">#</a></h3>
+<span id="filesinkconfig-adds-file_output_mode"></span><h3><code class="docutils literal notranslate"><span class="pre">FileSinkConfig</span></code> adds <code class="docutils literal notranslate"><span class="pre">file_output_mode</span></code><a class="headerlink" href="#filesinkconfig-adds-file-output-mode" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">FileSinkConfig</span></code> now includes a <code class="docutils literal notranslate"><span class="pre">file_output_mode:</span> <span class="pre">FileOutputMode</span></code> field to control
 single-file vs directory output behavior. Any code constructing <code class="docutils literal notranslate"><span class="pre">FileSinkConfig</span></code> via struct
 literals must initialize this field.</p>
@@ -826,7 +867,7 @@ updates:</p>
 </div>
 </section>
 <section id="generate-series-and-range-table-functions-changed">
-<h3><code class="docutils literal notranslate"><span class="pre">generate_series</span></code> and <code class="docutils literal notranslate"><span class="pre">range</span></code> table functions changed<a class="headerlink" href="#generate-series-and-range-table-functions-changed" title="Link to this heading">#</a></h3>
+<span id="generate_series-and-range-table-functions-changed"></span><h3><code class="docutils literal notranslate"><span class="pre">generate_series</span></code> and <code class="docutils literal notranslate"><span class="pre">range</span></code> table functions changed<a class="headerlink" href="#generate-series-and-range-table-functions-changed" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">generate_series</span></code> and <code class="docutils literal notranslate"><span class="pre">range</span></code> table functions now return an empty set when the interval is invalid, instead of an error.
 This behavior is consistent with systems like PostgreSQL.</p>
 <p>Before:</p>
@@ -855,7 +896,7 @@ This behavior is consistent with systems like PostgreSQL.</p>
 </div>
 </section>
 <section id="array-remove-array-remove-n-array-remove-all-now-return-null-when-the-element-argument-is-null">
-<h3><code class="docutils literal notranslate"><span class="pre">array_remove</span></code>, <code class="docutils literal notranslate"><span class="pre">array_remove_n</span></code>, <code class="docutils literal notranslate"><span class="pre">array_remove_all</span></code> now return NULL when the element argument is NULL<a class="headerlink" href="#array-remove-array-remove-n-array-remove-all-now-return-null-when-the-element-argument-is-null" title="Link to this heading">#</a></h3>
+<span id="array_remove-array_remove_n-array_remove_all-now-return-null-when-the-element-argument-is-null"></span><h3><code class="docutils literal notranslate"><span class="pre">array_remove</span></code>, <code class="docutils literal notranslate"><span class="pre">array_remove_n</span></code>, <code class="docutils literal notranslate"><span class="pre">array_remove_all</span></code> now return NULL when the element argument is NULL<a class="headerlink" href="#array-remove-array-remove-n-array-remove-all-now-return-null-when-the-element-argument-is-null" title="Link to this heading">#</a></h3>
 <p>Previously, calling <code class="docutils literal notranslate"><span class="pre">array_remove(array,</span> <span class="pre">NULL)</span></code> would attempt to match and
 remove NULL entries from the array, returning the array with NULLs stripped.
 Now, passing NULL as the element to remove causes the function to return NULL,
@@ -948,7 +989,7 @@ with a NULL element argument (literal or column-derived).</p></li>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1016,8 +1057,8 @@ with a NULL element argument (literal or column-derived).</p></li>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Upgrade Guides &#8212; Apache DataFusion  documentation</title>
+    <title>Upgrade Guides &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,32 +26,40 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'library-user-guide/upgrading/55.0.0';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/library-user-guide/upgrading/55.0.0.html" />
     <link rel="icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Upgrade Guides" href="54.0.0.html" />
-    <link rel="prev" title="Upgrade Guides" href="index.html" />
+    <link rel="prev" title="Upgrade Guides" href="56.0.0.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -302,8 +349,11 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Upgrade Guides</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">DataFusion 55.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="56.0.0.html">DataFusion 56.0.0</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="54.0.0.html">DataFusion 54.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="53.0.0.html">DataFusion 53.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="52.0.0.html">DataFusion 52.0.0</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -430,31 +484,47 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="upgrade-guides">
 <h1>Upgrade Guides<a class="headerlink" href="#upgrade-guides" title="Link to this heading">#</a></h1>
 <section id="datafusion-55-0-0">
-<h2>DataFusion 55.0.0<a class="headerlink" href="#datafusion-55-0-0" title="Link to this heading">#</a></h2>
-<p><strong>Note:</strong> DataFusion <code class="docutils literal notranslate"><span class="pre">55.0.0</span></code> has not been released yet. The information provided
-in this section pertains to features and changes that have already been merged
-to the main branch and are awaiting release in this version.</p>
+<span id="datafusion-5500"></span><h2>DataFusion 55.0.0<a class="headerlink" href="#datafusion-55-0-0" title="Link to this heading">#</a></h2>
+<section id="filter-predicate-evaluation-order-may-differ-from-query-text">
+<h3>Filter predicate evaluation order may differ from query text<a class="headerlink" href="#filter-predicate-evaluation-order-may-differ-from-query-text" title="Link to this heading">#</a></h3>
+<p>The logical optimizer now reorders filters so that cheap predicates (most binary
+comparisons, <code class="docutils literal notranslate"><span class="pre">IS</span> <span class="pre">NULL</span></code>, <code class="docutils literal notranslate"><span class="pre">Between</span></code>, <code class="docutils literal notranslate"><span class="pre">InList</span></code>, etc.) evaluate before expensive
+ones (<code class="docutils literal notranslate"><span class="pre">LIKE</span></code>, regex, scalar function calls, subqueries). For example,
+<code class="docutils literal notranslate"><span class="pre">WHERE</span> <span class="pre">col</span> <span class="pre">LIKE</span> <span class="pre">'%foo%'</span> <span class="pre">AND</span> <span class="pre">col2</span> <span class="pre">=</span> <span class="pre">5</span></code> may evaluate <code class="docutils literal notranslate"><span class="pre">col2</span> <span class="pre">=</span> <span class="pre">5</span></code> before
+<code class="docutils literal notranslate"><span class="pre">col</span> <span class="pre">LIKE</span> <span class="pre">'%foo%'</span></code>.</p>
+<p><strong>Evaluation order has never been guaranteed to match the order written in the
+query.</strong> The SQL standard explicitly allows implementations to evaluate operands
+in any order; major engines (PostgreSQL, SQL Server, Oracle, MySQL) document the
+same. Queries should not rely on left-to-right evaluation or short-circuit
+semantics for <code class="docutils literal notranslate"><span class="pre">AND</span></code> or <code class="docutils literal notranslate"><span class="pre">OR</span></code>. Previous versions of DataFusion already reordered
+predicates (e.g., as part of expression simplification or predicate pushdown);
+the new reordering pass just increases the scenarios where the optimizer will
+change predicate evaluation order.</p>
+<p><strong>Fallible-predicate patterns are particularly affected.</strong> For example:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WHERE</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s1">&#39;^[0-9]+$&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+</pre></div>
+</div>
+<p>The intent is likely to filter non-numeric strings before the <code class="docutils literal notranslate"><span class="pre">CAST</span></code> runs,
+but this depends on evaluation-order behavior the SQL standard does not
+guaranteed. The new reorder makes this kind of pattern more likely to fail
+at runtime if the optimizer moves the <code class="docutils literal notranslate"><span class="pre">CAST</span></code> ahead of the regex. To force
+conditional evaluation, rewrite using <code class="docutils literal notranslate"><span class="pre">CASE</span></code>, which has standardized
+short-circuit semantics:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">WHERE</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s1">&#39;^[0-9]+$&#39;</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="k">false</span><span class="w"> </span><span class="k">END</span>
+</pre></div>
+</div>
+<p>Volatile expressions (<code class="docutils literal notranslate"><span class="pre">random()</span></code>, <code class="docutils literal notranslate"><span class="pre">now()</span></code>, etc.) are exempt — their position
+in the conjunct list is preserved so the number of times they evaluate per
+query does not change.</p>
+</section>
 <section id="map-casts-with-nested-structs-use-schema-evolution-rules">
 <h3>Map casts with nested Structs use schema-evolution rules<a class="headerlink" href="#map-casts-with-nested-structs-use-schema-evolution-rules" title="Link to this heading">#</a></h3>
 <p>Casts of a <code class="docutils literal notranslate"><span class="pre">Map</span></code> whose key or value recursively contains a <code class="docutils literal notranslate"><span class="pre">Struct</span></code> now adapt
@@ -473,7 +543,7 @@ case-sensitive field names and key identity. Ordinary Maps without semantic
 Struct children continue to use Arrow’s normal Map cast behavior.</p>
 </section>
 <section id="tableprovider-scan-takes-option-usize-for-the-projection">
-<h3><code class="docutils literal notranslate"><span class="pre">TableProvider::scan</span></code> takes <code class="docutils literal notranslate"><span class="pre">Option&lt;&amp;[usize]&gt;</span></code> for the projection<a class="headerlink" href="#tableprovider-scan-takes-option-usize-for-the-projection" title="Link to this heading">#</a></h3>
+<span id="tableproviderscan-takes-optionusize-for-the-projection"></span><h3><code class="docutils literal notranslate"><span class="pre">TableProvider::scan</span></code> takes <code class="docutils literal notranslate"><span class="pre">Option&lt;&amp;[usize]&gt;</span></code> for the projection<a class="headerlink" href="#tableprovider-scan-takes-option-usize-for-the-projection" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">TableProvider::scan</span></code> and the related APIs listed below previously took the
 projection as <code class="docutils literal notranslate"><span class="pre">Option&lt;&amp;Vec&lt;usize&gt;&gt;</span></code>:</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
@@ -517,7 +587,7 @@ returned future – which is what made that method expensive to compile
 (<code class="docutils literal notranslate"><span class="pre">datafusion-session</span></code> compiles ~3.3x faster as a result).</p>
 </section>
 <section id="dataframe-fill-null-now-borrows-its-arguments">
-<h3><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> now borrows its arguments<a class="headerlink" href="#dataframe-fill-null-now-borrows-its-arguments" title="Link to this heading">#</a></h3>
+<span id="dataframefill_null-now-borrows-its-arguments"></span><h3><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> now borrows its arguments<a class="headerlink" href="#dataframe-fill-null-now-borrows-its-arguments" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> previously took its arguments by value:</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
 <span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">fill_null</span><span class="p">(</span>
@@ -552,7 +622,7 @@ returned future – which is what made that method expensive to compile
 </div>
 </section>
 <section id="filescanconfig-partitioned-by-file-group-removed">
-<h3><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> removed<a class="headerlink" href="#filescanconfig-partitioned-by-file-group-removed" title="Link to this heading">#</a></h3>
+<span id="filescanconfigpartitioned_by_file_group-removed"></span><h3><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> removed<a class="headerlink" href="#filescanconfig-partitioned-by-file-group-removed" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> and
 <code class="docutils literal notranslate"><span class="pre">FileScanConfigBuilder::with_partitioned_by_file_group(...)</span></code> have been removed.
 Use <code class="docutils literal notranslate"><span class="pre">FileScanConfig::output_partitioning</span></code> and
@@ -613,13 +683,18 @@ arm.</p>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">temp_file.size()</span></code> instead of <a class="reference external" href="https://docs.rs/datafusion-execution/latest/datafusion_execution/disk_manager/struct.RefCountedTempFile.html#method.current_disk_usage"><code class="docutils literal notranslate"><span class="pre">RefCountedTempFile::current_disk_usage</span></code></a>.</p>
 </section>
+<section id="new-dialect-spark-variant">
+<span id="new-dialectspark-variant"></span><h3>New <code class="docutils literal notranslate"><span class="pre">Dialect::Spark</span></code> variant<a class="headerlink" href="#new-dialect-spark-variant" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Dialect</span></code> enum in <code class="docutils literal notranslate"><span class="pre">datafusion_common::config</span></code> now includes a <code class="docutils literal notranslate"><span class="pre">Spark</span></code> variant.
+If you match exhaustively on <code class="docutils literal notranslate"><span class="pre">Dialect</span></code>, add a <code class="docutils literal notranslate"><span class="pre">Dialect::Spark</span></code> arm.</p>
+</section>
 <section id="dialect-available-replaced-by-dialect-available">
-<h3><code class="docutils literal notranslate"><span class="pre">Dialect::AVAILABLE</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code><a class="headerlink" href="#dialect-available-replaced-by-dialect-available" title="Link to this heading">#</a></h3>
+<span id="dialectavailable-replaced-by-dialectavailable"></span><h3><code class="docutils literal notranslate"><span class="pre">Dialect::AVAILABLE</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code><a class="headerlink" href="#dialect-available-replaced-by-dialect-available" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_common::config::Dialect::AVAILABLE</span></code> has been removed. Use
 <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code> instead.</p>
 </section>
 <section id="spill-record-batch-by-size-removed">
-<h3><code class="docutils literal notranslate"><span class="pre">spill_record_batch_by_size</span></code> removed<a class="headerlink" href="#spill-record-batch-by-size-removed" title="Link to this heading">#</a></h3>
+<span id="spill_record_batch_by_size-removed"></span><h3><code class="docutils literal notranslate"><span class="pre">spill_record_batch_by_size</span></code> removed<a class="headerlink" href="#spill-record-batch-by-size-removed" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_plan::spill::spill_record_batch_by_size</span></code> has been removed.
 This function was deprecated in DataFusion <code class="docutils literal notranslate"><span class="pre">46.0.0</span></code>.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">datafusion_physical_plan::spill::SpillManager::spill_record_batch_by_size</span></code>
@@ -690,7 +765,7 @@ UDFs relying on that behavior must now explicitly enable dictionary
 preservation. <code class="docutils literal notranslate"><span class="pre">TypeSignatureClass::Any</span></code> is unaffected.</p>
 </section>
 <section id="groupsaccumulator-merge-batch-no-longer-takes-opt-filter">
-<h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::merge_batch</span></code> no longer takes <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code><a class="headerlink" href="#groupsaccumulator-merge-batch-no-longer-takes-opt-filter" title="Link to this heading">#</a></h3>
+<span id="groupsaccumulatormerge_batch-no-longer-takes-opt_filter"></span><h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::merge_batch</span></code> no longer takes <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code><a class="headerlink" href="#groupsaccumulator-merge-batch-no-longer-takes-opt-filter" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">opt_filter</span></code> argument has been removed from
 <code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::groups_accumulator::GroupsAccumulator::merge_batch</span></code>:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="w"> </span> fn merge_batch(
@@ -734,7 +809,7 @@ it was <code class="docutils literal notranslate"><span class="pre">None</span><
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/issues/22775">issue #22775</a> for details.</p>
 </section>
 <section id="groupsaccumulator-convert-to-state-is-now-required">
-<h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::convert_to_state</span></code> is now required<a class="headerlink" href="#groupsaccumulator-convert-to-state-is-now-required" title="Link to this heading">#</a></h3>
+<span id="groupsaccumulatorconvert_to_state-is-now-required"></span><h3><code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::convert_to_state</span></code> is now required<a class="headerlink" href="#groupsaccumulator-convert-to-state-is-now-required" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::groups_accumulator::GroupsAccumulator::convert_to_state</span></code>
 no longer provides a default implementation, and the
 <code class="docutils literal notranslate"><span class="pre">GroupsAccumulator::supports_convert_to_state</span></code> capability method has been
@@ -762,7 +837,7 @@ do not exchange this struct with libraries built against older major versions.</
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/issues/23081">issue #23081</a> for details.</p>
 </section>
 <section id="is-dynamic-physical-expr-is-deprecated">
-<h3><code class="docutils literal notranslate"><span class="pre">is_dynamic_physical_expr</span></code> is deprecated<a class="headerlink" href="#is-dynamic-physical-expr-is-deprecated" title="Link to this heading">#</a></h3>
+<span id="is_dynamic_physical_expr-is-deprecated"></span><h3><code class="docutils literal notranslate"><span class="pre">is_dynamic_physical_expr</span></code> is deprecated<a class="headerlink" href="#is-dynamic-physical-expr-is-deprecated" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_physical_expr_common::physical_expr::is_dynamic_physical_expr</span></code> is
 deprecated. It was a thin wrapper over <code class="docutils literal notranslate"><span class="pre">snapshot_generation(expr)</span> <span class="pre">!=</span> <span class="pre">0</span></code> used to
 ask “does this predicate contain a dynamic filter?”.</p>
@@ -795,7 +870,7 @@ notified when they do), use the new <code class="docutils literal notranslate"><
 </div>
 </section>
 <section id="pruningpredicate-try-new-is-deprecated">
-<h3><code class="docutils literal notranslate"><span class="pre">PruningPredicate::try_new</span></code> is deprecated<a class="headerlink" href="#pruningpredicate-try-new-is-deprecated" title="Link to this heading">#</a></h3>
+<span id="pruningpredicatetry_new-is-deprecated"></span><h3><code class="docutils literal notranslate"><span class="pre">PruningPredicate::try_new</span></code> is deprecated<a class="headerlink" href="#pruningpredicate-try-new-is-deprecated" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_pruning::PruningPredicate::try_new</span></code> is deprecated. Use
 <code class="docutils literal notranslate"><span class="pre">PruningPredicateBuilder</span></code> instead. The deprecated constructor remains available
 in DataFusion 55 and preserves its existing behavior.</p>
@@ -810,7 +885,7 @@ in DataFusion 55 and preserves its existing behavior.</p>
 </div>
 </section>
 <section id="filepruner-try-new-no-longer-builds-a-pruner-for-static-predicates-without-statistics">
-<h3><code class="docutils literal notranslate"><span class="pre">FilePruner::try_new</span></code> no longer builds a pruner for static predicates without statistics<a class="headerlink" href="#filepruner-try-new-no-longer-builds-a-pruner-for-static-predicates-without-statistics" title="Link to this heading">#</a></h3>
+<span id="fileprunertry_new-no-longer-builds-a-pruner-for-static-predicates-without-statistics"></span><h3><code class="docutils literal notranslate"><span class="pre">FilePruner::try_new</span></code> no longer builds a pruner for static predicates without statistics<a class="headerlink" href="#filepruner-try-new-no-longer-builds-a-pruner-for-static-predicates-without-statistics" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_pruning::FilePruner::try_new</span></code> now returns <code class="docutils literal notranslate"><span class="pre">None</span></code> when the predicate
 is purely static <em>and</em> the file carries no usable column statistics, because
 such a pruner can never prune anything beyond what planning already did.
@@ -829,7 +904,7 @@ as a supertrait:</p>
 </div>
 </section>
 <section id="executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs">
-<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> deprecated in favor of <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code><a class="headerlink" href="#executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs" title="Link to this heading">#</a></h3>
+<span id="executionplanpartition_statistics-deprecated-in-favor-of-statistics_from_inputs"></span><h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> deprecated in favor of <code class="docutils literal notranslate"><span class="pre">statistics_from_inputs</span></code><a class="headerlink" href="#executionplan-partition-statistics-deprecated-in-favor-of-statistics-from-inputs" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::partition_statistics</span></code> is deprecated. Statistics computation is
 now split into two parts:</p>
 <ul class="simple">
@@ -905,7 +980,7 @@ created with the context:</p>
 </div>
 </section>
 <section id="ddlstatement-createexternaltable-and-createfunction-are-now-boxed">
-<h3><code class="docutils literal notranslate"><span class="pre">DdlStatement::CreateExternalTable</span></code> and <code class="docutils literal notranslate"><span class="pre">CreateFunction</span></code> are now boxed<a class="headerlink" href="#ddlstatement-createexternaltable-and-createfunction-are-now-boxed" title="Link to this heading">#</a></h3>
+<span id="ddlstatementcreateexternaltable-and-createfunction-are-now-boxed"></span><h3><code class="docutils literal notranslate"><span class="pre">DdlStatement::CreateExternalTable</span></code> and <code class="docutils literal notranslate"><span class="pre">CreateFunction</span></code> are now boxed<a class="headerlink" href="#ddlstatement-createexternaltable-and-createfunction-are-now-boxed" title="Link to this heading">#</a></h3>
 <p>The two largest variants of <code class="docutils literal notranslate"><span class="pre">datafusion_expr::DdlStatement</span></code> are now
 <code class="docutils literal notranslate"><span class="pre">Box</span></code>ed:</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before</span>
@@ -1001,7 +1076,7 @@ details, including the per-variant size breakdown and benchmark
 results.</p>
 </section>
 <section id="executionplan-with-new-children-and-executionplan-with-new-children-and-same-properties-deprecated">
-<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::with_new_children</span></code> and <code class="docutils literal notranslate"><span class="pre">ExecutionPlan::with_new_children_and_same_properties</span></code> deprecated<a class="headerlink" href="#executionplan-with-new-children-and-executionplan-with-new-children-and-same-properties-deprecated" title="Link to this heading">#</a></h3>
+<span id="executionplanwith_new_children-and-executionplanwith_new_children_and_same_properties-deprecated"></span><h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::with_new_children</span></code> and <code class="docutils literal notranslate"><span class="pre">ExecutionPlan::with_new_children_and_same_properties</span></code> deprecated<a class="headerlink" href="#executionplan-with-new-children-and-executionplan-with-new-children-and-same-properties-deprecated" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">with_new_children</span></code> and <code class="docutils literal notranslate"><span class="pre">with_new_children_and_same_properties</span></code> have been
 deprecated. These methods are used to replace the child plans of an
 <code class="docutils literal notranslate"><span class="pre">ExecutionPlan</span></code> while leaving the plan otherwise identical.</p>
@@ -1062,7 +1137,7 @@ call <code class="docutils literal notranslate"><span class="pre">replace_childr
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23903">PR #23903</a> for details.</p>
 </section>
 <section id="listingoptions-target-partitions-and-collect-stat-removed">
-<h3><code class="docutils literal notranslate"><span class="pre">ListingOptions::target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> removed<a class="headerlink" href="#listingoptions-target-partitions-and-collect-stat-removed" title="Link to this heading">#</a></h3>
+<span id="listingoptionstarget_partitions-and-collect_stat-removed"></span><h3><code class="docutils literal notranslate"><span class="pre">ListingOptions::target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> removed<a class="headerlink" href="#listingoptions-target-partitions-and-collect-stat-removed" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">target_partitions</span></code> and <code class="docutils literal notranslate"><span class="pre">collect_stat</span></code> fields on
 <code class="docutils literal notranslate"><span class="pre">datafusion_catalog_listing::ListingOptions</span></code>, their builder methods
 (<code class="docutils literal notranslate"><span class="pre">with_target_partitions</span></code>, <code class="docutils literal notranslate"><span class="pre">with_collect_stat</span></code>), and the
@@ -1188,7 +1263,7 @@ encoded after it add a field that older readers ignore.</p>
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23643">PR #23643</a> for details.</p>
 </section>
 <section id="time-interval-now-returns-a-time-instead-of-an-interval">
-<h3><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">±</span> <span class="pre">interval</span></code> now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code> instead of an <code class="docutils literal notranslate"><span class="pre">interval</span></code><a class="headerlink" href="#time-interval-now-returns-a-time-instead-of-an-interval" title="Link to this heading">#</a></h3>
+<span id="time--interval-now-returns-a-time-instead-of-an-interval"></span><h3><code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">±</span> <span class="pre">interval</span></code> now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code> instead of an <code class="docutils literal notranslate"><span class="pre">interval</span></code><a class="headerlink" href="#time-interval-now-returns-a-time-instead-of-an-interval" title="Link to this heading">#</a></h3>
 <p>Adding or subtracting an <code class="docutils literal notranslate"><span class="pre">interval</span></code> to/from a <code class="docutils literal notranslate"><span class="pre">time</span></code> value now returns a <code class="docutils literal notranslate"><span class="pre">time</span></code>
 that wraps within the 24-hour clock, matching PostgreSQL and DuckDB. Previously
 DataFusion returned an <code class="docutils literal notranslate"><span class="pre">interval</span></code>.</p>
@@ -1379,7 +1454,7 @@ documentation for how plans and extension codecs cross the boundary.</p>
 the catalog changes.</p>
 </section>
 <section id="ffi-logicalextensioncodec-task-ctx-provider-is-now-private">
-<h3><code class="docutils literal notranslate"><span class="pre">FFI_LogicalExtensionCodec::task_ctx_provider</span></code> is now private<a class="headerlink" href="#ffi-logicalextensioncodec-task-ctx-provider-is-now-private" title="Link to this heading">#</a></h3>
+<span id="ffi_logicalextensioncodectask_ctx_provider-is-now-private"></span><h3><code class="docutils literal notranslate"><span class="pre">FFI_LogicalExtensionCodec::task_ctx_provider</span></code> is now private<a class="headerlink" href="#ffi-logicalextensioncodec-task-ctx-provider-is-now-private" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">task_ctx_provider</span></code> field on
 <code class="docutils literal notranslate"><span class="pre">datafusion_ffi::proto::logical_extension_codec::FFI_LogicalExtensionCodec</span></code> was
 <code class="docutils literal notranslate"><span class="pre">pub</span></code> and is now crate-private, matching <code class="docutils literal notranslate"><span class="pre">FFI_PhysicalExtensionCodec</span></code>.</p>
@@ -1418,7 +1493,7 @@ on a non-future value does not compile:</p>
 </div>
 </section>
 <section id="movingmin-and-movingmax-changed-to-pub-crate">
-<h3><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> changed to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code><a class="headerlink" href="#movingmin-and-movingmax-changed-to-pub-crate" title="Link to this heading">#</a></h3>
+<span id="movingmin-and-movingmax-changed-to-pubcrate"></span><h3><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> changed to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code><a class="headerlink" href="#movingmin-and-movingmax-changed-to-pub-crate" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">MovingMin</span></code> and <code class="docutils literal notranslate"><span class="pre">MovingMax</span></code> in <code class="docutils literal notranslate"><span class="pre">datafusion_functions_aggregate::min_max</span></code> have been changed from <code class="docutils literal notranslate"><span class="pre">pub</span></code> to <code class="docutils literal notranslate"><span class="pre">pub(crate)</span></code> visibility as they are internal helper data structures for DataFusion’s sliding window aggregators.</p>
 <p><strong>Who is affected:</strong></p>
 <ul class="simple">
@@ -1457,12 +1532,12 @@ for the same reason, rather than deriving it from its children.</p>
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/22552">PR #22552</a> for details.</p>
 </section>
 <section id="executionplan-apply-expressions-is-now-a-required-method">
-<h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::apply_expressions</span></code> is now a required method<a class="headerlink" href="#executionplan-apply-expressions-is-now-a-required-method" title="Link to this heading">#</a></h3>
+<span id="executionplanapply_expressions-is-now-a-required-method"></span><h3><code class="docutils literal notranslate"><span class="pre">ExecutionPlan::apply_expressions</span></code> is now a required method<a class="headerlink" href="#executionplan-apply-expressions-is-now-a-required-method" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">apply_expressions</span></code> has been added as a <strong>required</strong> method on the <code class="docutils literal notranslate"><span class="pre">ExecutionPlan</span></code>, <code class="docutils literal notranslate"><span class="pre">FileSource</span></code>, and <code class="docutils literal notranslate"><span class="pre">DataSource</span></code> traits. Any custom implementation of
 these traits must now implement <code class="docutils literal notranslate"><span class="pre">apply_expressions</span></code>. See docs on <code class="docutils literal notranslate"><span class="pre">ExecutionPlan::apply_expressions</span></code> for migration details.</p>
 </section>
 <section id="windowexpr-evaluate-stateful-now-takes-a-windowevalcontext">
-<h3><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> now takes a <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code><a class="headerlink" href="#windowexpr-evaluate-stateful-now-takes-a-windowevalcontext" title="Link to this heading">#</a></h3>
+<span id="windowexprevaluate_stateful-now-takes-a-windowevalcontext"></span><h3><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> now takes a <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code><a class="headerlink" href="#windowexpr-evaluate-stateful-now-takes-a-windowevalcontext" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">WindowExpr::evaluate_stateful</span></code> (and the provided
 <code class="docutils literal notranslate"><span class="pre">AggregateWindowExpr::aggregate_evaluate_stateful</span></code> method) take a new
 <code class="docutils literal notranslate"><span class="pre">WindowEvalContext</span></code> argument carrying stream-level information that is shared
@@ -1516,7 +1591,7 @@ available (for example, when the input is sorted by the partition keys and
 partition ends are detected directly).</p>
 </section>
 <section id="partitionbatchstate-most-recent-row-removed">
-<h3><code class="docutils literal notranslate"><span class="pre">PartitionBatchState::most_recent_row</span></code> removed<a class="headerlink" href="#partitionbatchstate-most-recent-row-removed" title="Link to this heading">#</a></h3>
+<span id="partitionbatchstatemost_recent_row-removed"></span><h3><code class="docutils literal notranslate"><span class="pre">PartitionBatchState::most_recent_row</span></code> removed<a class="headerlink" href="#partitionbatchstate-most-recent-row-removed" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">most_recent_row</span></code> field and the <code class="docutils literal notranslate"><span class="pre">set_most_recent_row</span></code> method have been
 removed from <code class="docutils literal notranslate"><span class="pre">datafusion_expr::window_state::PartitionBatchState</span></code>. The most
 recent input row is a property of the whole input stream rather than
@@ -1536,7 +1611,7 @@ via <code class="docutils literal notranslate"><span class="pre">WindowEvalConte
 each partition’s state.</p>
 </section>
 <section id="msrv-updated-to-1-94-0">
-<h3><code class="docutils literal notranslate"><span class="pre">MSRV</span></code> updated to 1.94.0<a class="headerlink" href="#msrv-updated-to-1-94-0" title="Link to this heading">#</a></h3>
+<span id="msrv-updated-to-1940"></span><h3><code class="docutils literal notranslate"><span class="pre">MSRV</span></code> updated to 1.94.0<a class="headerlink" href="#msrv-updated-to-1-94-0" title="Link to this heading">#</a></h3>
 <p>The Minimum Supported Rust Version (MSRV) has been updated to <a class="reference external" href="https://releases.rs/docs/1.94.0/"><code class="docutils literal notranslate"><span class="pre">1.94.0</span></code></a>.</p>
 </section>
 <section id="cachedparquetfilereader-removed-parquetfilereader-fields-are-now-private">
@@ -1583,7 +1658,7 @@ or <code class="docutils literal notranslate"><span class="pre">CachedParquetFil
 </div>
 </section>
 <section id="array-distance-scalar-function-now-rejects-multidimensional-arrays">
-<h3><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> scalar function now rejects multidimensional arrays<a class="headerlink" href="#array-distance-scalar-function-now-rejects-multidimensional-arrays" title="Link to this heading">#</a></h3>
+<span id="array_distance-scalar-function-now-rejects-multidimensional-arrays"></span><h3><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> scalar function now rejects multidimensional arrays<a class="headerlink" href="#array-distance-scalar-function-now-rejects-multidimensional-arrays" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">array_distance</span></code> only supports one-dimensional arrays. Previously, when given
 multidimensional arrays, it computed the distance using only the first
 subarray and ignored the remaining subarrays. For example:</p>
@@ -1624,7 +1699,7 @@ readers that don’t recognize the new tag.</p>
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/23188">PR #23188</a> for details.</p>
 </section>
 <section id="parquetobjectreader-parquetobjectwriter-deprecated-upstream">
-<h3><code class="docutils literal notranslate"><span class="pre">ParquetObjectReader</span></code> / <code class="docutils literal notranslate"><span class="pre">ParquetObjectWriter</span></code> deprecated upstream<a class="headerlink" href="#parquetobjectreader-parquetobjectwriter-deprecated-upstream" title="Link to this heading">#</a></h3>
+<span id="parquetobjectreader--parquetobjectwriter-deprecated-upstream"></span><h3><code class="docutils literal notranslate"><span class="pre">ParquetObjectReader</span></code> / <code class="docutils literal notranslate"><span class="pre">ParquetObjectWriter</span></code> deprecated upstream<a class="headerlink" href="#parquetobjectreader-parquetobjectwriter-deprecated-upstream" title="Link to this heading">#</a></h3>
 <p>The <a class="reference external" href="https://crates.io/crates/parquet"><code class="docutils literal notranslate"><span class="pre">parquet</span></code> crate</a> deprecated <a class="reference external" href="https://docs.rs/parquet/59.1.0/parquet/arrow/async_reader/struct.ParquetObjectReader.html"><code class="docutils literal notranslate"><span class="pre">ParquetObjectReader</span></code></a>
 and <a class="reference external" href="https://docs.rs/parquet/59.1.0/parquet/arrow/async_writer/struct.ParquetObjectWriter.html"><code class="docutils literal notranslate"><span class="pre">ParquetObjectWriter</span></code></a> in favor of implementing
 <a class="reference external" href="https://docs.rs/parquet/59.1.0/parquet/arrow/async_reader/trait.AsyncFileReader.html"><code class="docutils literal notranslate"><span class="pre">AsyncFileReader</span></code></a> directly (see the example on the <a class="reference external" href="https://docs.rs/parquet/59.1.0/parquet/arrow/async_reader/trait.AsyncFileReader.html"><code class="docutils literal notranslate"><span class="pre">AsyncFileReader</span></code></a> trait and
@@ -1659,7 +1734,7 @@ following the pattern in <a class="reference external" href="https://github.com/
 <p>See <a class="reference external" href="https://github.com/apache/datafusion/pull/24030">PR #24030</a> for details.</p>
 </section>
 <section id="sortproperties-and-or-replaced-by-and-and-or">
-<h3><code class="docutils literal notranslate"><span class="pre">SortProperties::and_or</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code><a class="headerlink" href="#sortproperties-and-or-replaced-by-and-and-or" title="Link to this heading">#</a></h3>
+<span id="sortpropertiesand_or-replaced-by-and-and-or"></span><h3><code class="docutils literal notranslate"><span class="pre">SortProperties::and_or</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code><a class="headerlink" href="#sortproperties-and-or-replaced-by-and-and-or" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion_expr_common::sort_properties::SortProperties::and_or</span></code> has been
 removed. Call <code class="docutils literal notranslate"><span class="pre">and</span></code> for <code class="docutils literal notranslate"><span class="pre">AND</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> for <code class="docutils literal notranslate"><span class="pre">OR</span></code>:</p>
 <div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><span class="c1">// Before (54.0.0)</span>
@@ -1753,7 +1828,7 @@ use <code class="docutils literal notranslate"><span class="pre">UNBOUNDED</span
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="56.0.0.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
@@ -1777,7 +1852,7 @@ use <code class="docutils literal notranslate"><span class="pre">UNBOUNDED</span
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1790,11 +1865,13 @@ use <code class="docutils literal notranslate"><span class="pre">UNBOUNDED</span
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datafusion-55-0-0">DataFusion 55.0.0</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filter-predicate-evaluation-order-may-differ-from-query-text">Filter predicate evaluation order may differ from query text</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-casts-with-nested-structs-use-schema-evolution-rules">Map casts with nested Structs use schema-evolution rules</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tableprovider-scan-takes-option-usize-for-the-projection"><code class="docutils literal notranslate"><span class="pre">TableProvider::scan</span></code> takes <code class="docutils literal notranslate"><span class="pre">Option&lt;&amp;[usize]&gt;</span></code> for the projection</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataframe-fill-null-now-borrows-its-arguments"><code class="docutils literal notranslate"><span class="pre">DataFrame::fill_null</span></code> now borrows its arguments</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filescanconfig-partitioned-by-file-group-removed"><code class="docutils literal notranslate"><span class="pre">FileScanConfig::partitioned_by_file_group</span></code> removed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#user-spillfile-traits-instead-of-refcountedtempfile">User <code class="docutils literal notranslate"><span class="pre">SpillFile</span></code> traits instead of <code class="docutils literal notranslate"><span class="pre">RefCountedTempFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#new-dialect-spark-variant">New <code class="docutils literal notranslate"><span class="pre">Dialect::Spark</span></code> variant</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dialect-available-replaced-by-dialect-available"><code class="docutils literal notranslate"><span class="pre">Dialect::AVAILABLE</span></code> replaced by <code class="docutils literal notranslate"><span class="pre">Dialect::available()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spill-record-batch-by-size-removed"><code class="docutils literal notranslate"><span class="pre">spill_record_batch_by_size</span></code> removed</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#createexternaltable-supports-multiple-locations"><code class="docutils literal notranslate"><span class="pre">CreateExternalTable</span></code> supports multiple locations</a></li>
@@ -1875,8 +1952,8 @@ use <code class="docutils literal notranslate"><span class="pre">UNBOUNDED</span
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

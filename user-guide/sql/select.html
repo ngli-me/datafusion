@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>SELECT syntax &#8212; Apache DataFusion  documentation</title>
+    <title>SELECT syntax &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,22 +26,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/sql/select';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/user-guide/sql/select.html" />
     <link rel="icon" href="../../_static/favicon.svg"/>
@@ -51,8 +57,9 @@
     <link rel="next" title="Subqueries" href="subqueries.html" />
     <link rel="prev" title="Struct Type Coercion and Field Mapping" href="struct_coercion.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -273,7 +320,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">SQL Reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="struct_coercion.html">Struct Type Coercion and Field Mapping</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">SELECT syntax</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">SELECT syntax</a></li>
 <li class="toctree-l2"><a class="reference internal" href="subqueries.html">Subqueries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ddl.html">DDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dml.html">DML</a></li>
@@ -302,7 +349,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../library-user-guide/upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/56.0.0.html">DataFusion 56.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -430,23 +484,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="select-syntax">
 <h1>SELECT syntax<a class="headerlink" href="#select-syntax" title="Link to this heading">#</a></h1>
@@ -659,7 +700,7 @@ table alias and column alias.</p>
 items (implicit lateral references such as <code class="docutils literal notranslate"><span class="pre">FROM</span> <span class="pre">orders</span> <span class="pre">AS</span> <span class="pre">t,</span> <span class="pre">UNNEST(t.items)</span></code>
 are not currently supported).</p>
 <section id="unnest-outer">
-<h3><code class="docutils literal notranslate"><span class="pre">unnest_outer</span></code><a class="headerlink" href="#unnest-outer" title="Link to this heading">#</a></h3>
+<span id="unnest_outer"></span><h3><code class="docutils literal notranslate"><span class="pre">unnest_outer</span></code><a class="headerlink" href="#unnest-outer" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">unnest_outer(col)</span></code> is the outer-unnest peer to <code class="docutils literal notranslate"><span class="pre">UNNEST(col)</span></code>. The two differ
 only in how <code class="docutils literal notranslate"><span class="pre">NULL</span></code> and empty input lists are handled:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -707,6 +748,7 @@ processing.</p>
 <section id="join-clause">
 <h2>JOIN clause<a class="headerlink" href="#join-clause" title="Link to this heading">#</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>from_item [join_type] JOIN from_item [join_condition]
+from_item ASOF JOIN from_item MATCH_CONDITION (condition) [join_condition]
 from_item CROSS JOIN from_item
 from_item NATURAL JOIN from_item
 from_item [join_type] JOIN LATERAL (query) AS alias [join_condition]
@@ -777,6 +819,58 @@ is not a match in the right table. When there is no match, null values are produ
 <span class="o">+</span><span class="c1">----------+----------+----------+----------+</span>
 </pre></div>
 </div>
+</section>
+<section id="asof-join">
+<h3>ASOF JOIN<a class="headerlink" href="#asof-join" title="Link to this heading">#</a></h3>
+<p>DataFusion follows the
+<a class="reference external" href="https://docs.snowflake.com/en/sql-reference/constructs/asof-join">Snowflake <code class="docutils literal notranslate"><span class="pre">ASOF</span> <span class="pre">JOIN</span></code> syntax</a>.
+An <code class="docutils literal notranslate"><span class="pre">ASOF</span> <span class="pre">JOIN</span></code> matches each left row with at most one right row according to an
+ordered comparison. It preserves every left row and fills the right columns
+with <code class="docutils literal notranslate"><span class="pre">NULL</span></code> when no right row matches.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">trades</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t</span>
+<span class="n">ASOF</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">prices</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">p</span>
+<span class="n">MATCH_CONDITION</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">ts</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">ts</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">symbol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">symbol</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">MATCH_CONDITION</span></code> must compare an expression from the left input with an
+expression from the right input using one of the following operators. Operand
+order is significant: the left input expression must appear on the left.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condition</p></th>
+<th class="head"><p>Selected right row</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">&gt;=</span> <span class="pre">r</span></code></p></td>
+<td><p>Greatest <code class="docutils literal notranslate"><span class="pre">r</span></code> less than or equal to <code class="docutils literal notranslate"><span class="pre">l</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">&gt;</span> <span class="pre">r</span></code></p></td>
+<td><p>Greatest <code class="docutils literal notranslate"><span class="pre">r</span></code> strictly less than <code class="docutils literal notranslate"><span class="pre">l</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">&lt;=</span> <span class="pre">r</span></code></p></td>
+<td><p>Smallest <code class="docutils literal notranslate"><span class="pre">r</span></code> greater than or equal to <code class="docutils literal notranslate"><span class="pre">l</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">l</span> <span class="pre">&lt;</span> <span class="pre">r</span></code></p></td>
+<td><p>Smallest <code class="docutils literal notranslate"><span class="pre">r</span></code> strictly greater than <code class="docutils literal notranslate"><span class="pre">l</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An optional <code class="docutils literal notranslate"><span class="pre">ON</span></code> clause containing equality conditions combined with <code class="docutils literal notranslate"><span class="pre">AND</span></code>, or
+a <code class="docutils literal notranslate"><span class="pre">USING</span></code> clause, divides rows into equality groups before the ordered match.
+An unqualified <code class="docutils literal notranslate"><span class="pre">USING</span></code> key appears once in wildcard output, while both qualified
+input keys remain addressable.</p>
+<p>Without equality keys, all rows belong to one group. The initial execution
+strategy collects one ordered right partition and shares it across every left
+partition, so output partitioning follows the left input. The complete right
+input must fit in memory and may be scanned once per left partition; spilling
+and repartitioned ASOF execution are not yet supported.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">NULL</span></code> in either ordered expression or in any equality key does not match.
+Both inputs must be bounded. If multiple right rows have the same equality keys
+and ordered value, which tied row is selected is nondeterministic.</p>
 </section>
 <section id="right-outer-join">
 <h3>RIGHT OUTER JOIN<a class="headerlink" href="#right-outer-join" title="Link to this heading">#</a></h3>
@@ -1220,8 +1314,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 <li><p><a class="reference internal" href="#pipe-aggregate">AGGREGATE</a></p></li>
 <li><p><a class="reference internal" href="#pipe-join">JOIN</a></p></li>
 </ul>
-<section id="where">
-<span id="pipe-where"></span><h3>WHERE<a class="headerlink" href="#where" title="Link to this heading">#</a></h3>
+<section id="pipe-where">
+<span id="where"></span><h3>WHERE<a class="headerlink" href="#pipe-where" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">-------+</span>
@@ -1233,8 +1327,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="order-by">
-<span id="pipe-order-by"></span><h3>ORDER BY<a class="headerlink" href="#order-by" title="Link to this heading">#</a></h3>
+<section id="pipe-order-by">
+<span id="order-by"></span><h3>ORDER BY<a class="headerlink" href="#pipe-order-by" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">-------+</span>
@@ -1247,8 +1341,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="limit">
-<span id="pipe-limit"></span><h3>LIMIT<a class="headerlink" href="#limit" title="Link to this heading">#</a></h3>
+<section id="pipe-limit">
+<span id="limit"></span><h3>LIMIT<a class="headerlink" href="#pipe-limit" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">desc</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -1260,8 +1354,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="select">
-<span id="pipe-select"></span><h3>SELECT<a class="headerlink" href="#select" title="Link to this heading">#</a></h3>
+<section id="pipe-select">
+<span id="select"></span><h3>SELECT<a class="headerlink" href="#pipe-select" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">---------------------------+</span>
@@ -1274,8 +1368,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="extend">
-<span id="pipe-extend"></span><h3>EXTEND<a class="headerlink" href="#extend" title="Link to this heading">#</a></h3>
+<section id="pipe-extend">
+<span id="extend"></span><h3>EXTEND<a class="headerlink" href="#pipe-extend" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="n">extend</span><span class="w"> </span><span class="o">-</span><span class="n">value</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">minus_value</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">-------+-------------+</span>
@@ -1288,8 +1382,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="as">
-<span id="pipe-as"></span><h3>AS<a class="headerlink" href="#as" title="Link to this heading">#</a></h3>
+<section id="pipe-as">
+<span id="as"></span><h3>AS<a class="headerlink" href="#pipe-as" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">my_range</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">my_range</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
@@ -1303,8 +1397,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="union">
-<span id="pipe-union"></span><h3>UNION<a class="headerlink" href="#union" title="Link to this heading">#</a></h3>
+<section id="pipe-union">
+<span id="union"></span><h3>UNION<a class="headerlink" href="#pipe-union" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
@@ -1322,8 +1416,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="intersect">
-<span id="pipe-intersect"></span><h3>INTERSECT<a class="headerlink" href="#intersect" title="Link to this heading">#</a></h3>
+<section id="pipe-intersect">
+<span id="intersect"></span><h3>INTERSECT<a class="headerlink" href="#pipe-intersect" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">INTERSECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="k">select</span><span class="w"> </span><span class="mi">3</span>
@@ -1336,8 +1430,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="except">
-<span id="pipe-except"></span><h3>EXCEPT<a class="headerlink" href="#except" title="Link to this heading">#</a></h3>
+<section id="pipe-except">
+<span id="except"></span><h3>EXCEPT<a class="headerlink" href="#pipe-except" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">EXCEPT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
 <span class="o">+</span><span class="c1">-------+</span>
@@ -1352,8 +1446,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="aggregate">
-<span id="pipe-aggregate"></span><h3>AGGREGATE<a class="headerlink" href="#aggregate" title="Link to this heading">#</a></h3>
+<section id="pipe-aggregate">
+<span id="aggregate"></span><h3>AGGREGATE<a class="headerlink" href="#pipe-aggregate" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">|&gt;</span><span class="w"> </span><span class="k">aggregate</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
 <span class="o">+</span><span class="c1">-------+</span>
@@ -1364,8 +1458,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 </pre></div>
 </div>
 </section>
-<section id="join">
-<span id="pipe-join"></span><h3>JOIN<a class="headerlink" href="#join" title="Link to this heading">#</a></h3>
+<section id="pipe-join">
+<span id="join"></span><h3>JOIN<a class="headerlink" href="#pipe-join" title="Link to this heading">#</a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
 <span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;apples&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">item</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sales</span>
 <span class="w">  </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
@@ -1425,7 +1519,7 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -1452,6 +1546,7 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#join-clause">JOIN clause</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-join">INNER JOIN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#left-outer-join">LEFT OUTER JOIN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asof-join">ASOF JOIN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#right-outer-join">RIGHT OUTER JOIN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-outer-join">FULL OUTER JOIN</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#natural-join">NATURAL JOIN</a></li>
@@ -1478,17 +1573,17 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#order-by-clause">ORDER BY clause</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limit-and-offset-clauses">LIMIT and OFFSET clauses</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-operators">Pipe operators</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where">WHERE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-by">ORDER BY</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limit">LIMIT</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#select">SELECT</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extend">EXTEND</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#as">AS</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#union">UNION</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intersect">INTERSECT</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#except">EXCEPT</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate">AGGREGATE</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#join">JOIN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-where">WHERE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-order-by">ORDER BY</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-limit">LIMIT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-select">SELECT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-extend">EXTEND</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-as">AS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-union">UNION</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-intersect">INTERSECT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-except">EXCEPT</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-aggregate">AGGREGATE</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pipe-join">JOIN</a></li>
 </ul>
 </li>
 </ul>
@@ -1532,8 +1627,8 @@ order, so the returned rows are not guaranteed to be deterministic.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

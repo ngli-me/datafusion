@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>CLI Specific Functions &#8212; Apache DataFusion  documentation</title>
+    <title>CLI Specific Functions &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,22 +26,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/cli/functions';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/user-guide/cli/functions.html" />
     <link rel="icon" href="../../_static/favicon.svg"/>
@@ -51,8 +57,9 @@
     <link rel="next" title="DataFrame API" href="../dataframe.html" />
     <link rel="prev" title="Local Files / Directories" href="datasources.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -264,7 +311,7 @@
 
 
 
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">CLI Specific Functions</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">CLI Specific Functions</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../dataframe.html">DataFrame API</a></li>
@@ -302,7 +349,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../library-user-guide/upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/56.0.0.html">DataFusion 56.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -430,30 +484,17 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="cli-specific-functions">
 <h1>CLI Specific Functions<a class="headerlink" href="#cli-specific-functions" title="Link to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">datafusion-cli</span></code> comes with build-in functions that are not included in the
 DataFusion SQL engine by default. These functions are:</p>
 <section id="parquet-metadata">
-<h2><code class="docutils literal notranslate"><span class="pre">parquet_metadata</span></code><a class="headerlink" href="#parquet-metadata" title="Link to this heading">#</a></h2>
+<span id="parquet_metadata"></span><h2><code class="docutils literal notranslate"><span class="pre">parquet_metadata</span></code><a class="headerlink" href="#parquet-metadata" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">parquet_metadata</span></code> table function can be used to inspect detailed metadata
 about a parquet file such as statistics, sizes, and other information. This can
 be helpful to understand how parquet files are structured.</p>
@@ -581,8 +622,135 @@ the meaning of these fields.</p>
 </table>
 </div>
 </section>
+<section id="parquet-file-metadata">
+<span id="parquet_file_metadata"></span><h2><code class="docutils literal notranslate"><span class="pre">parquet_file_metadata</span></code><a class="headerlink" href="#parquet-file-metadata" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">parquet_file_metadata</span></code> table function returns one row with the file level
+metadata stored in the footer of a parquet file, such as the writer and the
+key-value metadata.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">created_by</span><span class="p">,</span><span class="w"> </span><span class="n">num_rows</span><span class="p">,</span><span class="w"> </span><span class="n">num_row_groups</span><span class="p">,</span><span class="w"> </span><span class="n">key_value_metadata</span><span class="p">,</span><span class="w"> </span><span class="n">footer_length</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">parquet_file_metadata</span><span class="p">(</span><span class="s1">&#39;int32_with_null_pages.parquet&#39;</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">-------------------------------------------------------------------------------------+----------+----------------+------------------------------+---------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">created_by</span><span class="w">                                                                          </span><span class="o">|</span><span class="w"> </span><span class="n">num_rows</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">num_row_groups</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">key_value_metadata</span><span class="w">           </span><span class="o">|</span><span class="w"> </span><span class="n">footer_length</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------------------------------------------------------------------------+----------+----------------+------------------------------+---------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">parquet</span><span class="o">-</span><span class="n">mr</span><span class="w"> </span><span class="k">version</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">13</span><span class="p">.</span><span class="mi">0</span><span class="o">-</span><span class="n">SNAPSHOT</span><span class="w"> </span><span class="p">(</span><span class="n">build</span><span class="w"> </span><span class="mi">433</span><span class="n">de8df33fcf31927f7b51456be9f53e64d48b9</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1000</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">              </span><span class="o">|</span><span class="w"> </span><span class="err">{</span><span class="n">writer</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">example</span><span class="err">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">273</span><span class="w">           </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------------------------------------------------------------------------+----------+----------------+------------------------------+---------------+</span>
+</pre></div>
+</div>
+<p>The columns of the returned table are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>column_name</p></th>
+<th class="head"><p>data_type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>filename</p></td>
+<td><p>Utf8</p></td>
+<td><p>Name of the file</p></td>
+</tr>
+<tr class="row-odd"><td><p>created_by</p></td>
+<td><p>Utf8</p></td>
+<td><p>Application that wrote the file, if stored</p></td>
+</tr>
+<tr class="row-even"><td><p>version</p></td>
+<td><p>Int64</p></td>
+<td><p>Version of the parquet format used to write the file</p></td>
+</tr>
+<tr class="row-odd"><td><p>num_rows</p></td>
+<td><p>Int64</p></td>
+<td><p>Total number of rows in the file</p></td>
+</tr>
+<tr class="row-even"><td><p>num_row_groups</p></td>
+<td><p>Int64</p></td>
+<td><p>Number of row groups in the file</p></td>
+</tr>
+<tr class="row-odd"><td><p>key_value_metadata</p></td>
+<td><p>Map(Utf8, Utf8)</p></td>
+<td><p>Application defined key-value metadata (e.g. <code class="docutils literal notranslate"><span class="pre">key_value_metadata['ARROW:schema']</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>footer_length</p></td>
+<td><p>Int64</p></td>
+<td><p>Size in bytes of the footer: the encoded file metadata plus the 8 byte length and magic</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="parquet-page-index">
+<span id="parquet_page_index"></span><h2><code class="docutils literal notranslate"><span class="pre">parquet_page_index</span></code><a class="headerlink" href="#parquet-page-index" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">parquet_page_index</span></code> table function returns one row for each data page in
+the <a class="reference external" href="https://github.com/apache/parquet-format/blob/master/PageIndex.md"><code class="docutils literal notranslate"><span class="pre">page</span> <span class="pre">index</span></code></a> of a parquet file, combining the page location from the
+offset index with the page statistics from the column index. Files written
+without a page index return no rows.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">page_ordinal</span><span class="p">,</span><span class="w"> </span><span class="n">first_row_index</span><span class="p">,</span><span class="w"> </span><span class="n">compressed_page_size</span><span class="p">,</span><span class="w"> </span><span class="n">min_value</span><span class="p">,</span><span class="w"> </span><span class="n">max_value</span><span class="p">,</span><span class="w"> </span><span class="n">null_count</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">parquet_page_index</span><span class="p">(</span><span class="s1">&#39;int32_with_null_pages.parquet&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">--------------+-----------------+----------------------+-------------+------------+------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="n">page_ordinal</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">first_row_index</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">compressed_page_size</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">min_value</span><span class="w">   </span><span class="o">|</span><span class="w"> </span><span class="n">max_value</span><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="n">null_count</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+-----------------+----------------------+-------------+------------+------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w">               </span><span class="o">|</span><span class="w"> </span><span class="mi">415</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="o">-</span><span class="mi">2135807632</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">2144701119</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">8</span><span class="w">          </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">220</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="o">-</span><span class="mi">2104090659</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1745329571</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">55</span><span class="w">         </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">2</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">200</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">31</span><span class="w">                   </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">        </span><span class="o">|</span><span class="w"> </span><span class="k">NULL</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="mi">100</span><span class="w">        </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">300</span><span class="w">             </span><span class="o">|</span><span class="w"> </span><span class="mi">228</span><span class="w">                  </span><span class="o">|</span><span class="w"> </span><span class="o">-</span><span class="mi">2116849709</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">2077105757</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">52</span><span class="w">         </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+-----------------+----------------------+-------------+------------+------------+</span>
+</pre></div>
+</div>
+<p>The columns of the returned table are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>column_name</p></th>
+<th class="head"><p>data_type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>filename</p></td>
+<td><p>Utf8</p></td>
+<td><p>Name of the file</p></td>
+</tr>
+<tr class="row-odd"><td><p>row_group_id</p></td>
+<td><p>Int64</p></td>
+<td><p>Row group index the page belongs to</p></td>
+</tr>
+<tr class="row-even"><td><p>column_id</p></td>
+<td><p>Int64</p></td>
+<td><p>ID of the column the page belongs to</p></td>
+</tr>
+<tr class="row-odd"><td><p>page_ordinal</p></td>
+<td><p>Int64</p></td>
+<td><p>Index of the page within its column chunk</p></td>
+</tr>
+<tr class="row-even"><td><p>first_row_index</p></td>
+<td><p>Int64</p></td>
+<td><p>Index within the row group of the first row in the page</p></td>
+</tr>
+<tr class="row-odd"><td><p>offset</p></td>
+<td><p>Int64</p></td>
+<td><p>Offset in the file of the page</p></td>
+</tr>
+<tr class="row-even"><td><p>compressed_page_size</p></td>
+<td><p>Int64</p></td>
+<td><p>Size in bytes of the page, including its header</p></td>
+</tr>
+<tr class="row-odd"><td><p>min_value</p></td>
+<td><p>Utf8</p></td>
+<td><p>The minimum value of the page, if stored in the column index, cast to a string</p></td>
+</tr>
+<tr class="row-even"><td><p>max_value</p></td>
+<td><p>Utf8</p></td>
+<td><p>The maximum value of the page, if stored in the column index, cast to a string</p></td>
+</tr>
+<tr class="row-odd"><td><p>null_count</p></td>
+<td><p>Int64</p></td>
+<td><p>Number of null values in the page, if stored in the column index</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 <section id="metadata-cache">
-<h2><code class="docutils literal notranslate"><span class="pre">metadata_cache</span></code><a class="headerlink" href="#metadata-cache" title="Link to this heading">#</a></h2>
+<span id="metadata_cache"></span><h2><code class="docutils literal notranslate"><span class="pre">metadata_cache</span></code><a class="headerlink" href="#metadata-cache" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">metadata_cache</span></code> function shows information about the default File Metadata Cache that is used by the
 <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/datasource/listing/struct.ListingTable.html"><code class="docutils literal notranslate"><span class="pre">ListingTable</span></code></a> implementation in DataFusion. This cache is used to speed up
 reading metadata from files when scanning directories with many files.</p>
@@ -663,7 +831,7 @@ a table reference.</p>
 </div>
 </section>
 <section id="statistics-cache">
-<h2><code class="docutils literal notranslate"><span class="pre">statistics_cache</span></code><a class="headerlink" href="#statistics-cache" title="Link to this heading">#</a></h2>
+<span id="statistics_cache"></span><h2><code class="docutils literal notranslate"><span class="pre">statistics_cache</span></code><a class="headerlink" href="#statistics-cache" title="Link to this heading">#</a></h2>
 <p>Similarly to the <code class="docutils literal notranslate"><span class="pre">metadata_cache</span></code>, the <code class="docutils literal notranslate"><span class="pre">statistics_cache</span></code> function can be used to show information
 about the File Statistics Cache that is used by the <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/datasource/listing/struct.ListingTable.html"><code class="docutils literal notranslate"><span class="pre">ListingTable</span></code></a> implementation in DataFusion.
 For the statistics to be collected, the config <code class="docutils literal notranslate"><span class="pre">datafusion.execution.collect_statistics</span></code> must be
@@ -731,7 +899,7 @@ enabled.</p>
 </div>
 </section>
 <section id="list-files-cache">
-<h2><code class="docutils literal notranslate"><span class="pre">list_files_cache</span></code><a class="headerlink" href="#list-files-cache" title="Link to this heading">#</a></h2>
+<span id="list_files_cache"></span><h2><code class="docutils literal notranslate"><span class="pre">list_files_cache</span></code><a class="headerlink" href="#list-files-cache" title="Link to this heading">#</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">list_files_cache</span></code> function shows information about the <code class="docutils literal notranslate"><span class="pre">ListFilesCache</span></code> that is used by the <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/datasource/listing/struct.ListingTable.html"><code class="docutils literal notranslate"><span class="pre">ListingTable</span></code></a> implementation in DataFusion. When creating a <a class="reference external" href="https://docs.rs/datafusion/latest/datafusion/datasource/listing/struct.ListingTable.html"><code class="docutils literal notranslate"><span class="pre">ListingTable</span></code></a>, DataFusion lists the files in the table’s location and caches results in the <code class="docutils literal notranslate"><span class="pre">ListFilesCache</span></code>. Subsequent queries against the same table can reuse this cached information instead of re-listing the files. Cache entries are scoped to tables.</p>
 <p>You can inspect the cache by querying the <code class="docutils literal notranslate"><span class="pre">list_files_cache</span></code> function. For example,</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">datafusion</span><span class="p">.</span><span class="n">runtime</span><span class="p">.</span><span class="n">list_files_cache_ttl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;30s&quot;</span><span class="p">;</span>
@@ -840,7 +1008,7 @@ enabled.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -853,6 +1021,8 @@ enabled.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parquet-metadata"><code class="docutils literal notranslate"><span class="pre">parquet_metadata</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parquet-file-metadata"><code class="docutils literal notranslate"><span class="pre">parquet_file_metadata</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parquet-page-index"><code class="docutils literal notranslate"><span class="pre">parquet_page_index</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-cache"><code class="docutils literal notranslate"><span class="pre">metadata_cache</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistics-cache"><code class="docutils literal notranslate"><span class="pre">statistics_cache</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-files-cache"><code class="docutils literal notranslate"><span class="pre">list_files_cache</span></code></a></li>
@@ -897,8 +1067,8 @@ enabled.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">

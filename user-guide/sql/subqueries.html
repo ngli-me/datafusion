@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -8,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Subqueries &#8212; Apache DataFusion  documentation</title>
+    <title>Subqueries &#8212; Apache DataFusion main documentation</title>
   
   
   
@@ -27,22 +26,29 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=75c7c72ae941e8b558d8" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=d08b24aa" />
+    <link rel="stylesheet" type="text/css" href="../../_static/theme_overrides.css?v=543d738a" />
   
   <!-- So that users can add custom icons -->
-  <script defer src="../../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=75c7c72ae941e8b558d8"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8" />
 
-    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/documentation_options.js?v=a8da1a53"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'user-guide/sql/subqueries';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.24.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '/_static/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'main';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
     <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="canonical" href="https://datafusion.apache.org/user-guide/sql/subqueries.html" />
     <link rel="icon" href="../../_static/favicon.svg"/>
@@ -51,8 +57,9 @@
     <link rel="next" title="DDL" href="ddl.html" />
     <link rel="prev" title="SELECT syntax" href="select.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
+  <meta name="docsearch:version" content="main" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -100,7 +107,7 @@
   
     <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation" aria-expanded="false" aria-controls="pst-primary-sidebar-modal">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -124,8 +131,8 @@
       
     
     
-    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion  documentation - Home"/>
-    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion  documentation - Home"/>
+    <img src="../../_static/original.svg" class="logo__image only-light" alt="Apache DataFusion main documentation - Home"/>
+    <img src="../../_static/original_dark.svg" class="logo__image only-dark pst-js-only" alt="Apache DataFusion main documentation - Home"/>
   
   
 </a></div>
@@ -140,7 +147,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -149,17 +156,37 @@
       
       
         <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
       
@@ -170,7 +197,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -179,7 +206,7 @@
   
 
   
-    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+    <button type="button" class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page" aria-expanded="false" aria-controls="pst-secondary-sidebar-modal">
       <span class="fa-solid fa-outdent"></span>
     </button>
   
@@ -193,7 +220,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <dialog id="pst-primary-sidebar-modal" tabindex="-1"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
@@ -206,17 +233,37 @@
       <div class="sidebar-header-items__end">
         
           <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
 
 <div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
-    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto" title="System Settings"></i>
   </button>
   <ul class="dropdown-menu dropdown-menu-end">
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
-    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg me-1"></i>Dark</button></li>
   </ul>
 </div></div>
         
@@ -274,7 +321,7 @@
 <li class="toctree-l2"><a class="reference internal" href="data_types.html">Data Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="struct_coercion.html">Struct Type Coercion and Field Mapping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="select.html">SELECT syntax</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Subqueries</a></li>
+<li class="toctree-l2 current active"><a aria-current="page" class="current reference internal" href="#">Subqueries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ddl.html">DDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dml.html">DML</a></li>
 <li class="toctree-l2"><a class="reference internal" href="explain.html">EXPLAIN</a></li>
@@ -302,7 +349,10 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Library User Guide</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library-user-guide/securing-datafusion.html">Securing DataFusion</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../library-user-guide/upgrading/index.html">Upgrade Guides</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/57.0.0.html">DataFusion 57.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/56.0.0.html">DataFusion 56.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/55.0.0.html">DataFusion 55.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/54.0.0.html">DataFusion 54.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../library-user-guide/upgrading/53.0.0.html">DataFusion 53.0.0</a></li>
@@ -339,12 +389,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/index.html">Introduction</a></li>
 
+<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/ai-policy.html">AI Policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/pr_review.html">Reviewing Pull Requests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/communication.html">Community Communication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/development_environment.html">Development Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/architecture/dependency-graph.html">Workspace Dependency Graph</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributor-guide/testing.html">Testing</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributor-guide/testing_infrastructure.html">Testing Infrastructure</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/api-health.html">API health policy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/howtos.html">HOWTOs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributor-guide/release_management.html">Release Management</a></li>
@@ -407,7 +461,7 @@
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../../index.html" class="nav-link" aria-label="Home">
-        <i class="fa-solid fa-home"></i>
+        <i class="fa-solid fa-house"></i>
       </a>
     </li>
     
@@ -430,23 +484,10 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <!---
-  Licensed to the Apache Software Foundation (ASF) under one
-  or more contributor license agreements.  See the NOTICE file
-  distributed with this work for additional information
-  regarding copyright ownership.  The ASF licenses this file
-  to you under the Apache License, Version 2.0 (the
-  "License"); you may not use this file except in compliance
-  with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing,
-  software distributed under the License is distributed on an
-  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-  KIND, either express or implied.  See the License for the
-  specific language governing permissions and limitations
-  under the License.
+  <!--
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileCopyrightText: See the NOTICE file distributed with this work for additional information regarding copyright ownership
+SPDX-FileContributor: Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements
 -->
 <section id="subqueries">
 <h1>Subqueries<a class="headerlink" href="#subqueries" title="Link to this heading">#</a></h1>
@@ -487,7 +528,7 @@ Subqueries can be used in <code class="docutils literal notranslate"><span class
 <li><p><a class="reference internal" href="#not-in">[ NOT ] IN</a></p></li>
 </ul>
 <section id="not-exists">
-<h3>[ NOT ] EXISTS<a class="headerlink" href="#not-exists" title="Link to this heading">#</a></h3>
+<span id="-not--exists"></span><h3>[ NOT ] EXISTS<a class="headerlink" href="#not-exists" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">EXISTS</span></code> operator returns all rows where a
 <em><a class="reference internal" href="#correlated-subqueries">correlated subquery</a></em> produces one or more matches for
 that row. <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">EXISTS</span></code> returns all rows where a <em>correlated subquery</em> produces
@@ -497,14 +538,17 @@ zero matches for that row. Only <em>correlated subqueries</em> are supported.</p
 </div>
 </section>
 <section id="not-in">
-<h3>[ NOT ] IN<a class="headerlink" href="#not-in" title="Link to this heading">#</a></h3>
+<span id="-not--in"></span><h3>[ NOT ] IN<a class="headerlink" href="#not-in" title="Link to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">IN</span></code> operator returns all rows where a given expression’s value can be found
 in the results of a <em><a class="reference internal" href="#correlated-subqueries">correlated subquery</a></em>.
 <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">IN</span></code> returns all rows where a given expression’s value cannot be found in
 the results of a subquery or list of values.</p>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span><span class="w"> </span><span class="p">[</span><span class="k">NOT</span><span class="p">]</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="n">subquery</span><span class="o">|</span><span class="n">list</span><span class="o">-</span><span class="n">literal</span><span class="p">)</span>
+<span class="p">(</span><span class="n">expression</span><span class="p">[,</span><span class="w"> </span><span class="p">...])</span><span class="w"> </span><span class="p">[</span><span class="k">NOT</span><span class="p">]</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="n">subquery</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The tuple form compares each tuple element with the subquery column at the
+same position, so the subquery must return one column per element.</p>
 <section id="examples">
 <h4>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h4>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">column_1</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
@@ -533,6 +577,18 @@ the results of a subquery or list of values.</p>
 <span class="c1">-- false</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">));</span>
+<span class="c1">-- true</span>
+</pre></div>
+</div>
+<p>A tuple compared with a subquery instead follows SQL row comparison: two rows
+are equal when every element pair is equal, and the comparison is UNKNOWN
+(<code class="docutils literal notranslate"><span class="pre">NULL</span></code>) when no element pair differs but at least one involves a <code class="docutils literal notranslate"><span class="pre">NULL</span></code>. So
+the same values compared with a subquery give <code class="docutils literal notranslate"><span class="pre">NULL</span></code>, and <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">IN</span></code> keeps a row
+only when every subquery row differs from it in some non-<code class="docutils literal notranslate"><span class="pre">NULL</span></code> element:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">)</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">NULL</span><span class="p">);</span>
+<span class="c1">-- NULL</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
 <span class="c1">-- true</span>
 </pre></div>
 </div>
@@ -585,7 +641,7 @@ operated on by the outer query.</p>
 </div>
 <p>To reference columns from other tables in the same <code class="docutils literal notranslate"><span class="pre">FROM</span></code> clause, use <a class="reference internal" href="select.html#lateral-join"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">LATERAL</span> <span class="pre">JOIN</span></code></span></a>.</p>
 <section id="id1">
-<h3>Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<span id="example-1"></span><h3>Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>The following query returns the average of maximum values per room.
 The inner query returns the maximum value for each field from each room.
 The outer query uses the results of the inner query and returns the average
@@ -658,7 +714,8 @@ of all <code class="docutils literal notranslate"><span class="pre">number</span
 <section id="where-clause-with-non-scalar-subquery">
 <h4><code class="docutils literal notranslate"><span class="pre">WHERE</span></code> clause with non-scalar subquery<a class="headerlink" href="#where-clause-with-non-scalar-subquery" title="Link to this heading">#</a></h4>
 <p>Non-scalar subqueries must use the <code class="docutils literal notranslate"><span class="pre">[NOT]</span> <span class="pre">IN</span></code> or <code class="docutils literal notranslate"><span class="pre">[NOT]</span> <span class="pre">EXISTS</span></code> operators and
-can only return a single column.
+can only return a single column, or one column per element of a tuple
+<code class="docutils literal notranslate"><span class="pre">(expression[,</span> <span class="pre">...])</span> <span class="pre">[NOT]</span> <span class="pre">IN</span> <span class="pre">(subquery)</span></code>.
 The values in the returned column are evaluated as a list.</p>
 <p>The following query returns all rows with <code class="docutils literal notranslate"><span class="pre">column_2</span></code> values in table <code class="docutils literal notranslate"><span class="pre">x</span></code> that
 are in the list of numbers with string lengths greater than three from table
@@ -737,7 +794,7 @@ in the predicate expression).</p>
 </pre></div>
 </div>
 <section id="id3">
-<h3>Examples<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<span id="examples-1"></span><h3>Examples<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>The following query calculates the averages of even and odd numbers in table <code class="docutils literal notranslate"><span class="pre">y</span></code>
 and returns the averages that are equal to the maximum value of <code class="docutils literal notranslate"><span class="pre">column_1</span></code>
 in table <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
@@ -769,7 +826,8 @@ in table <code class="docutils literal notranslate"><span class="pre">x</span></
 <section id="having-clause-with-a-non-scalar-subquery">
 <h4><code class="docutils literal notranslate"><span class="pre">HAVING</span></code> clause with a non-scalar subquery<a class="headerlink" href="#having-clause-with-a-non-scalar-subquery" title="Link to this heading">#</a></h4>
 <p>Non-scalar subqueries must use the <code class="docutils literal notranslate"><span class="pre">[NOT]</span> <span class="pre">IN</span></code> or <code class="docutils literal notranslate"><span class="pre">[NOT]</span> <span class="pre">EXISTS</span></code> operators and
-can only return a single column.
+can only return a single column, or one column per element of a tuple
+<code class="docutils literal notranslate"><span class="pre">(expression[,</span> <span class="pre">...])</span> <span class="pre">[NOT]</span> <span class="pre">IN</span> <span class="pre">(subquery)</span></code>.
 The values in the returned column are evaluated as a list.</p>
 <p>The following query calculates the averages of even and odd numbers in table <code class="docutils literal notranslate"><span class="pre">y</span></code>
 and returns the averages that are in <code class="docutils literal notranslate"><span class="pre">column_1</span></code> of table <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
@@ -871,7 +929,7 @@ returns 0 rows.</p>
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <dialog id="pst-secondary-sidebar-modal" tabindex="-1"></dialog>
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
@@ -965,8 +1023,8 @@ returns 0 rows.</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=75c7c72ae941e8b558d8"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=75c7c72ae941e8b558d8"></script>
 
 <!-- Based on pydata_sphinx_theme/footer.html -->
 <footer class="footer mt-5 mt-md-0">
